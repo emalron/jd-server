@@ -19,9 +19,6 @@ public class server extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        super.doGet(req, resp);
-
         String cmd = req.getParameter("cmd");
 
         if(cmd.equals("test")) {
@@ -34,7 +31,7 @@ public class server extends HttpServlet {
 
             for(User u : users) {
                 String out = u.getId() + " "  + u.getName() + ", " + u.getAge();
-                pw.println(out);
+                pw.write(out);
             }
         }
     }
