@@ -66,4 +66,31 @@ public class UserDAO {
 
         return null;
     }
+
+    public ArrayList<User> search(String id) {
+        String sql = "select * from test where name=?";
+        ArrayList<User> users = new ArrayList<User>();
+
+        try {
+            pstm = conn.prepareStatement(sql);
+            pstm.setString(1, id);
+            rs = pstm.executeQuery();
+
+            while(rs.next()) {
+                User _user = new User();
+
+                _user.setName(rs.getString(1));
+                _user.setAge(rs.getInt(2));
+                _user.setId(rs.getInt(3));
+
+                users.add(_user);
+            }
+            return users;
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }
