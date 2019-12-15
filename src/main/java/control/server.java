@@ -16,6 +16,10 @@ import model.UserDAO;
 @WebServlet("/test")
 public class server extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    
+    public server() {
+        super();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
