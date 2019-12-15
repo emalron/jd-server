@@ -93,13 +93,23 @@
         <h2>Hello World!</h2>
     </div>
     <div>
+        <h3>user list</h3>
         <button onclick="req()">show all users</button>
-        <br>
-        find user
-        <br>
+    </div>
+    <div>
+        <h3>find user</h3>
         <form id="myForm">
             <input type="hidden" name="cmd" value="search">
             <input name="id" type="text" placeholder="name"> <input type="button" onclick="postForm(event)" value="search">
+        </form>
+    </div>
+    <div>
+        <h3>user add</h3>
+        <form method="POST" action="/jdodge/test">
+            <input type="hidden" name="cmd" value="add">
+            <input name="name" type="text" placeholder="name">
+            <input name="age" type="number" placeholder="age">
+            <input type="submit" value="add">
         </form>
     </div>
     <div id="output"></div>

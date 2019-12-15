@@ -6,6 +6,8 @@ public class Main {
     public static void main(String[] args) {
         UserDAO uDao = new UserDAO();
 
+        uDao.addUser("min3", 13);
+
         ArrayList<User> users = new ArrayList<User>();
 
         users = uDao.test();

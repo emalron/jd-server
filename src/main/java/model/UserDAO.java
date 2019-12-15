@@ -67,13 +67,13 @@ public class UserDAO {
         return null;
     }
 
-    public ArrayList<User> search(String id) {
+    public ArrayList<User> search(String name) {
         String sql = "select * from test where name=?";
         ArrayList<User> users = new ArrayList<User>();
 
         try {
             pstm = conn.prepareStatement(sql);
-            pstm.setString(1, id);
+            pstm.setString(1, name);
             rs = pstm.executeQuery();
 
             while(rs.next()) {
@@ -92,5 +92,21 @@ public class UserDAO {
         }
 
         return null;
+    }
+
+    public void addUser(String name, int age) {
+        String sql = "insert into test(name, age) values (?, ?)";
+
+        try {
+            pstm = conn.prepareStatement(sql);
+
+            pstm.setString(1, name);
+            pstm.setInt(2, age);
+
+            pstm.executeUpdate();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }

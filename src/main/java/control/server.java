@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.w3c.dom.UserDataHandler;
+
 import model.User;
 import model.UserDAO;
 
@@ -26,25 +28,52 @@ public class server extends HttpServlet {
     }
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
+    public void init(final ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         super.init(config);
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String cmd = req.getParameter("cmd");
-        PrintWriter pw = resp.getWriter();
+    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
+            throws ServletException, IOException {
+        final String cmd = req.getParameter("cmd");
+        final PrintWriter pw = resp.getWriter();
 
-        if(cmd.equals("test")) {
-            UserDAO uDao = new UserDAO();
+        if (cmd.equals("test")) {
+            final UserDAO uDao = new UserDAO();
 
             ArrayList<User> users = new ArrayList<User>();
-    
+
             users = uDao.test();
 
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonString = mapper.writeValueAsString(users);
+            final ObjectMapper mapper = new ObjectMapper();
+            final String jsonString = mapper.writeValueAsString(users);
+
+            if (users == null) {
+                pw.print("no return from uDao.test call");
+            } else {
+                resp.setContentType("application/x-json; charset=utf-8");
+                pw.print(jsonString);
+            }
+        }
+    }
+
+    @Override
+    protected void doPost(final HttpServletRequest req, final HttpServletResponse resp)
+            throws ServletException, IOException {
+        final String cmd = req.getParameter("cmd");
+        final PrintWriter pw = resp.getWriter();
+        final UserDAO uDao = new UserDAO();
+
+        if (cmd.equals("search")) {
+            
+
+            final String id = req.getParameter("name");
+
+            final ArrayList<User> users = uDao.search(id);
+
+            final ObjectMapper mapper = new ObjectMapper();
+            final String jsonString = mapper.writeValueAsString(users);
 
             if(users == null) {
                 pw.print("no return from uDao.test call");
@@ -54,30 +83,11 @@ public class server extends HttpServlet {
                 pw.print(jsonString);
             }
         }
-    }
+        else if (cmd.equals("add")) {
+            String _name = req.getParameter("name");
+            int _age = Integer.parseInt(req.getParameter("age"));
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String cmd = req.getParameter("cmd");
-        PrintWriter pw = resp.getWriter();
-
-        if(cmd.equals("search")) {
-            UserDAO uDao = new UserDAO();
-
-            String id = req.getParameter("id");
-    
-            ArrayList<User> users = uDao.search(id);
-
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonString = mapper.writeValueAsString(users);
-
-            if(users == null) {
-                pw.print("no return from uDao.test call");
-            }
-            else {
-                resp.setContentType("application/x-json; charset=utf-8");
-                pw.print(jsonString);
-            }
+            uDao.addUser(_name, _age);
         }
     }
 }
