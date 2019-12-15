@@ -61,19 +61,19 @@ public class server extends HttpServlet {
     @Override
     protected void doPost(final HttpServletRequest req, final HttpServletResponse resp)
             throws ServletException, IOException {
-        final String cmd = req.getParameter("cmd");
-        final PrintWriter pw = resp.getWriter();
-        final UserDAO uDao = new UserDAO();
+        String cmd = req.getParameter("cmd");
+        PrintWriter pw = resp.getWriter();
+        UserDAO uDao = new UserDAO();
 
         if (cmd.equals("search")) {
             
 
-            final String id = req.getParameter("name");
+            String id = req.getParameter("name");
 
-            final ArrayList<User> users = uDao.search(id);
+            ArrayList<User> users = uDao.search(id);
 
-            final ObjectMapper mapper = new ObjectMapper();
-            final String jsonString = mapper.writeValueAsString(users);
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonString = mapper.writeValueAsString(users);
 
             if(users == null) {
                 pw.print("no return from uDao.test call");

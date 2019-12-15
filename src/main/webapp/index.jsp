@@ -53,6 +53,7 @@
 
             var postForm = function(event) {
                 event.preventDefault();
+                var form_id = event.target.form.id;
 
                 var req = new XMLHttpRequest();
                 
@@ -60,7 +61,9 @@
                     if(req.readyState == req.DONE) {
                         if(req.status == 200 || req.status == 201) {
                             console.log(req.responseText);
-                            result(req.responseText);
+                            if(req.responseText != "") {
+                                result(req.responseText);
+                            }
                         }
                         else {
                             console.error(req.responseText);
@@ -69,9 +72,7 @@
                 }
 
                 var url = "/jdodge/test";
-
-                console.log(document.getElementById("myForm"));
-                var fData = new FormData(document.getElementById("myForm"));
+                var fData = new FormData(document.getElementById(form_id));
                 var temp = [];
                 for(var [key, value] of fData.entries()) {
                     temp.push({key: key, value: value});
@@ -100,16 +101,16 @@
         <h3>find user</h3>
         <form id="myForm">
             <input type="hidden" name="cmd" value="search">
-            <input name="id" type="text" placeholder="name"> <input type="button" onclick="postForm(event)" value="search">
+            <input name="name" type="text" placeholder="name"> <input type="button" onclick="postForm(event)" value="search">
         </form>
     </div>
     <div>
         <h3>user add</h3>
-        <form method="POST" action="/jdodge/test">
+        <form id="addForm">
             <input type="hidden" name="cmd" value="add">
             <input name="name" type="text" placeholder="name">
             <input name="age" type="number" placeholder="age">
-            <input type="submit" value="add">
+            <input type="button" onclick="postForm(event)" value="add">
         </form>
     </div>
     <div id="output"></div>

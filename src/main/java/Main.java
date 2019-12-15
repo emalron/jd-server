@@ -16,5 +16,12 @@ public class Main {
             String out = u.getId() + " " + u.getName() + ", " + u.getAge();
             System.out.println(out);
         }
+
+        users = uDao.search("jes");
+
+        for(User u : users) {
+            String out = u.getId() + " " + u.getName() + ", " + u.getAge();
+            System.out.println(out);
+        }
     }
 }
