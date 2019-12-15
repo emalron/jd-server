@@ -64,6 +64,14 @@
         <plugin>
           <artifactId>maven-war-plugin</artifactId>
           <version>3.2.2</version>
+          <configuration>
+            <webResources>
+              <webResource>
+                <directory>src/main/java/model/conf</directory>
+                <targetPath>WEB-INF/classes/model/conf</targetPath>
+              </webResource>
+            </webResources>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>

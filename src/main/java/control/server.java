@@ -24,17 +24,27 @@ public class server extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String cmd = req.getParameter("cmd");
+        PrintWriter pw = resp.getWriter();
+
+        pw.write("<html>");
+        pw.write("<body>");
+        pw.write("cmd<br>");
+        pw.write(cmd);
 
         if(cmd.equals("test")) {
             UserDAO uDao = new UserDAO();
 
-            PrintWriter pw = resp.getWriter();
             ArrayList<User> users = new ArrayList<User>();
-
+    
             users = uDao.test();
 
+            if(users == null) {
+                pw.write("no return from uDao.test call");
+                pw.write("<br>");
+            }
+    
             for(User u : users) {
-                String out = u.getId() + " "  + u.getName() + ", " + u.getAge();
+                String out = u.getId() + " " + u.getName() + ", " + u.getAge();
                 pw.write(out);
             }
         }
