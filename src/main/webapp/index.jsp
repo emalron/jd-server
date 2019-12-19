@@ -71,7 +71,7 @@
                     }
                 }
 
-                var url = "/jdodge/test";
+                var url = "/jdodge/service";
                 var fData = new FormData(document.getElementById(form_id));
                 var temp = [];
                 for(var [key, value] of fData.entries()) {

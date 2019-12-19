@@ -90,4 +90,8 @@ public class server extends HttpServlet {
             uDao.addUser(_name, _age);
         }
     }
+
+    public void doHandle(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        
+    }
 }
