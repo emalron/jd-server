@@ -3,7 +3,6 @@ package control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.w3c.dom.UserDataHandler;
 
 import model.User;
 import model.UserDAO;
@@ -29,7 +26,6 @@ public class server extends HttpServlet {
 
     @Override
     public void init(final ServletConfig config) throws ServletException {
-        // TODO Auto-generated method stub
         super.init(config);
     }
 

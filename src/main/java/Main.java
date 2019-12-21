@@ -1,57 +1,36 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Properties;
 
-import control.Controller;
-import model.Service;
-import model.User;
-import model.UserDAO;
+import model.Rank;
+import model.RankDAO;
 
 public class Main {
     public static void main(String[] args) {
-        UserDAO uDao = new UserDAO();
+        RankDAO rDao = new RankDAO();
 
-        uDao.addUser("min3", 13);
+/*         rDao.addRank("jes", 1);
+        rDao.addRank("poo", 13);
+        rDao.addRank("ee", 4);
+        rDao.addRank("32", 15);
+        rDao.addRank("ema", 8); */
 
-        ArrayList<User> users = new ArrayList<User>();
+        ArrayList<Rank> ranks = new ArrayList<Rank>();
 
-        users = uDao.test();
+        ranks = rDao.showAll();
 
-        for(User u : users) {
-            String out = u.getId() + " " + u.getName() + ", " + u.getAge();
+        System.out.println("**ranking**");
+        for(Rank u : ranks) {
+            String out = u.getName() + " " + u.getScore();
             System.out.println(out);
         }
 
-        users = uDao.search("jes");
+        ranks = rDao.search("jes");
 
-        for(User u : users) {
-            String out = u.getId() + " " + u.getName() + ", " + u.getAge();
+        System.out.println("");
+        System.out.println("search result---");
+        for(Rank u : ranks) {
+            String out = u.getName() + " " + u.getScore();
             System.out.println(out);
         }
 
-        Controller ctrl = new Controller();
-
-        Properties prop = ctrl.getProperties("class.properties");
-        Iterator iter = prop.keySet().iterator();
-
-        Map<String, Service> map = new HashMap<String, Service>();
-
-        while(iter.hasNext()) {
-            String name_ = (String) iter.next();
-            String className_ = prop.getProperty(name_);
-
-            try {
-                Class class_ = Class.forName(className_);
-                if(class_ != null) {
-                    Service service_ = (Service) class_.getDeclaredConstructor().newInstance();
-                    map.put(name_, service_);
-                }
-            }
-            catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 }

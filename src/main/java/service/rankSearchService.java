@@ -1,28 +1,32 @@
-package model;
+package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class userSearchService implements Service {
+import model.Rank;
+import model.RankDAO;
+
+public class rankSearchService implements Service {
     @Override
-    public void process(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String id = req.getParameter("name");
+    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String name = req.getParameter("name");
         PrintWriter pw = resp.getWriter();
 
-        UserDAO uDao = new UserDAO();
+        RankDAO rDao = new RankDAO();
 
-        ArrayList<User> users = uDao.search(id);
+        ArrayList<Rank> ranks = rDao.search(name);
 
         ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(users);
+        String jsonString = mapper.writeValueAsString(ranks);
 
-        if(users == null) {
+        if(ranks == null) {
             pw.print("no return from uDao.test call");
         }
         else {
