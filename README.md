@@ -13,7 +13,7 @@ test: http://ec2-13-124-178-78.ap-northeast-2.compute.amazonaws.com:8080/jdodge
 > return: array JSON [{name: "XXX", score: 123}, {name: "XXX", score: 23} .. ]  
   
 * addRank  
-> usage: .../jdodge/service?cmd=addRank&name="jes"&score="123"  
+> usage: .../jdodge/service?cmd=addRank&name=jes&score=123  
 > parameter: name, score  
 > return: none  
   
