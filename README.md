@@ -2,6 +2,8 @@ jdodge api
 ==========
 api url: http://ec2-13-124-178-78.ap-northeast-2.compute.amazonaws.com:8080/jdodge/service  
 method: post/get  
+test: http://ec2-13-124-178-78.ap-northeast-2.compute.amazonaws.com:8080/jdodge  
+  
   
 # api list
 
