@@ -15,7 +15,7 @@ Service	src/main/java/service/Service.java	/^public interface Service {$/;"	i
 User	src/main/java/model/User.java	/^public class User {$/;"	c
 UserDAO	src/main/java/model/UserDAO.java	/^    public UserDAO() {$/;"	m	class:UserDAO
 UserDAO	src/main/java/model/UserDAO.java	/^public class UserDAO {$/;"	c
-addRank	src/main/java/model/RankDAO.java	/^    public void addRank(String name, int score) {$/;"	m	class:RankDAO
+addRank	src/main/java/model/RankDAO.java	/^    public void addRank(String name, int score, int seed, String inputs) {$/;"	m	class:RankDAO
 addUser	src/main/java/model/UserDAO.java	/^    public void addUser(String name, int age) {$/;"	m	class:UserDAO
 age	src/main/java/model/User.java	/^    private int age;$/;"	f	class:User	file:
 conn	src/main/java/model/Connector.java	/^    private static Connection conn;$/;"	f	class:Connector	file:

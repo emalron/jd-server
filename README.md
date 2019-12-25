@@ -1,23 +1,23 @@
 jdodge api
 ==========
-api url: http://ec2-13-124-178-78.ap-northeast-2.compute.amazonaws.com:8080/jdodge/service  
+api url: https://jdodge-1203598482.ap-northeast-2.elb.amazonaws.com/jdodge/service  
 method: post/get  
-test: http://ec2-13-124-178-78.ap-northeast-2.compute.amazonaws.com:8080/jdodge  
+test: https://jdodge-1203598482.ap-northeast-2.elb.amazonaws.com/jdodge
   
   
 # api list
 
 * showAll
-> usage: .../jdodge/service?cmd=showAll  
+> usage: {url}/jdodge/service?cmd=showAll  
 > parameter: none  
 > return: array JSON [{name: "XXX", score: 123}, {name: "XXX", score: 23} .. ]  
   
 * addRank  
-> usage: .../jdodge/service?cmd=addRank&name=jes&score=123  
-> parameter: name, score  
+> usage: {url}/jdodge/service?cmd=addRank&name=jes&score=123&replay_data=ANYTHING
+> parameter: name, score, replay_data
 > return: none  
   
 * searchRank  
-> usage: .../jdodge/service?cmd=addRank&name=jes  
+> usage: {url}/jdodge/service?cmd=addRank&name=jes  
 > parameter: name  
 > return: array JSON [{name: "jes", score: 123}, {name: "jes", score: 23} .. ]
