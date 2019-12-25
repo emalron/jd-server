@@ -66,14 +66,16 @@ public class RankDAO {
         return null;
     }
 
-    public void addRank(String name, int score) {
-        String sql = "insert into ranking(name, score) values (?, ?)";
+    public void addRank(String name, int score, int seed, String inputs) {
+        String sql = "insert into ranking(name, score, seed, inputs) values (?, ?, ?, ?)";
 
         try {
             pstm = conn.prepareStatement(sql);
 
             pstm.setString(1, name);
             pstm.setInt(2, score);
+            pstm.setInt(3, seed);
+            pstm.setString(4, inputs);
 
             pstm.executeUpdate();
         }

@@ -109,7 +109,8 @@
         <form id="addForm">
             <input type="hidden" name="cmd" value="addRank">
             <input name="name" type="text" placeholder="name">
-            <input name="score" type="number" placeholder="score">
+            <input name="score" type="number">
+            <input name="replay_data" type="text" placeholder="replay_data">
             <input type="button" onclick="postForm(event)" value="add">
         </form>
     </div>

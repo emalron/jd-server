@@ -7,11 +7,7 @@ public class Main {
     public static void main(String[] args) {
         RankDAO rDao = new RankDAO();
 
-/*         rDao.addRank("jes", 1);
-        rDao.addRank("poo", 13);
-        rDao.addRank("ee", 4);
-        rDao.addRank("32", 15);
-        rDao.addRank("ema", 8); */
+        rDao.addRank("jes", 1222, 123, "hahah");
 
         ArrayList<Rank> ranks = new ArrayList<Rank>();
 
