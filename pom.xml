@@ -73,10 +73,6 @@
           <configuration>
             <webResources>
               <webResource>
-                <directory>src/main/java/model/conf</directory>
-                <targetPath>WEB-INF/classes/model/conf</targetPath>
-              </webResource>
-              <webResource>
                 <directory>src/main/java/control/conf</directory>
                 <targetPath>WEB-INF/classes/control/conf</targetPath>
               </webResource>

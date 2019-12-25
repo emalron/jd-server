@@ -30,7 +30,10 @@ public class rankSearchService implements Service {
             pw.print("no return from uDao.test call");
         }
         else {
-            resp.setContentType("application/x-json; charset=utf-8");
+            resp.setContentType("application/json; charset=utf-8");
+            resp.setHeader("Access-Control-Allow-Origin", "*");
+            resp.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
+            
             pw.print(jsonString);
         }
     }

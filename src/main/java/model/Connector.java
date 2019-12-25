@@ -12,7 +12,7 @@ public class Connector {
     public static Connection getConnection() {
         if(conn == null) {
             try {
-                String path = Connector.class.getResource("").getPath() + "conf/db.properties";
+                String path = "/home/emalron/key/db.properties";
                 System.out.println(path);
                 File file = new File(path);
                 FileInputStream fis = new FileInputStream(file);

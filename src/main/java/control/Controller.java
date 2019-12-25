@@ -14,9 +14,7 @@ import service.Service;
 @WebServlet("/service")
 public class Controller extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
-    
-
+ 
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
             throws ServletException, IOException {
