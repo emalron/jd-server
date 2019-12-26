@@ -116,7 +116,7 @@
 
                 var urls = document.getElementById("urls");
                 var base_url = urls.options[urls.selectedIndex].value;
-                var url = base_url + "jdodge/service";
+                var url = base_url + "jdodge/service?cmd=loginCheck";
 
                 req.open('get', url);
                 req.send();
@@ -128,8 +128,8 @@
     <div>
         <h2>Hello World!</h2><br>
         <select id="urls">
-            <option value="https://api.emalron.com:8443/" selected>EC2</option>
-            <option value="http://localhost:8080/">localhost</option>
+            <option value="https://api.emalron.com:8443/">EC2</option>
+            <option value="http://localhost:8080/" selected>localhost</option>
         </select>        
     </div>
     <div>

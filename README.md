@@ -1,8 +1,8 @@
 jdodge api
 ==========
-api url: https://jdodge-1203598482.ap-northeast-2.elb.amazonaws.com/jdodge/service  
+api url: https://api.emalron.com:8443/jdodge/service  
 method: post/get  
-test: https://jdodge-1203598482.ap-northeast-2.elb.amazonaws.com/jdodge
+test: https://api.emalron.com:8443/jdodge
   
   
 # api list
