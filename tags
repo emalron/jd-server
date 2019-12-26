@@ -17,7 +17,7 @@ UserDAO	src/main/java/model/UserDAO.java	/^    public UserDAO() {$/;"	m	class:Us
 UserDAO	src/main/java/model/UserDAO.java	/^public class UserDAO {$/;"	c
 addRank	src/main/java/model/RankDAO.java	/^    public void addRank(String name, int score, int seed, String inputs) {$/;"	m	class:RankDAO
 addUser	src/main/java/model/UserDAO.java	/^    public void addUser(String name, int age) {$/;"	m	class:UserDAO
-age	src/main/java/model/User.java	/^    private int age;$/;"	f	class:User	file:
+addUser	src/main/java/service/loginService.java	/^    private void addUser(String id, String name) {$/;"	m	class:loginService	file:
 conn	src/main/java/model/Connector.java	/^    private static Connection conn;$/;"	f	class:Connector	file:
 conn	src/main/java/model/RankDAO.java	/^    private Connection conn;$/;"	f	class:RankDAO	file:
 conn	src/main/java/model/UserDAO.java	/^    private Connection conn;$/;"	f	class:UserDAO	file:
@@ -30,16 +30,22 @@ doHandle	src/main/java/control/Controller.java	/^    void doHandle(final HttpSer
 doHandle	src/main/java/control/server.java	/^    public void doHandle(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {$/;"	m	class:server
 doPost	src/main/java/control/Controller.java	/^    protected void doPost(final HttpServletRequest req, final HttpServletResponse resp)$/;"	m	class:Controller
 doPost	src/main/java/control/server.java	/^    protected void doPost(final HttpServletRequest req, final HttpServletResponse resp)$/;"	m	class:server
-getAge	src/main/java/model/User.java	/^    public int getAge() {$/;"	m	class:User
 getConnection	src/main/java/model/Connector.java	/^    public static Connection getConnection() {$/;"	m	class:Connector
 getId	src/main/java/model/User.java	/^    public int getId() {$/;"	m	class:User
+getLang	src/main/java/model/User.java	/^    public String getLang() {$/;"	m	class:User
 getMap	src/main/java/control/Ignite.java	/^    public static Map<String, Service> getMap() {$/;"	m	class:Ignite
 getName	src/main/java/model/Rank.java	/^    public String getName() {$/;"	m	class:Rank
 getName	src/main/java/model/User.java	/^    public String getName() {$/;"	m	class:User
 getProperties	src/main/java/control/Ignite.java	/^    public static Properties getProperties(String name) {$/;"	m	class:Ignite
+getReplay_data	src/main/java/model/Rank.java	/^    public String getReplay_data() {$/;"	m	class:Rank
 getScore	src/main/java/model/Rank.java	/^    public int getScore() {$/;"	m	class:Rank
 id	src/main/java/model/User.java	/^    private int id;$/;"	f	class:User	file:
 init	src/main/java/control/server.java	/^    public void init(final ServletConfig config) throws ServletException {$/;"	m	class:server
+isRegistered	src/main/java/service/loginService.java	/^    private Boolean isRegistered(String id) {$/;"	m	class:loginService	file:
+lang	src/main/java/model/User.java	/^    private String lang;$/;"	f	class:User	file:
+loginCheckService	src/main/java/service/loginCheckService.java	/^public class loginCheckService implements Service {$/;"	c
+loginService	src/main/java/service/loginService.java	/^public class loginService implements Service {$/;"	c
+logoutService	src/main/java/service/logoutService.java	/^public class logoutService implements Service {$/;"	c
 main	src/main/java/Main.java	/^    public static void main(String[] args) {$/;"	m	class:Main
 model	src/main/java/model/Connector.java	/^package model;$/;"	p
 model	src/main/java/model/Rank.java	/^package model;$/;"	p
@@ -49,6 +55,9 @@ model	src/main/java/model/UserDAO.java	/^package model;$/;"	p
 name	src/main/java/model/Rank.java	/^    private String name;$/;"	f	class:Rank	file:
 name	src/main/java/model/User.java	/^    private String name;$/;"	f	class:User	file:
 process	src/main/java/service/Service.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException;$/;"	m	interface:Service
+process	src/main/java/service/loginCheckService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:loginCheckService
+process	src/main/java/service/loginService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:loginService
+process	src/main/java/service/logoutService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:logoutService
 process	src/main/java/service/rankAddService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:rankAddService
 process	src/main/java/service/rankSearchService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:rankSearchService
 process	src/main/java/service/showAllService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:showAllService
@@ -58,28 +67,35 @@ pstm	src/main/java/model/RankDAO.java	/^    private PreparedStatement pstm;$/;"	
 pstm	src/main/java/model/UserDAO.java	/^    private PreparedStatement pstm;$/;"	f	class:UserDAO	file:
 rankAddService	src/main/java/service/rankAddService.java	/^public class rankAddService implements Service {$/;"	c
 rankSearchService	src/main/java/service/rankSearchService.java	/^public class rankSearchService implements Service {$/;"	c
+replay_data	src/main/java/model/Rank.java	/^    private String replay_data;$/;"	f	class:Rank	file:
 rs	src/main/java/model/RankDAO.java	/^    private ResultSet rs;$/;"	f	class:RankDAO	file:
 rs	src/main/java/model/UserDAO.java	/^    private ResultSet rs;$/;"	f	class:UserDAO	file:
 score	src/main/java/model/Rank.java	/^    private int score;$/;"	f	class:Rank	file:
 search	src/main/java/model/RankDAO.java	/^    public ArrayList<Rank> search(String name) {$/;"	m	class:RankDAO
 search	src/main/java/model/UserDAO.java	/^    public ArrayList<User> search(String name) {$/;"	m	class:UserDAO
+search	src/main/java/service/rankSearchService.java	/^    public ArrayList<Rank> search(String id) {$/;"	m	class:rankSearchService
 serialVersionUID	src/main/java/control/Controller.java	/^    private static final long serialVersionUID = 1L;$/;"	f	class:Controller	file:
 serialVersionUID	src/main/java/control/server.java	/^    private static final long serialVersionUID = 1L;$/;"	f	class:server	file:
 server	src/main/java/control/server.java	/^    public server() {$/;"	m	class:server
 server	src/main/java/control/server.java	/^public class server extends HttpServlet {$/;"	c
 service	src/main/java/service/Service.java	/^package service;$/;"	p
+service	src/main/java/service/loginCheckService.java	/^package service;$/;"	p
+service	src/main/java/service/loginService.java	/^package service;$/;"	p
+service	src/main/java/service/logoutService.java	/^package service;$/;"	p
 service	src/main/java/service/rankAddService.java	/^package service;$/;"	p
 service	src/main/java/service/rankSearchService.java	/^package service;$/;"	p
 service	src/main/java/service/showAllService.java	/^package service;$/;"	p
 service	src/main/java/service/userAddService.java	/^package service;$/;"	p
 service	src/main/java/service/userSearchService.java	/^package service;$/;"	p
 serviceMap	src/main/java/control/Ignite.java	/^    private static Map<String, Service> serviceMap;$/;"	f	class:Ignite	file:
-setAge	src/main/java/model/User.java	/^    public void setAge(int age) {$/;"	m	class:User
 setId	src/main/java/model/User.java	/^    public void setId(int id) {$/;"	m	class:User
+setLang	src/main/java/model/User.java	/^    public void setLang(String lang) {$/;"	m	class:User
 setName	src/main/java/model/Rank.java	/^    public void setName(String name) {$/;"	m	class:Rank
 setName	src/main/java/model/User.java	/^    public void setName(String name) {$/;"	m	class:User
+setReplay_data	src/main/java/model/Rank.java	/^    public void setReplay_data(String replay_data) {$/;"	m	class:Rank
 setScore	src/main/java/model/Rank.java	/^    public void setScore(int score) {$/;"	m	class:Rank
 showAll	src/main/java/model/RankDAO.java	/^    public ArrayList<Rank> showAll() {$/;"	m	class:RankDAO
+showAll	src/main/java/service/showAllService.java	/^    public ArrayList<Rank> showAll() {$/;"	m	class:showAllService
 showAllService	src/main/java/service/showAllService.java	/^public class showAllService implements Service {$/;"	c
 test	src/main/java/model/UserDAO.java	/^    public ArrayList<User> test() {$/;"	m	class:UserDAO
 userAddService	src/main/java/service/userAddService.java	/^public class userAddService implements Service {$/;"	c
