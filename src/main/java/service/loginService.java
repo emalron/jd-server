@@ -36,10 +36,6 @@ public class loginService implements Service {
 
         _name = session.getAttribute("name").toString();
 
-        resp.setContentType("application/json; charset=utf-8");
-        resp.setHeader("Access-Control-Allow-Origin", "*");
-        resp.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
-    
         String hello = "Welcome, " + _name;
         pw.write(hello);
     }

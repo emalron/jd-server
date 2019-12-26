@@ -27,10 +27,6 @@ public class rankSearchService implements Service {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = mapper.writeValueAsString(ranks);
 
-        resp.setContentType("application/json; charset=utf-8");
-        resp.setHeader("Access-Control-Allow-Origin", "*");
-        resp.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
-
         if(ranks == null) {
             pw.print("ranks is null");
         }

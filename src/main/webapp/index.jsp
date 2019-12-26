@@ -11,7 +11,7 @@
 
                 var urls = document.getElementById("urls");
                 var base_url = urls.options[urls.selectedIndex].value;
-                var url = "/jdodge/service?cmd=showAll";
+                var url = "jdodge/service?cmd=showAll";
 
                 xhr.onreadystatechange = function() {
                     if(xhr.readyState == xhr.DONE) {
@@ -80,7 +80,7 @@
                 var urls = document.getElementById("urls");
                 var base_url = urls.options[urls.selectedIndex].value;
                 var url = base_url + "jdodge/service";
-                
+
                 var fData = new FormData(document.getElementById(form_id));
                 var temp = [];
                 for(var [key, value] of fData.entries()) {
@@ -114,7 +114,9 @@
                     }
                 }
 
-                var url = "http://localhost:8080/jdodge/service?cmd=loginCheck";
+                var urls = document.getElementById("urls");
+                var base_url = urls.options[urls.selectedIndex].value;
+                var url = base_url + "jdodge/service";
 
                 req.open('get', url);
                 req.send();
@@ -126,9 +128,8 @@
     <div>
         <h2>Hello World!</h2><br>
         <select id="urls">
-            <option value="https://jdodge-1203598482.ap-northeast-2.elb.amazonaws.com">ALB</option>
-            <option value="http://ec2-13-124-178-78.ap-northeast-2.compute.amazonaws.com:8080/">EC2</option>
-            <option value="http://localhost:8080/" selected>localhost</option>
+            <option value="https://api.emalron.com:8443/" selected>EC2</option>
+            <option value="http://localhost:8080/">localhost</option>
         </select>        
     </div>
     <div>

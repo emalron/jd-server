@@ -22,10 +22,6 @@ public class logoutService implements Service {
             session.invalidate();
         }
 
-        resp.setContentType("application/json; charset=utf-8");
-        resp.setHeader("Access-Control-Allow-Origin", "*");
-        resp.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
-    
         String bye = "bye";
         pw.write(bye);
     }

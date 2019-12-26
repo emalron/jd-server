@@ -36,6 +36,11 @@ public class Controller extends HttpServlet {
         // choose the proper class with cmd from the map
         Service service_ = modelMap.get(cmd);
 
+        // set CORS off globally
+        resp.setContentType("application/json; charset=utf-8");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
+
         // call the process method
         service_.process(req, resp);
     }

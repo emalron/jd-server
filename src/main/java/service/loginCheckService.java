@@ -2,8 +2,6 @@ package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +20,7 @@ public class loginCheckService implements Service {
         if(isLogin) {
             name = (String)session.getAttribute("name");
             msg = "Welcome back, " + name;
-
-            resp.setContentType("application/json; charset=utf-8");
-            resp.setHeader("Access-Control-Allow-Origin", "*");
-            resp.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
+            
             pw.write(msg);
         }
     }
