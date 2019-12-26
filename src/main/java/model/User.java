@@ -1,9 +1,9 @@
 package model;
 
 public class User {
-    private String name;
-    private int age;
     private int id;
+    private String name;
+    private String lang;
 
     public String getName() {
         return name;
@@ -13,20 +13,20 @@ public class User {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 
     

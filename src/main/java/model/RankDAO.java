@@ -15,7 +15,7 @@ public class RankDAO {
     }
 
     public ArrayList<Rank> showAll() {
-        String sql = "select * from ranking order by score desc";
+        String sql = "select * from view_ranking order by score desc";
         ArrayList<Rank> ranks = new ArrayList<Rank>();
 
         try {

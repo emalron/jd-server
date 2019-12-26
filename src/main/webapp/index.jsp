@@ -9,7 +9,8 @@
                     return false;
                 }
 
-                var base_url = "https://jdodge-1203598482.ap-northeast-2.elb.amazonaws.com"
+                // var base_url = "http://ec2-13-124-178-78.ap-northeast-2.compute.amazonaws.com:8080"
+                var base_url = "http://localhost:8080"
                 var url = "/jdodge/service?cmd=showAll";
 
                 xhr.onreadystatechange = function() {
@@ -71,7 +72,8 @@
                     }
                 }
 
-                var url = "https://jdodge-1203598482.ap-northeast-2.elb.amazonaws.com/jdodge/service";
+                // var url = "http://ec2-13-124-178-78.ap-northeast-2.compute.amazonaws.com:8080/jdodge/service";
+                var url = "http://localhost:8080/jdodge/service";
                 var fData = new FormData(document.getElementById(form_id));
                 var temp = [];
                 for(var [key, value] of fData.entries()) {

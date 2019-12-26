@@ -19,14 +19,5 @@ public class Main {
             System.out.println(out);
         }
 
-        ranks = rDao.search("jes");
-
-        System.out.println("");
-        System.out.println("search result---");
-        for(Rank u : ranks) {
-            String out = u.getName() + " " + u.getScore();
-            System.out.println(out);
-        }
-
     }
 }

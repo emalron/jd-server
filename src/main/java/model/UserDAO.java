@@ -52,7 +52,6 @@ public class UserDAO {
                 User _user = new User();
 
                 _user.setName(rs.getString(1));
-                _user.setAge(rs.getInt(2));
                 _user.setId(rs.getInt(3));
 
                 users.add(_user);
@@ -80,7 +79,6 @@ public class UserDAO {
                 User _user = new User();
 
                 _user.setName(rs.getString(1));
-                _user.setAge(rs.getInt(2));
                 _user.setId(rs.getInt(3));
 
                 users.add(_user);
