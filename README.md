@@ -32,7 +32,7 @@ test: https://api.emalron.com:8443/jdodge
 > parameter: -  
 > return: plain text "bye"  
   
-* searchRank  
+* loginCheck  
 > usage: {url}/jdodge/service?cmd=loginCheck  
 > parameter: -  
 > return: plain text "Welcome back, {name}"  
