@@ -22,10 +22,10 @@ public class MethodFilter implements Filter {
         System.out.println("in the doFilter: " + req.getMethod());
 
         // set CORS off globally
-        resp.setContentType("application/json; charset=utf-8");
-        resp.addHeader("Access-Control-Allow-Origin", "*");
-        resp.addHeader("Access-Control-Allow-Methods", "*");
-        resp.addHeader("Access-Control-Allow-Headers", "X-Requested-With");
+        ((HttpServletResponse) response).setContentType("application/json; charset=utf-8");
+        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "*");
+        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Methods", "*");
+        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Headers", "X-Requested-With");
 
         if(req.getMethod().equals("OPTIONS")) {
             System.out.println("I got options");
@@ -33,7 +33,7 @@ public class MethodFilter implements Filter {
             return;
         }
 
-        chain.doFilter(req, resp);
+        chain.doFilter(req, response);
     }
 
     @Override
