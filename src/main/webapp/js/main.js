@@ -2,7 +2,7 @@ var req_by_get = function() {
     var xhr = new XMLHttpRequest();
 
     if(!xhr) {
-        alert("can not create XHR instance");
+        console.error("can not create XHR instance");
         return false;
     }
 
@@ -13,7 +13,6 @@ var req_by_get = function() {
     xhr.onreadystatechange = function() {
         if(xhr.readyState == xhr.DONE) {
             if(xhr.status == 200 || xhr.status == 201) {
-                console.log(xhr.responseText);
                 result(xhr.responseText);
             }
             else {
@@ -28,9 +27,6 @@ var req_by_get = function() {
 
 var postForm = function(form_id, callback) {
     event.preventDefault();
-    // var form_id = event.target.form.id;
-    console.log(`form_id: ${form_id}`);
-
     var req = new XMLHttpRequest();
     
     req.onreadystatechange = function() {
@@ -74,10 +70,8 @@ window.onload = function() {
     req.onreadystatechange = function() {
         if(req.readyState == req.DONE) {
             if(req.status == 200 || req.status == 201) {
-                console.log(req.responseText);
                 var btn_logout = document.getElementById("logoutForm");
                 if(req.responseText != "") {
-                    console.log('login checked');
                     loginResult(req.responseText);
                 }
                 else {

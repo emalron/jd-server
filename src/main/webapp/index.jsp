@@ -33,7 +33,7 @@
             <input name="id" type="text" placeholder="id">
             <input name="score" type="number">
             <input name="replay_data" type="text" placeholder="replay_data">
-            <input type="button" onclick="postForm('addForm', result)" value="add">
+            <input type="button" onclick="postForm('addForm', simpleResult)" value="add">
         </form>
     </div>
     <div>

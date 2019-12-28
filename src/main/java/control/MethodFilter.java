@@ -19,8 +19,6 @@ public class MethodFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
-        System.out.println("in the doFilter: " + req.getMethod());
-
         // set CORS off globally
         ((HttpServletResponse) response).setContentType("application/json; charset=utf-8");
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "*");
@@ -28,8 +26,8 @@ public class MethodFilter implements Filter {
         ((HttpServletResponse) response).addHeader("Access-Control-Max-Age", "3600");
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With");
 
+        // AXIOS POST handshake
         if(req.getMethod().equals("OPTIONS")) {
-            System.out.println("I got options");
             resp.setStatus(HttpServletResponse.SC_OK);
             return;
         }
