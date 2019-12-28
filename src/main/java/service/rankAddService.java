@@ -13,13 +13,26 @@ import model.Connector;
 public class rankAddService implements Service {
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Connection conn = Connector.getConnection();
+        Connection conn = Connector.getInstance().getConnection();
         PreparedStatement pstm;
         String sql = "insert into ranks(score, replay_data, users_id) values (?, ?, ?)";
 
         String _id = req.getParameter("id");
-        int _score = Integer.parseInt(req.getParameter("score"));
+        String _pscore = req.getParameter("score");
         String _replay = req.getParameter("replay_data");
+
+        int _score;
+
+        if(_pscore != null) {
+            _score = Integer.parseInt(_pscore);            
+        }
+        else {
+            _score = 0;
+        }
+
+        // validation on
+        Boolean ID_EXIST, SCORE_NEGATIVE;
+        // ID_EXIST = _id != null && ;
 
         try {
             pstm = conn.prepareStatement(sql);
@@ -34,4 +47,6 @@ public class rankAddService implements Service {
             e.printStackTrace();
         }
     }
+
+
 }

@@ -14,48 +14,51 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.Connector;
-import model.Rank;
+import model.User;
 
-public class showAllService implements Service {
+public class showAllUsersService implements Service {
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter pw = resp.getWriter();
 
-        ArrayList<Rank> ranks = showAll();
+        // TO-DO: Validation
+        //
+        
+        ArrayList<User> users = showAll();
 
         ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(ranks);
+        String jsonString = mapper.writeValueAsString(users);
 
-        if (ranks == null) {
-            pw.print("no return from uDao.test call");
+        if (users == null) {
+            pw.print("no return");
         } else {
             pw.print(jsonString);
         }
     }
 
-    public ArrayList<Rank> showAll() {
-        Connection conn = Connector.getConnection();
+    public ArrayList<User> showAll() {
+        Connection conn = Connector.getInstance().getConnection();
         PreparedStatement pstm;
         ResultSet rs;
 
-        String sql = "select * from view_ranking order by score desc";
-        ArrayList<Rank> ranks = new ArrayList<Rank>();
+        String sql = "select * from users";
+        ArrayList<User> users = new ArrayList<User>();
 
         try {
             pstm = conn.prepareStatement(sql);
             rs = pstm.executeQuery();
 
             while(rs.next()) {
-                Rank _rank = new Rank();
+                User _user = new User();
 
-                _rank.setName(rs.getString(2));
-                _rank.setScore(rs.getInt(3));
-                _rank.setReplay_data(rs.getString(4));
+                _user.setId(rs.getString(1));
+                _user.setName(rs.getString(2));
+                _user.setLang(rs.getString(3));
 
-                ranks.add(_rank);
+                users.add(_user);
             }
 
-            return ranks;
+            return users;
         }
         catch (Exception e) {
             e.printStackTrace();

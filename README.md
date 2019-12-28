@@ -13,8 +13,8 @@ test: https://api.emalron.com:8443/jdodge
 > return: array JSON [{name: "XXX", score: 123}, {name: "XXX", score: 23} .. ]  
   
 * addRank  
-> usage: {url}/jdodge/service?cmd=addRank&name=jes&score=123&replay_data=ANYTHING
-> parameter: name, score, replay_data
+> usage: {url}/jdodge/service?cmd=addRank&uid=abc&score=123&replay_data=ANYTHING
+> parameter: id, score, replay_data
 > return: none  
   
 * searchRank  

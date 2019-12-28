@@ -11,7 +11,7 @@ public class RankDAO {
     private ResultSet rs;
 
     public RankDAO() {
-        conn = Connector.getConnection();
+        conn = Connector.getInstance().getConnection();
     }
 
     public ArrayList<Rank> showAll() {

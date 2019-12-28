@@ -16,36 +16,33 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Connector;
 import model.Rank;
 
-public class rankSearchService implements Service {
+public class showAllRanksService implements Service {
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
         PrintWriter pw = resp.getWriter();
 
-        ArrayList<Rank> ranks = search(id);
+        ArrayList<Rank> ranks = showAll();
 
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = mapper.writeValueAsString(ranks);
 
-        if(ranks == null) {
-            pw.print("ranks is null");
-        }
-        else {
+        if (ranks == null) {
+            pw.print("no return from uDao.test call");
+        } else {
             pw.print(jsonString);
         }
     }
 
-    public ArrayList<Rank> search(String id) {
+    public ArrayList<Rank> showAll() {
         Connection conn = Connector.getInstance().getConnection();
         PreparedStatement pstm;
         ResultSet rs;
 
-        String sql = "select * from view_ranking where id=?";
+        String sql = "select * from view_ranking order by score desc";
         ArrayList<Rank> ranks = new ArrayList<Rank>();
 
         try {
             pstm = conn.prepareStatement(sql);
-            pstm.setString(1, id);
             rs = pstm.executeQuery();
 
             while(rs.next()) {
@@ -57,9 +54,10 @@ public class rankSearchService implements Service {
 
                 ranks.add(_rank);
             }
+
             return ranks;
         }
-        catch(Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
 

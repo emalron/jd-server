@@ -41,7 +41,7 @@ public class loginService implements Service {
     }
 
     private Boolean isRegistered(String id) {
-        Connection conn = Connector.getConnection();
+        Connection conn = Connector.getInstance().getConnection();
         PreparedStatement pstm;
         ResultSet rs;
 
@@ -63,7 +63,7 @@ public class loginService implements Service {
     }
 
     private void addUser(String id, String name) {
-        Connection conn = Connector.getConnection();
+        Connection conn = Connector.getInstance().getConnection();
         PreparedStatement pstm;
 
         String sql = "insert into users(id, name) values(?, ?)";
