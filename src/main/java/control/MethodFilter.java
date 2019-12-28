@@ -26,7 +26,7 @@ public class MethodFilter implements Filter {
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "*");
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Methods", "*");
         ((HttpServletResponse) response).addHeader("Access-Control-Max-Age", "3600");
-        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Headers", "X-Requested-With");
+        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With");
 
         if(req.getMethod().equals("OPTIONS")) {
             System.out.println("I got options");
