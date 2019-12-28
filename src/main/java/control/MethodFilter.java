@@ -24,10 +24,12 @@ public class MethodFilter implements Filter {
         // set CORS off globally
         resp.setContentType("application/json; charset=utf-8");
         resp.setHeader("Access-Control-Allow-Origin", "*");
-        resp.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+        resp.setHeader("Access-Control-Allow-Methods", "*");
         resp.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
 
         chain.doFilter(req, resp);
+
+        System.out.println(resp.toString());
     }
 
     @Override
