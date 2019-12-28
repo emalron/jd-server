@@ -29,7 +29,8 @@ public class loginService implements Service {
             if(!isRegistered(_id)) {
                 addUser(_id, _name);
             }
-
+            _name = getName(_id);
+            
             session.setAttribute("id", _id);
             session.setAttribute("name", _name);
         }
@@ -81,4 +82,27 @@ public class loginService implements Service {
         }
     }
     
+    private String getName(String id) {
+        Connection conn = Connector.getInstance().getConnection();
+        PreparedStatement pstm;
+        ResultSet rs;
+
+        String sql = "select name from users where id=?";
+
+        try {
+            pstm = conn.prepareStatement(sql);
+
+            pstm.setString(1, id);
+            rs = pstm.executeQuery();
+
+            if(rs.next()) {
+                return rs.getString(1);
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

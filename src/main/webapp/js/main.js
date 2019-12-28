@@ -75,8 +75,13 @@ window.onload = function() {
         if(req.readyState == req.DONE) {
             if(req.status == 200 || req.status == 201) {
                 console.log(req.responseText);
+                var btn_logout = document.getElementById("logoutForm");
                 if(req.responseText != "") {
+                    console.log('login checked');
                     loginResult(req.responseText);
+                }
+                else {
+                    btn_logout.style="display:none";
                 }
             }
             else {

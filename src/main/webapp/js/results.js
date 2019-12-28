@@ -23,6 +23,16 @@ var result = function(input) {
 var loginResult = function(input) {
     var output = document.getElementById("output");
     output.innerHTML = input;
+
+    var btn_logout = document.getElementById("logoutForm");
+
+    if(input=="bye") {
+        btn_logout.style="display:none";
+    }
+    else {
+        btn_logout.style="display:inline-block";
+    }
+    
 }
 
 var usersResult = function(input) {
