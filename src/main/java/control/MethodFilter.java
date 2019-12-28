@@ -19,17 +19,21 @@ public class MethodFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
-        System.out.println("in the doFilter");
+        System.out.println("in the doFilter: " + req.getMethod());
 
         // set CORS off globally
         resp.setContentType("application/json; charset=utf-8");
-        resp.setHeader("Access-Control-Allow-Origin", "*");
-        resp.setHeader("Access-Control-Allow-Methods", "*");
-        resp.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
+        resp.addHeader("Access-Control-Allow-Origin", "*");
+        resp.addHeader("Access-Control-Allow-Methods", "*");
+        resp.addHeader("Access-Control-Allow-Headers", "X-Requested-With");
+
+        if(req.getMethod().equals("OPTIONS")) {
+            System.out.println("I got options");
+            resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+            return;
+        }
 
         chain.doFilter(req, resp);
-
-        System.out.println(resp.toString());
     }
 
     @Override

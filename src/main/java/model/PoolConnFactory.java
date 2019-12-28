@@ -53,13 +53,13 @@ public class PoolConnFactory {
 
     public static GenericObjectPoolConfig getPoolConfig() {
         poolConfig = new GenericObjectPoolConfig();
-        
+
         poolConfig.setTimeBetweenEvictionRunsMillis(1000*60*1);
         poolConfig.setTestWhileIdle(true);
         poolConfig.setTestOnBorrow(false);
-        poolConfig.setMinIdle(10);
-        poolConfig.setMaxIdle(50);
-        poolConfig.setMaxTotal(50);
+        poolConfig.setMinIdle(5);
+        poolConfig.setMaxIdle(10);
+        poolConfig.setMaxTotal(10);
 
         return poolConfig;
     }

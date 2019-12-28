@@ -4,17 +4,13 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  
   <filter>
-    <filter-name>cors</filter-name>
+    <filter-name>CorsFilter</filter-name>
     <filter-class>control.MethodFilter</filter-class>
-  <init-param>
-    <param-name>encoding</param-name>
-    <param-value>UTF-8</param-value>
-  </init-param>
-
   </filter>
   <filter-mapping>
-    <filter-name>cors</filter-name>
+    <filter-name>CorsFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 </web-app>
