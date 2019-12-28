@@ -20,19 +20,19 @@ test: https://api.emalron.com:8443/jdodge
 * searchRank  
 > usage: {url}/jdodge/service?cmd=addRank&name=jes  
 > parameter: name  
-> return: array JSON [{name: "jes", score: 123}, {name: "jes", score: 23} .. ]
+> return: array JSON [{name: "jes", score: 123}, {name: "jes", score: 23} .. ]  
 
-* login
-> usage: {url}/jdodge/service?cmd=login&id=abc&name=jes
-> parameter: id, name
-> return: plain text "Welcome, {name}"
-
-* logout
-> usage: {url}/jdodge/service?cmd=logout
-> parameter: -
-> return: plain text "bye"
-
-* searchRank  
-> usage: {url}/jdodge/service?cmd=loginCheck
-> parameter: -
-> return: plain text "Welcome back, {name}"
+* login  
+> usage: {url}/jdodge/service?cmd=login&id=abc&name=jes  
+> parameter: id, name  
+> return: plain text "Welcome, {name}"  
+  
+* logout  
+> usage: {url}/jdodge/service?cmd=logout  
+> parameter: -  
+> return: plain text "bye"  
+  
+* loginCheck  
+> usage: {url}/jdodge/service?cmd=loginCheck  
+> parameter: -  
+> return: plain text "Welcome back, {name}"  
