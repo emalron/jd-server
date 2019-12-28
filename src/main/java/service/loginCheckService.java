@@ -15,7 +15,7 @@ public class loginCheckService implements Service {
         HttpSession session = req.getSession(false);
         PrintWriter pw = resp.getWriter();
         String name, msg;
-        Boolean isLogin = session.getAttribute("id") != null;
+        Boolean isLogin = session != null && session.getAttribute("id") != null;
 
         if(isLogin) {
             name = (String)session.getAttribute("name");

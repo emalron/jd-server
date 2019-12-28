@@ -8,7 +8,7 @@ var req_by_get = function() {
 
     var urls = document.getElementById("urls");
     var base_url = urls.options[urls.selectedIndex].value;
-    var url = "jdodge/service?cmd=showAllRanks";
+    var url = `${base_url}/jdodge/service?cmd=showAllRanks`;
 
     xhr.onreadystatechange = function() {
         if(xhr.readyState == xhr.DONE) {
@@ -22,7 +22,7 @@ var req_by_get = function() {
         }
     };
 
-    xhr.open('get', base_url+url);
+    xhr.open('get', url);
     xhr.send();
 }
 
@@ -49,7 +49,7 @@ var postForm = function(form_id, callback) {
 
     var urls = document.getElementById("urls");
     var base_url = urls.options[urls.selectedIndex].value;
-    var url = base_url + "jdodge/service";
+    var url = `${base_url}/jdodge/service`;
 
     var fData = new FormData(document.getElementById(form_id));
     var temp = [];
@@ -68,8 +68,9 @@ var postForm = function(form_id, callback) {
 }
 
 window.onload = function() {
+    this.setUrl();
+
     var req = new XMLHttpRequest();
-    
     req.onreadystatechange = function() {
         if(req.readyState == req.DONE) {
             if(req.status == 200 || req.status == 201) {
@@ -86,8 +87,46 @@ window.onload = function() {
 
     var urls = document.getElementById("urls");
     var base_url = urls.options[urls.selectedIndex].value;
-    var url = base_url + "jdodge/service?cmd=loginCheck";
+    var url = `${base_url}/jdodge/service?cmd=loginCheck`;
 
     req.open('get', url);
     req.send();
 }
+
+var setUrl = function() {
+    var index = getCookie("url");
+
+    if(index != null) {
+        var target = document.getElementById("urls");
+        target.selectedIndex = index;
+    }
+}
+
+var url_save = function() {
+    var target = document.getElementById("urls");
+    var index = target.selectedIndex;
+
+    var date = new Date();
+    date.setDate(date.getDate() + 1);
+
+    var cookie = `url=${index};expires=${date.toUTCString()}`;
+
+    document.cookie = cookie;
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+document.getElementById("urls").onchange = url_save;

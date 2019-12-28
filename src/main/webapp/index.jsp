@@ -4,8 +4,8 @@
         <h2>Hello World!</h2><br>
         select api url
         <select id="urls">
-            <option value="https://api.emalron.com:8443/">EC2</option>
-            <option value="http://localhost:8080/" selected>localhost</option>
+            <option value="https://api.emalron.com:8443">EC2</option>
+            <option value="http://localhost:8080" selected>localhost</option>
         </select>        
     </div>
     <div>
