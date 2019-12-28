@@ -27,6 +27,26 @@ public class Controller extends HttpServlet {
         doHandle(req, resp);
     }
 
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doHandle(req, resp);
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doHandle(req, resp);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doHandle(req, resp);
+    }
+
+    @Override
+    protected void doTrace(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doHandle(req, resp);
+    }
+
     void doHandle(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         Map<String, Service> modelMap = Ignite.getMap();
 
