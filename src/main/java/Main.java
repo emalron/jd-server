@@ -1,23 +1,37 @@
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-import model.Rank;
-import model.RankDAO;
+import model.Connector;
+import model.User;
 
 public class Main {
     public static void main(String[] args) {
-        RankDAO rDao = new RankDAO();
+        Connection conn = null;
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
 
-        rDao.addRank("jes", 1222, 123, "hahah");
+        Connector connector = Connector.getInstance();
 
-        ArrayList<Rank> ranks = new ArrayList<Rank>();
+        try {
+            conn = connector.getConnection();
+            String sql = "select * from users";
+            
+            pstm = conn.prepareStatement(sql);
+            rs = pstm.executeQuery();
 
-        ranks = rDao.showAll();
+            while(rs.next()) {
+                User user = new User();
 
-        System.out.println("**ranking**");
-        for(Rank u : ranks) {
-            String out = u.getName() + " " + u.getScore();
-            System.out.println(out);
+                user.setName(rs.getString(2));
+                System.out.println(user.getName());
+            }
         }
-
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            connector.close(conn, pstm, rs);
+        }
     }
 }

@@ -34,9 +34,10 @@ public class showAllRanksService implements Service {
     }
 
     public ArrayList<Rank> showAll() {
-        Connection conn = Connector.getInstance().getConnection();
-        PreparedStatement pstm;
-        ResultSet rs;
+        Connector connector = Connector.getInstance();
+        Connection conn = connector.getConnection();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
 
         String sql = "select * from view_ranking order by score desc";
         ArrayList<Rank> ranks = new ArrayList<Rank>();
@@ -59,6 +60,9 @@ public class showAllRanksService implements Service {
         }
         catch (Exception e) {
             e.printStackTrace();
+        }
+        finally {
+            connector.close(conn, pstm, rs);
         }
 
         return null;

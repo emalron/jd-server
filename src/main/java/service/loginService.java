@@ -17,20 +17,23 @@ public class loginService implements Service {
 
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
-        String _id = req.getParameter("id");
+        PrintWriter pw = resp.getWriter();
         HttpSession session = req.getSession();
+
+        String _id = req.getParameter("id");
+        String _name = null;
+        
         Boolean isFirst = session.getAttribute("id") == null;
 
-        String _name = req.getParameter("name");;
-        PrintWriter pw = resp.getWriter();
-
         if(isFirst) {
-            if(!isRegistered(_id)) {
+            _name = getName(_id);
+            if(_name == null) {
+                _name = req.getParameter("name");
+                if(_name == null) _name = "unknown";
+
                 addUser(_id, _name);
             }
-            _name = getName(_id);
-            
+
             session.setAttribute("id", _id);
             session.setAttribute("name", _name);
         }
@@ -41,10 +44,11 @@ public class loginService implements Service {
         pw.write(hello);
     }
 
-    private Boolean isRegistered(String id) {
-        Connection conn = Connector.getInstance().getConnection();
-        PreparedStatement pstm;
-        ResultSet rs;
+    private String getName(String id) {
+        Connector connector = Connector.getInstance();
+        Connection conn = connector.getConnection();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
 
         String sql = "select * from users where id = ?";
         try {
@@ -53,19 +57,23 @@ public class loginService implements Service {
             rs = pstm.executeQuery();
 
             if(rs.next()) {
-                return true;
+                return rs.getString(2);
             }
         }
         catch(Exception e) {
             e.printStackTrace();
         }
+        finally {
+            connector.close(conn, pstm, rs);
+        }
 
-        return false;
+        return null;
     }
 
     private void addUser(String id, String name) {
-        Connection conn = Connector.getInstance().getConnection();
-        PreparedStatement pstm;
+        Connector connector = Connector.getInstance();
+        Connection conn = connector.getConnection();
+        PreparedStatement pstm = null;
 
         String sql = "insert into users(id, name) values(?, ?)";
 
@@ -80,29 +88,8 @@ public class loginService implements Service {
         catch(Exception e) {
             e.printStackTrace();
         }
-    }
-    
-    private String getName(String id) {
-        Connection conn = Connector.getInstance().getConnection();
-        PreparedStatement pstm;
-        ResultSet rs;
-
-        String sql = "select name from users where id=?";
-
-        try {
-            pstm = conn.prepareStatement(sql);
-
-            pstm.setString(1, id);
-            rs = pstm.executeQuery();
-
-            if(rs.next()) {
-                return rs.getString(1);
-            }
+        finally {
+            connector.close(conn, pstm);
         }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 }

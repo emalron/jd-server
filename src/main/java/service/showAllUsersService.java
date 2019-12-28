@@ -23,7 +23,7 @@ public class showAllUsersService implements Service {
 
         // TO-DO: Validation
         //
-        
+
         ArrayList<User> users = showAll();
 
         ObjectMapper mapper = new ObjectMapper();
@@ -37,9 +37,10 @@ public class showAllUsersService implements Service {
     }
 
     public ArrayList<User> showAll() {
-        Connection conn = Connector.getInstance().getConnection();
-        PreparedStatement pstm;
-        ResultSet rs;
+        Connector connector = Connector.getInstance();
+        Connection conn = connector.getConnection();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
 
         String sql = "select * from users";
         ArrayList<User> users = new ArrayList<User>();
@@ -62,6 +63,9 @@ public class showAllUsersService implements Service {
         }
         catch (Exception e) {
             e.printStackTrace();
+        }
+        finally {
+            connector.close(conn, pstm, rs);
         }
 
         return null;

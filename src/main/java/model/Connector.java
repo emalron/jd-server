@@ -4,7 +4,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Properties;
+
+import org.apache.commons.dbcp2.ConnectionFactory;
+import org.apache.commons.dbcp2.PoolableConnection;
+import org.apache.commons.dbcp2.PoolableConnectionFactory;
+import org.apache.commons.dbcp2.PoolingDriver;
+import org.apache.commons.pool2.ObjectPool;
+import org.apache.commons.pool2.impl.GenericObjectPool;
 
 public class Connector {
     private static Connector instance_;
@@ -12,7 +21,7 @@ public class Connector {
     private String driver, url, username, password;
     private Properties props;
 
-    public Connector() {
+    private Connector() {
         init();
     }
 
@@ -40,10 +49,16 @@ public class Connector {
             url = props.getProperty("url");
             username = props.getProperty("username");
             password = props.getProperty("password");
-
-            Class.forName(driver);
         
-            conn = DriverManager.getConnection(url, username, password);
+            PoolConnFactory.registerJDBCDriver(driver);
+            ConnectionFactory cFactory = PoolConnFactory.getConnFactory(url, username, password);
+            PoolableConnectionFactory poolFactory = new PoolableConnectionFactory(cFactory, null);
+            ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<PoolableConnection>(poolFactory, PoolConnFactory.getPoolConfig());
+            poolFactory.setPool(connectionPool);
+            PoolingDriver dbcpDriver = PoolConnFactory.getDBCDriver();
+            dbcpDriver.registerPool("dbcp-2", connectionPool);
+
+            conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -56,7 +71,7 @@ public class Connector {
                 init();
             }
             if(conn.isClosed()) {
-                conn = DriverManager.getConnection(url, username, password);
+                conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
             }
         }
         catch(Exception e) {
@@ -64,6 +79,34 @@ public class Connector {
         }
 
         return conn;
+    }
+
+    public void close(Connection conn, PreparedStatement pstm, ResultSet rs) {
+        try {
+            if(rs != null) rs.close();
+            if(pstm != null) pstm.close();
+            if(conn != null) conn.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void close(Connection conn, PreparedStatement pstm) {
+        try {
+            if(pstm != null) pstm.close();
+            if(conn != null) conn.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void close(Connection conn) {
+        try {
+            if(conn != null) conn.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }
 
