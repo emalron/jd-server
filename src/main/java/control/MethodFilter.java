@@ -30,8 +30,8 @@ public class MethodFilter implements Filter {
 
         if(req.getMethod().equals("OPTIONS")) {
             System.out.println("I got options");
-            resp.setStatus(HttpServletResponse.SC_ACCEPTED);
-            // return;
+            resp.setStatus(HttpServletResponse.SC_OK);
+            return;
         }
 
         chain.doFilter(req, response);
