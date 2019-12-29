@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.Connector;
 import model.User;
+import model.Util;
 
 public class showAllUsersService implements Service {
     @Override
@@ -29,11 +30,18 @@ public class showAllUsersService implements Service {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = mapper.writeValueAsString(users);
 
+        int resultType = 2;
+        String result = null;
+
         if (users == null) {
-            pw.print("no return");
-        } else {
-            pw.print(jsonString);
+            resultType = -1;
+            jsonString = "no users";
         }
+
+        Util util = Util.getInstance();
+        result = util.makeResult(resultType, jsonString);
+
+        pw.write(result);
     }
 
     public ArrayList<User> showAll() {

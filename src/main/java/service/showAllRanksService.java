@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.Connector;
 import model.Rank;
+import model.Util;
 
 public class showAllRanksService implements Service {
     @Override
@@ -26,11 +27,18 @@ public class showAllRanksService implements Service {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = mapper.writeValueAsString(ranks);
 
+        int resultType = 2;
+        String result = null;
+
         if (ranks == null) {
-            pw.print("no return from uDao.test call");
-        } else {
-            pw.print(jsonString);
+            resultType = -1;
+            jsonString = "no ranks";
         }
+
+        Util util = Util.getInstance();
+        result = util.makeResult(resultType, jsonString);
+
+        pw.write(result);
     }
 
     public ArrayList<Rank> showAll() {

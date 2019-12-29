@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Connector;
+import model.Util;
 
 public class loginService implements Service {
 
@@ -20,7 +22,11 @@ public class loginService implements Service {
         PrintWriter pw = resp.getWriter();
         HttpSession session = req.getSession();
 
-        String _id = req.getParameter("id");
+        Util jsonUtil = Util.getInstance();
+        Map<String, Object> map = jsonUtil.getJson();
+        
+        // String _id = req.getParameter("id");
+        String _id = (String) map.get("id");
         String _name = null;
         
         Boolean isFirst = session.getAttribute("id") == null;
@@ -41,7 +47,8 @@ public class loginService implements Service {
         _name = session.getAttribute("name").toString();
 
         String hello = "Welcome, " + _name;
-        pw.write(hello);
+        String msg = jsonUtil.makeResult(0, hello);
+        pw.write(msg);
     }
 
     private String getName(String id) {

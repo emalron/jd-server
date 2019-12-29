@@ -2,60 +2,36 @@ var result = function(input) {
     var output = document.getElementById("output");
     output.innerHTML = "";
 
-    var jsonObj = JSON.parse(input);
-    if(Array.isArray(jsonObj)) {
-        for(var i=0; i < jsonObj.length; i++) {
-            var obj = jsonObj[i];
+    console.log(`response: ${input}`);
+    var obj = JSON.parse(input);
+    var type = obj.result;
 
-            var str = `${obj.name} / ${obj.score}<br>`;
-            output.innerHTML += str;
-        }
+    var data = obj.message;
+    if(type == 0 || type == 1) {
+        output.innerHTML = obj.message;
+
+        return obj.message;
     }
-    else {
-        var str = `${obj.name} / ${obj.score}<br>`;
-        output.innerHTML += str;
+    else if(type == 2) {
+        for(var i=0; i < data.length; i++) {
+            for(var key in data[i]) {
+                var str = `${data[i][key]} `;
+                output.innerHTML += str;
+            }
+            output.innerHTML += "<br>";
+        }
     }
 }
 
 var loginResult = function(input) {
-    var output = document.getElementById("output");
-    output.innerHTML = input;
-
+    var res = result(input);
     var btn_logout = document.getElementById("logoutForm");
 
-    if(input=="bye") {
+    if(res == "bye") {
         btn_logout.style="display:none";
     }
     else {
         btn_logout.style="display:inline-block";
     }
     
-}
-
-var usersResult = function(input) {
-    var output = document.getElementById("output");
-    output.innerHTML = "";
-
-    console.log(input);
-
-    var jsonObj = JSON.parse(input);
-
-    if(Array.isArray(jsonObj)) {
-        for(var i=0; i < jsonObj.length; i++) {
-            console.log(jsonObj[i]);
-            var obj = jsonObj[i];
-
-            var str = `${obj.id} / ${obj.name} / ${obj.lang}<br>`;
-            output.innerHTML += str;
-        }
-    }
-    else {
-        var str = `${obj.id} / ${obj.name} / ${obj.lang}<br>`;
-        output.innerHTML += str;
-    }
-}
-
-var simpleResult = function(input) {
-    var output = document.getElementById("output");
-    output.innerHTML = "";
 }

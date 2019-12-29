@@ -1,70 +1,44 @@
 var req_by_get = function() {
-    var xhr = new XMLHttpRequest();
+    tmp = {cmd: "showAllRanks"}
+    str = JSON.stringify(tmp);
 
-    if(!xhr) {
-        console.error("can not create XHR instance");
-        return false;
-    }
-
-    var urls = document.getElementById("urls");
-    var base_url = urls.options[urls.selectedIndex].value;
-    var url = `${base_url}/jdodge/service?cmd=showAllRanks`;
-
-    xhr.onreadystatechange = function() {
-        if(xhr.readyState == xhr.DONE) {
-            if(xhr.status == 200 || xhr.status == 201) {
-                result(xhr.responseText);
-            }
-            else {
-                console.error(xhr.responseText);
-            }
-        }
-    };
-
-    xhr.open('get', url);
-    xhr.send();
+    ajax(str);
 }
 
 var postForm = function(form_id, callback) {
     event.preventDefault();
-    var req = new XMLHttpRequest();
-    
-    req.onreadystatechange = function() {
-        if(req.readyState == req.DONE) {
-            if(req.status == 200 || req.status == 201) {
-                console.log(req.responseText);
-                if(req.responseText != "") {
-                    callback(req.responseText);
-                }
-            }
-            else {
-                console.error(req.responseText);
-            }
-        }
-    }
-
-    var urls = document.getElementById("urls");
-    var base_url = urls.options[urls.selectedIndex].value;
-    var url = `${base_url}/jdodge/service`;
 
     var fData = new FormData(document.getElementById(form_id));
-    var temp = [];
+    var obj = {};
     for(var [key, value] of fData.entries()) {
-        temp.push({key: key, value: value});
+        obj[key] = value;
     }
 
-    var str = temp[0].key + "=" + temp[0].value;
-    for(var i=1; i<temp.length; i++) {
-        str += "&" + temp[i].key + "=" + temp[i].value;
-    }
+    var str = JSON.stringify(obj);
 
-    req.open('post', url);
-    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    req.send(str);
+    ajax(str);
+}
+
+var shot = function(callback) {
+    event.preventDefault();
+
+    str = {cmd: "jsonTest", id: "jes"};
+    str = JSON.stringify(str);
+
+    ajax(str);
 }
 
 window.onload = function() {
     this.setUrl();
+    var str = JSON.stringify({cmd:"loginCheck"});
+
+    this.ajax(str);
+}
+
+var ajax = function(body) {
+    var urls = document.getElementById("urls");
+    var base_url = urls.options[urls.selectedIndex].value;
+    var url = `${base_url}/jdodge/service`;
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function() {
@@ -84,12 +58,11 @@ window.onload = function() {
         }
     }
 
-    var urls = document.getElementById("urls");
-    var base_url = urls.options[urls.selectedIndex].value;
-    var url = `${base_url}/jdodge/service?cmd=loginCheck`;
+    req.open('post', url);
+    req.setRequestHeader("Content-Type", "application/json");
+    req.send(body);
 
-    req.open('get', url);
-    req.send();
+    console.log(`post body: ${body}`);
 }
 
 var setUrl = function() {

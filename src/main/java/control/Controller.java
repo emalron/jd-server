@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Util;
 import service.Service;
 
 @WebServlet("/service")
@@ -17,7 +18,7 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
             throws ServletException, IOException {
-        doHandle(req, resp);
+        // doHandle(req, resp);
     }
 
     @Override
@@ -51,6 +52,13 @@ public class Controller extends HttpServlet {
 
         // get cmd from req
         String cmd = req.getParameter("cmd");
+        System.out.println("in doHandle parameter: " + cmd);
+
+        Util jsonUtil = Util.getInstance();
+        Map<String, Object> map = jsonUtil.getJson(req);
+        cmd = (String)map.get("cmd");
+        System.out.println("in doHandle: " + map);
+        System.out.println("in doHandle: " + cmd);
 
         // choose the proper class with cmd from the map
         Service service_ = modelMap.get(cmd);

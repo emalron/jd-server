@@ -16,7 +16,7 @@
         <h3>show all users</h3>
         <form id="suserForm">
             <input type="hidden" name="cmd" value="showAllUsers">
-            <input type="button" onclick="postForm('suserForm', usersResult)" value="show all users">
+            <input type="button" onclick="postForm('suserForm', result)" value="show all users">
         </form>
     </div>
     <div>
@@ -33,7 +33,7 @@
             <input name="id" type="text" placeholder="id">
             <input name="score" type="number">
             <input name="replay_data" type="text" placeholder="replay_data">
-            <input type="button" onclick="postForm('addForm', simpleResult)" value="add">
+            <input type="button" onclick="postForm('addForm', result)" value="add">
         </form>
     </div>
     <div>
@@ -48,6 +48,10 @@
             <input type="hidden" name="cmd" value="logout">
             <input type="button" onclick="postForm('logoutForm', loginResult)" value="logout">
         </form>
+    </div>
+    <div>
+        json test
+        <input type="button" onclick="shot(result)" value="shot!"></input>
     </div>
     <div id="output"></div>
 

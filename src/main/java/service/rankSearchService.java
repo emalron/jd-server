@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,24 +16,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.Connector;
 import model.Rank;
+import model.Util;
 
 public class rankSearchService implements Service {
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
         PrintWriter pw = resp.getWriter();
 
+        Util util = Util.getInstance();
+        Map<String, Object> map = util.getJson();
+        String id = (String) map.get("id");
+        String jsonString = null;
+
         ArrayList<Rank> ranks = search(id);
-
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(ranks);
-
         if(ranks == null) {
-            pw.print("ranks is null");
+            jsonString = util.makeResult(-1, "Object is null");
         }
         else {
-            pw.print(jsonString);
+            ObjectMapper mapper = new ObjectMapper();
+            String result = mapper.writeValueAsString(ranks);
+            jsonString = util.makeResult(2, result);
         }
+        
+        pw.print(jsonString);
     }
 
     public ArrayList<Rank> search(String id) {
