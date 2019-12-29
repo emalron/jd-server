@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -35,17 +36,24 @@ public class rankAddService implements Service {
 
         // validation on
         Boolean ID_EXIST, SCORE_NEGATIVE;
-        // ID_EXIST = _id != null && ;
-        int resultType = addRank(_score, _replay, _id);
+        int resultType = -1;
+
+        ID_EXIST = _id != null && isIDexist(_id);
+        SCORE_NEGATIVE = _score >= 0;
+        
+        if(ID_EXIST && SCORE_NEGATIVE) {
+             resultType = addRank(_score, _replay, _id);
+        }
 
         String msg = null;
-        if(resultType == 1) {
+        if(resultType == 0) {
             msg = jsonUtil.makeResult(resultType, "result ok");
         }
         else {
             msg = jsonUtil.makeResult(resultType, "fail");
         }
 
+        System.out.println("addRank: resultType="+resultType);
         pw.write(msg);
     }
 
@@ -73,6 +81,31 @@ public class rankAddService implements Service {
         }
         finally {
             connector.close(conn, pstm);
+        }
+    }
+
+    private Boolean isIDexist(String id) {
+        Connector connector = Connector.getInstance();
+        Connection conn = connector.getConnection();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+
+        String sql = "select name from users where id = ?";
+
+        try {
+            pstm = conn.prepareStatement(sql);
+
+            pstm.setString(1, id);
+            rs = pstm.executeQuery();
+
+            return rs.next();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        finally {
+            connector.close(conn, pstm, rs);
         }
     }
 }

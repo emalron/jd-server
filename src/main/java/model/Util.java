@@ -41,6 +41,7 @@ public class Util {
     public String makeResult(int type, String message) {
         String msg = null;
         switch(type) {
+            case -1:
             case 0:
             case 1:
                 // message = plain text

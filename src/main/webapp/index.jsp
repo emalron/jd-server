@@ -50,8 +50,7 @@
         </form>
     </div>
     <div>
-        json test
-        <input type="button" onclick="shot(result)" value="shot!"></input>
+        json test <input type="button" onclick="shot(result)" value="shot!"></input>
     </div>
     <div id="output"></div>
 

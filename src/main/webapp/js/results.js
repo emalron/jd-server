@@ -7,9 +7,8 @@ var result = function(input) {
     var type = obj.result;
 
     var data = obj.message;
-    if(type == 0 || type == 1) {
+    if(type == -1 || type == 0 || type == 1) {
         output.innerHTML = obj.message;
-
         return obj.message;
     }
     else if(type == 2) {
@@ -27,7 +26,7 @@ var loginResult = function(input) {
     var res = result(input);
     var btn_logout = document.getElementById("logoutForm");
 
-    if(res == "bye") {
+    if(res == "bye" || res == "no login") {
         btn_logout.style="display:none";
     }
     else {

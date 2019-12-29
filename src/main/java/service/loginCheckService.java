@@ -19,15 +19,21 @@ public class loginCheckService implements Service {
         String name, msg;
         Boolean isLogin = session != null && session.getAttribute("id") != null;
 
+        Util util = Util.getInstance();
+        String result = null;
+
         if(isLogin) {
             name = (String)session.getAttribute("name");
             msg = "Welcome back, " + name;
             
-            Util util = Util.getInstance();
-            String result = util.makeResult(0, msg);
-            
-            pw.write(result);
+            result = util.makeResult(0, msg);
         }
+        else {
+            msg = "no login";
+            result = util.makeResult(-1, msg);
+        }
+
+        pw.write(result);
     }
     
 }

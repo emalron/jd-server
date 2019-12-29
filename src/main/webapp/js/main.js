@@ -2,7 +2,7 @@ var req_by_get = function() {
     tmp = {cmd: "showAllRanks"}
     str = JSON.stringify(tmp);
 
-    ajax(str);
+    ajax(str, result);
 }
 
 var postForm = function(form_id, callback) {
@@ -16,7 +16,7 @@ var postForm = function(form_id, callback) {
 
     var str = JSON.stringify(obj);
 
-    ajax(str);
+    ajax(str, callback);
 }
 
 var shot = function(callback) {
@@ -25,17 +25,17 @@ var shot = function(callback) {
     str = {cmd: "jsonTest", id: "jes"};
     str = JSON.stringify(str);
 
-    ajax(str);
+    ajax(str, callback);
 }
 
 window.onload = function() {
     this.setUrl();
     var str = JSON.stringify({cmd:"loginCheck"});
 
-    this.ajax(str);
+    this.ajax(str, this.loginResult);
 }
 
-var ajax = function(body) {
+var ajax = function(body, callback) {
     var urls = document.getElementById("urls");
     var base_url = urls.options[urls.selectedIndex].value;
     var url = `${base_url}/jdodge/service`;
@@ -44,13 +44,7 @@ var ajax = function(body) {
     req.onreadystatechange = function() {
         if(req.readyState == req.DONE) {
             if(req.status == 200 || req.status == 201) {
-                var btn_logout = document.getElementById("logoutForm");
-                if(req.responseText != "") {
-                    loginResult(req.responseText);
-                }
-                else {
-                    btn_logout.style="display:none";
-                }
+                callback(req.responseText);
             }
             else {
                 console.error(req.responseText);
