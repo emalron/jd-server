@@ -25,7 +25,6 @@ public class loginService implements Service {
         Util jsonUtil = Util.getInstance();
         Map<String, Object> map = jsonUtil.getJson();
         
-        // String _id = req.getParameter("id");
         String _id = (String) map.get("id");
         String _name = null;
         
@@ -34,7 +33,7 @@ public class loginService implements Service {
         if(isFirst) {
             _name = getName(_id);
             if(_name == null) {
-                _name = req.getParameter("name");
+                _name = (String) map.get("name");
                 if(_name == null) _name = "unknown";
 
                 addUser(_id, _name);

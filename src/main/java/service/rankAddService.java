@@ -23,17 +23,9 @@ public class rankAddService implements Service {
         Map<String, Object> map = jsonUtil.getJson();
 
         String _id = (String) map.get("id");
-        String _pscore = (String) map.get("score");
+        int _score = (int) map.get("score");
         String _replay = (String) map.get("replay_data");
-        int _score;
-
-        if(_pscore != null) {
-            _score = Integer.parseInt(_pscore);            
-        }
-        else {
-            _score = 0;
-        }
-
+        
         // validation on
         Boolean ID_EXIST, SCORE_NEGATIVE;
         int resultType = -1;
@@ -53,6 +45,7 @@ public class rankAddService implements Service {
             msg = jsonUtil.makeResult(resultType, "fail");
         }
 
+        System.out.println("addRank: resultType="+resultType);
         System.out.println("addRank: resultType="+resultType);
         pw.write(msg);
     }
