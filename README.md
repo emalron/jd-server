@@ -29,3 +29,11 @@ test: https://api.emalron.com:8443/jdodge
 > loginCheck  
 > parameter: {cmd: logout}  
 > return: {result: 0, message: "..."}  
+  
+> deleteUser  
+> parameter: {cmd: deleteUser, id: "..."}  
+> return: {result: 0, message: "..."}  
+  
+> alterUserInfo  
+> parameter: {cmd: alterUserInfo, id: "...", name: "...", lang: "..."}  
+> return: {result: 0, message: "..."}  
