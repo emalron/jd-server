@@ -17,7 +17,7 @@ public class Logger {
             System.out.println("in log, " + json);
             RequestBody body = RequestBody.create(mediaType, json);
                         Request request2 = new Request.Builder()
-                        .url("https://hooks.slack.com/services/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")
+                        .url("https://hooks.slack.com/services/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")
                                 .post(body)
                                 .addHeader("Content-Type", "application/json")
                                 .addHeader("Accept", "*/*")
@@ -29,6 +29,7 @@ public class Logger {
                                 .build();
             Response response2 = client2.newCall(request2).execute();
             System.out.println(response2.code());
+            System.out.println(response2.body());
         }
         catch(Exception e) {
             e.printStackTrace();
