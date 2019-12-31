@@ -17,7 +17,7 @@ public class Logger {
             System.out.println("in log, " + json);
             RequestBody body = RequestBody.create(mediaType, json);
                         Request request2 = new Request.Builder()
-                        .url("https://hooks.slack.com/services/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")
+                        .url("https://hooks.slack.com/services/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")
                                 .post(body)
                                 .addHeader("Content-Type", "application/json")
                                 .addHeader("Accept", "*/*")
