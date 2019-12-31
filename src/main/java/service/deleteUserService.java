@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import model.Connector;
 import model.Util;
 
-public class rankAddService implements Service {
+public class deleteUserService implements Service {
+
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter pw = resp.getWriter();
@@ -23,44 +24,44 @@ public class rankAddService implements Service {
         Map<String, Object> map = jsonUtil.getJson();
 
         String _id = (String) map.get("id");
-        int _score = Integer.parseInt((String) map.get("score"));
-        String _replay = (String) map.get("replay_data");
+        String msg = null;
         
         // validation on
-        Boolean ID_EXIST, SCORE_NEGATIVE;
+        Boolean ID_EXIST;
         int resultType = -1;
+        // session validation is needed...? hmmmmm....
 
         ID_EXIST = _id != null && isIDexist(_id);
-        SCORE_NEGATIVE = _score >= 0;
-        
-        if(ID_EXIST && SCORE_NEGATIVE) {
-             resultType = addRank(_score, _replay, _id);
-        }
-
-        String msg = null;
-        if(resultType == 0) {
-            msg = jsonUtil.makeResult(resultType, "result ok");
+        if(ID_EXIST) {
+             resultType = deleteUser(_id);
+             msg = "result ok";
         }
         else {
-            msg = jsonUtil.makeResult(resultType, "fail");
+            msg = "no such id";
+        }
+
+        
+        if(resultType == 0) {
+            msg = jsonUtil.makeResult(resultType, msg);
+        }
+        else {
+            msg = jsonUtil.makeResult(resultType, msg);
         }
 
         pw.write(msg);
     }
 
-    public int addRank(int score, String replay, String id) {
+    private int deleteUser(String id) {
         Connector connector = Connector.getInstance();
         Connection conn = connector.getConnection();
         PreparedStatement pstm = null;
 
-        String sql = "insert into ranks(score, replay_data, users_id) values (?, ?, ?)";
+        String sql = "delete from users where id = ?";
 
         try {
             pstm = conn.prepareStatement(sql);
 
-            pstm.setInt(1, score);
-            pstm.setString(2, replay);
-            pstm.setString(3, id);
+            pstm.setString(1, id);
 
             pstm.executeUpdate();
 

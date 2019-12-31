@@ -56,6 +56,7 @@ public class Controller extends HttpServlet {
 
         Util jsonUtil = Util.getInstance();
         Map<String, Object> map = jsonUtil.getJson(req);
+        
         cmd = (String)map.get("cmd");
         System.out.println("in doHandle: " + map);
         System.out.println("in doHandle: " + cmd);

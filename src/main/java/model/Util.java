@@ -14,9 +14,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import service.Logger;
+
 public class Util {
     private static Util instance;
     private String latest;
+
     private Util() {
         latest = null;
     }
@@ -34,8 +37,10 @@ public class Util {
 
     public Map<String, Object> getJson(HttpServletRequest req) {
         String json = getBody(req, true);
+        Map<String, Object> res = jsonParse(json);
 
-        return jsonParse(json);
+        makeLog(req, res.toString());
+        return res;
     }
 
     public String makeResult(int type, String message) {
@@ -120,5 +125,15 @@ public class Util {
         }
 
         return null;
+    }
+
+    private void makeLog(HttpServletRequest req, String body) {
+        Logger log = new Logger();
+        String ip = req.getRemoteAddr();
+        String result = ip + " " + body;
+
+        System.out.println(result);
+
+        log.test(result);
     }
 }

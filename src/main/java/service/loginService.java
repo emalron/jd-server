@@ -26,22 +26,16 @@ public class loginService implements Service {
         Map<String, Object> map = jsonUtil.getJson();
         
         String _id = (String) map.get("id");
-        String _name = null;
-        
-        Boolean isFirst = session.getAttribute("id") == null;
+        String _name =  getName(_id);
+        if(_name == null) {
+            _name = (String) map.get("name");
+            if(_name == null) _name = "unknown";
 
-        if(isFirst) {
-            _name = getName(_id);
-            if(_name == null) {
-                _name = (String) map.get("name");
-                if(_name == null) _name = "unknown";
-
-                addUser(_id, _name);
-            }
-
-            session.setAttribute("id", _id);
-            session.setAttribute("name", _name);
+            addUser(_id, _name);
         }
+
+        session.setAttribute("id", _id);
+        session.setAttribute("name", _name);
 
         _name = session.getAttribute("name").toString();
 

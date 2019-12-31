@@ -50,6 +50,24 @@
         </form>
     </div>
     <div>
+        <h3>Delete user</h3>
+        <form id="deleteForm">
+            <input type="hidden" name="cmd" value="deleteUser">
+            <input name="id" type="text" placeholder="id">
+            <input type="button" onclick="postForm('deleteForm', result)" value="delete me">
+        </form>
+    </div>
+    <div>
+        <h3>Alter user info</h3>
+        <form id="alterForm">
+            <input type="hidden" name="cmd" value="alterUserInfo">
+            <input name="id" type="text" placeholder="id">
+            <input name="name" type="text" placeholder="name">
+            <input name="lang" type="text" value="ko">
+            <input type="button" onclick="postForm('alterForm', result)" value="change me">
+        </form>
+    </div>
+    <div>
         json test <input type="button" onclick="shot(result)" value="shot!"></input>
     </div>
     <div id="output"></div>
