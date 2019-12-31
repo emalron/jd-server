@@ -12,14 +12,14 @@ public class Logger {
     public void test(String test) {
         try {
             OkHttpClient client2 = new OkHttpClient();
-            MediaType mediaType = MediaType.parse("application/json");
-            String json = "{\"text\": \"" + test + "\"}";
+            MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+            String json = "token=xoxp-890604305414-876930293347-891617813879-3cc6a30802f7b6971772fff55c222cab&channel=CS4JLCF44&text=" + test;
             System.out.println("in log, " + json);
             RequestBody body = RequestBody.create(mediaType, json);
                         Request request2 = new Request.Builder()
-                        .url("https://hooks.slack.com/services/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")
+                        .url("https://slack.com/api/chat.postMessage")
                                 .post(body)
-                                .addHeader("Content-Type", "application/json")
+                                .addHeader("Content-Type", "application/x-www-form-urlencoded")
                                 .addHeader("Accept", "*/*")
                                 .addHeader("Cache-Control", "no-cache")
                                 .addHeader("Host", "hooks.slack.com")
