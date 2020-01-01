@@ -1,6 +1,6 @@
 package service;
 
-import java.net.URLEncoder;
+import java.io.IOException;
 
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
@@ -16,24 +16,37 @@ public class Logger {
     };
 
     public void test(String test) {
+        OkHttpClient client2 = new OkHttpClient();
+        Request request2 = null;
+        RequestBody body = null;
+        Response response2 = null;
+
         try {
-            OkHttpClient client2 = new OkHttpClient();
-            // String text = URLEncoder.encode(test, "utf-8");
             String json = "{\"text\": \"" + test + "\"}";
             System.out.println("in log, " + json);
             MediaType mediaType = MediaType.parse("application/json");
-            RequestBody body = RequestBody.create(mediaType, json);
-            Request request2 = new Request.Builder()
+            body = RequestBody.create(mediaType, json);
+            request2 = new Request.Builder()
                 .url(this.slackHook)
                 .post(body)
                 .addHeader("Content-Type", "application/json")
                 .build();
-            Response response2 = client2.newCall(request2).execute();
-            System.out.println(response2.code());
-            System.out.println(response2.message());
+            response2 = client2.newCall(request2).execute();
+            response2.body().close();
         }
         catch(Exception e) {
             e.printStackTrace();
+        }
+        finally {
+            if(response2 != null) {
+                try {
+                    response2.body().close();
+                }
+                catch(IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            
         }
     }
 }
