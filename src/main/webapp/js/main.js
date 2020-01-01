@@ -19,6 +19,43 @@ var postForm = function(form_id, callback) {
     ajax(str, callback);
 }
 
+var slack = function(form_id) {
+    var fData = new FormData(document.getElementById(form_id));
+    var obj = {};
+    for(var [key, value] of fData.entries()) {
+        obj[key] = value;
+    }
+
+    console.log(obj);
+
+    var token = encodeURIComponent(obj["token"]);
+    var channel = encodeURIComponent(obj["channel"]);
+    var text = encodeURIComponent(obj["text"]);
+
+    console.log(`token ${token}`);
+    console.log(`channel ${channel}`);
+    console.log(`text ${token}`);
+
+    var url = "https://slack.com/api/chat.postMessage?token=" + token + "&channel=" + channel + "&text=" + text;
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+        if(req.readyState == req.DONE) {
+            if(req.status == 200 || req.status == 201) {
+                console.log(req.responseText);
+            }
+            else {
+                console.error(req.responseText);
+            }
+        }
+    }
+
+    req.open('get', url);
+    req.send();
+
+    console.log(`post body: ${body}`);
+}
+
 var shot = function(callback) {
     event.preventDefault();
 

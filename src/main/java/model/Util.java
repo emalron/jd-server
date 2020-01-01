@@ -19,8 +19,11 @@ import service.Logger;
 public class Util {
     private static Util instance;
     private String latest;
+    Logger log;
 
     private Util() {
+        Connector c = Connector.getInstance();
+        this.log = new Logger(c.getSlack());
         latest = null;
     }
 
@@ -128,7 +131,7 @@ public class Util {
     }
 
     private void makeLog(HttpServletRequest req, String body) {
-        Logger log = new Logger();
+        
         String ip = req.getRemoteAddr();
         String result = ip + " " + body;
 

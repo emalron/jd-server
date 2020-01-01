@@ -9,11 +9,11 @@
         </select>        
     </div>
     <div style="float:left; width:50%">
-        <div>
+        <div style="float:left; width:50%">
             <h3>leader board</h3>
             <button onclick="req_by_get()">show all ranks</button>
         </div>
-        <div>
+        <div style="float:left; width:50%">
             <h3>show all users</h3>
             <form id="suserForm">
                 <input type="hidden" name="cmd" value="showAllUsers">
@@ -74,6 +74,15 @@
                 <input name="name" type="text" placeholder="name">
                 <input name="lang" type="text" value="ko">
                 <input type="button" onclick="postForm('alterForm', result)" value="change me">
+            </form>
+        </div>
+        <div>
+            <h3>slack test</h3>
+            <form id="slackForm">
+                <input name="token" type="text" placeholder="token">
+                <input name="channel" type="text" value="#requestlog">
+                <input name="text" type="text" value="text">
+                <input type="button" onclick="slack('slackForm')" value="push">
             </form>
         </div>
         <div>
