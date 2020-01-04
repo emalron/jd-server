@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -61,14 +62,38 @@ public class alterUserInfoService implements Service {
         Connection conn = connector.getConnection();
         PreparedStatement pstm = null;
 
-        String sql = "update users set name=?, lang=? where id = ?";
+        String sql = "update users set "; // name=?, lang=? where id = ?";
+        String seper = "";
+        ArrayList<String> params = new ArrayList<String>();
+
+        params.add("");
+
+        if(name != null) {
+            sql += seper;
+            sql += "name=" + "?";
+            seper = ", ";
+            params.add(name);
+        }
+        if(lang != null) {
+            sql += seper;
+            sql += "lang=" + "?";
+            seper = ", ";
+            params.add(lang);
+        }
+        if(id == null) {
+            return -1;
+        }
+        seper = " ";
+        sql += seper;
+        sql += "where id=" + "?";
+        params.add(id);
 
         try {
             pstm = conn.prepareStatement(sql);
 
-            pstm.setString(1, name);
-            pstm.setString(2, lang);
-            pstm.setString(3, id);
+            for(int i=1; i<params.size(); i++) {
+                pstm.setString(i, params.get(i));
+            }
 
             pstm.executeUpdate();
 
