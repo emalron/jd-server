@@ -28,8 +28,6 @@ public class alterUserInfoService implements Service {
         String _name = (String) map.get("name");
         String _lang = (String) map.get("lang");
 
-        if(_lang == null) _lang = "ko";
-
         String msg = null;
         
         // validation on
@@ -68,19 +66,19 @@ public class alterUserInfoService implements Service {
 
         params.add("");
 
-        if(name != null) {
+        if(name != null && name != "") {
             sql += seper;
             sql += "name=" + "?";
             seper = ", ";
             params.add(name);
         }
-        if(lang != null) {
+        if(lang != null && lang != "") {
             sql += seper;
             sql += "lang=" + "?";
             seper = ", ";
             params.add(lang);
         }
-        if(id == null) {
+        if(id == "") {
             return -1;
         }
         seper = " ";
