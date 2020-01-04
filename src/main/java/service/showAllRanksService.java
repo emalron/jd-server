@@ -60,6 +60,7 @@ public class showAllRanksService implements Service {
                 _rank.setName(rs.getString(2));
                 _rank.setScore(rs.getInt(3));
                 _rank.setReplay_data(rs.getString(4));
+                _rank.setTime(rs.getString(5));
 
                 ranks.add(_rank);
             }

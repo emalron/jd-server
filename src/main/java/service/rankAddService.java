@@ -53,7 +53,7 @@ public class rankAddService implements Service {
         Connection conn = connector.getConnection();
         PreparedStatement pstm = null;
 
-        String sql = "insert into ranks(score, replay_data, users_id) values (?, ?, ?)";
+        String sql = "insert into ranks(score, replay_data, users_id, time) values (?, ?, ?, now())";
 
         try {
             pstm = conn.prepareStatement(sql);

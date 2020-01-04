@@ -4,6 +4,7 @@ public class Rank {
     private String name;
     private int score;
     private String replay_data;
+    private String time;
 
     public String getName() {
         return name;
@@ -29,5 +30,11 @@ public class Rank {
         this.replay_data = replay_data;
     }
 
-    
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 }
