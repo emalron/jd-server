@@ -1,70 +1,58 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import model.Connector;
+import model.Rank;
 
 public class Main {
     public static void main(String[] args) {
-        updateUser(null, "ko", "abc");
+        ArrayList<Rank> ranks = showAlls();
     }
 
-    private static int updateUser(String name, String lang, String id) {
+    public static ArrayList<Rank> showAlls() {
         Connector connector = Connector.getInstance();
         Connection conn = connector.getConnection();
         PreparedStatement pstm = null;
+        ResultSet rs = null;
 
-        String sql = "update users set "; // name=?, lang=? where id = ?";
-        String seper = "";
-        ArrayList<String> params = new ArrayList<String>();
+        String sql = "select rank, name, score, replay_data, time from (";
+            sql += "select name, score, replay_data, time, ";
+            sql += "case when @prev = score then @vRank when @prev := score then @vRank := @vRank+1 end as rank ";
+            sql += "from view_ranking as p, (select @vRank:=0, @prev := null) as r order by score desc ";
+            sql += ") as CNT";
 
-        params.add("");
-
-        if(name != null) {
-            sql += seper;
-            sql += "name=" + "?";
-            seper = ", ";
-            params.add(name);
-        }
-        if(lang != null) {
-            sql += seper;
-            sql += "lang=" + "?";
-            seper = ", ";
-            params.add(lang);
-        }
-        if(id == null) {
-            return -1;
-        }
-        seper = " ";
-        sql += seper;
-        sql += "where id=" + "?";
-        params.add(id);
-
-        String debug = name + " " + lang + " " + id;
-        System.out.println(debug);
-
-        for(int i=1; i<params.size(); i++) {
-            debug = Integer.toString(i) + " " + params.get(i);
-            System.out.println(debug);
-        }
+        ArrayList<Rank> ranks = new ArrayList<Rank>();
 
         try {
             pstm = conn.prepareStatement(sql);
+            rs = pstm.executeQuery();
 
-            for(int i=1; i<params.size(); i++) {
-                pstm.setString(i, params.get(i));
+            while(rs.next()) {
+                Rank _rank = new Rank();
+
+                _rank.setRank(rs.getInt(1));
+                _rank.setName(rs.getString(2));
+                _rank.setScore(rs.getInt(3));
+                _rank.setReplay_data(rs.getString(4));
+                _rank.setTime(rs.getString(5));
+
+                ranks.add(_rank);
+
+                String output = _rank.getRank() + " " + _rank.getName() + " " + _rank.getScore();
+                System.out.println(output);
             }
 
-            pstm.executeUpdate();
-
-            return 0;
+            return ranks;
         }
-        catch(Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
-            return -1;
         }
         finally {
-            connector.close(conn, pstm);
+            connector.close(conn, pstm, rs);
         }
+
+        return null;
     }
 }

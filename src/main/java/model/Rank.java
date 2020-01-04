@@ -1,10 +1,19 @@
 package model;
 
 public class Rank {
+    private int rank;
     private String name;
     private int score;
     private String replay_data;
     private String time;
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
 
     public String getName() {
         return name;

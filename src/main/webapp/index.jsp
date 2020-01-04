@@ -20,11 +20,18 @@
                 <input type="button" onclick="postForm('suserForm', result)" value="show all users">
             </form>
         </div>
-        <div>
+        <div style="float:left; width: 50%">
             <h3>find user</h3>
             <form id="myForm">
-                <input type="hidden" name="cmd" value="searchRank">
-                <input name="name" type="text" placeholder="name"> <input type="button" onclick="postForm('myForm', result)" value="search">
+                <input type="hidden" name="cmd" value="showRanks">
+                <input name="id" type="text" placeholder="id"> <input type="button" onclick="postForm('myForm', result)" value="search">
+            </form>
+        </div>
+        <div style="float:left; width: 50%">
+            <h3>Where I am</h3>
+            <form id="iamForm">
+                <input type="hidden" name="cmd" value="whereIam">
+                <input name="id" type="text" placeholder="id"> <input name="rows_number" type="number"> <input type="button" onclick="postForm('iamForm', result)" value="Where am I?">
             </form>
         </div>
         <div>

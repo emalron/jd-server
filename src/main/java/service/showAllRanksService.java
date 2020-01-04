@@ -47,7 +47,12 @@ public class showAllRanksService implements Service {
         PreparedStatement pstm = null;
         ResultSet rs = null;
 
-        String sql = "select * from view_ranking order by score desc";
+        String sql = "select rank, name, score, replay_data, time from (";
+            sql += "select name, score, replay_data, time, ";
+            sql += "case when @prev = score then @vRank when @prev := score then @vRank := @vRank+1 end as rank ";
+            sql += "from view_ranking as p, (select @vRank:=0, @prev := null) as r order by score desc ";
+            sql += ") as CNT";
+
         ArrayList<Rank> ranks = new ArrayList<Rank>();
 
         try {
@@ -57,6 +62,7 @@ public class showAllRanksService implements Service {
             while(rs.next()) {
                 Rank _rank = new Rank();
 
+                _rank.setRank(rs.getInt(1));
                 _rank.setName(rs.getString(2));
                 _rank.setScore(rs.getInt(3));
                 _rank.setReplay_data(rs.getString(4));
