@@ -1,58 +1,37 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-
-import model.Connector;
-import model.Rank;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpClient.Version;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse.BodyHandlers;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Rank> ranks = showAlls();
-    }
+        String uri = "https://hooks.slack.com/services/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";
 
-    public static ArrayList<Rank> showAlls() {
-        Connector connector = Connector.getInstance();
-        Connection conn = connector.getConnection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
+        String msg = "test";
+        String json = "{\"text\": \""+ msg + "\"}";
 
-        String sql = "select rank, name, score, replay_data, time from (";
-            sql += "select name, score, replay_data, time, ";
-            sql += "case when @prev = score then @vRank when @prev := score then @vRank := @vRank+1 end as rank ";
-            sql += "from view_ranking as p, (select @vRank:=0, @prev := null) as r order by score desc ";
-            sql += ") as CNT";
+        HttpClient client = HttpClient.newBuilder()
+        .version(Version.HTTP_1_1)
+        .build();
 
-        ArrayList<Rank> ranks = new ArrayList<Rank>();
+        HttpRequest request = HttpRequest.newBuilder(URI.create(uri))
+        .header("Content-Type", "application/json")
+        .POST(BodyPublishers.ofString(json))
+        .build();
 
         try {
-            pstm = conn.prepareStatement(sql);
-            rs = pstm.executeQuery();
-
-            while(rs.next()) {
-                Rank _rank = new Rank();
-
-                _rank.setRank(rs.getInt(1));
-                _rank.setName(rs.getString(2));
-                _rank.setScore(rs.getInt(3));
-                _rank.setReplay_data(rs.getString(4));
-                _rank.setTime(rs.getString(5));
-
-                ranks.add(_rank);
-
-                String output = _rank.getRank() + " " + _rank.getName() + " " + _rank.getScore();
-                System.out.println(output);
-            }
-
-            return ranks;
+            client.sendAsync(request, BodyHandlers.ofString())
+            .thenApply(HttpResponse::body)
+            .thenAccept(System.out::println);
+            Thread.sleep(5000);
         }
-        catch (Exception e) {
+        catch(Exception e) {
             e.printStackTrace();
         }
-        finally {
-            connector.close(conn, pstm, rs);
-        }
 
-        return null;
+        
     }
 }

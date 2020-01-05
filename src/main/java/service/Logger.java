@@ -1,12 +1,11 @@
 package service;
 
-import java.io.IOException;
-
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse.BodyHandlers;
 
 public class Logger {
     private static Logger INSTANCE;
@@ -22,38 +21,23 @@ public class Logger {
         }
         return INSTANCE;
     }
-
     public void test(String test) {
-        OkHttpClient client2 = new OkHttpClient();
-        Request request2 = null;
-        RequestBody body = null;
-        Response response2 = null;
+        String json = "{\"text\": \"" + test + "\"}";
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create(this.slackHook))
+            .POST(BodyPublishers.ofString(json))
+            .header("Content-Type", "application/json")
+            .build();
 
         try {
-            String json = "{\"text\": \"" + test + "\"}";
-            System.out.println("in log, " + json);
-            MediaType mediaType = MediaType.parse("application/json");
-            body = RequestBody.create(mediaType, json);
-            request2 = new Request.Builder()
-                .url(this.slackHook)
-                .post(body)
-                .addHeader("Content-Type", "application/json")
-                .build();
-            response2 = client2.newCall(request2).execute();
-            response2.body().close();
+            client.sendAsync(request, BodyHandlers.ofString())
+            .thenApply(HttpResponse::body)
+            .thenAccept(System.out::println);
         }
         catch(Exception e) {
             e.printStackTrace();
-        }
-        finally {
-            if(response2 != null) {
-                try {
-                    response2.body().close();
-                }
-                catch(IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 }
