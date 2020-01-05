@@ -18,7 +18,7 @@ public class Logger {
 
     public static Logger getInstance(String url) {
         if(INSTANCE == null) {
-            return new Logger(url);
+            return INSTANCE = new Logger(url);
         }
         return INSTANCE;
     }

@@ -66,7 +66,7 @@ public class Connector {
             conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
             */
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, password);
         }
         catch(Exception e) {
