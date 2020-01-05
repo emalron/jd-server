@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,8 +21,6 @@ public class loginService implements Service {
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter pw = resp.getWriter();
-        HttpSession session = req.getSession();
-
         Util jsonUtil = Util.getInstance();
         Map<String, Object> map = jsonUtil.getJson();
         
@@ -34,10 +33,12 @@ public class loginService implements Service {
             addUser(_id, _name);
         }
 
-        session.setAttribute("id", _id);
-        session.setAttribute("name", _name);
-
-        _name = session.getAttribute("name").toString();
+        JWT jwt = new JWT();
+        String token = jwt.generate(_id);
+        Cookie cookie = new Cookie("jwt_token", token);
+        
+        cookie.setMaxAge(60*60); // 1 hour
+        resp.addCookie(cookie);
 
         String hello = "Welcome, " + _name;
         String msg = jsonUtil.makeResult(0, hello);

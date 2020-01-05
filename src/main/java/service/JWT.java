@@ -13,17 +13,13 @@ import io.jsonwebtoken.SignatureException;
 import model.Connector;
 
 public class JWT {
-    public String generate() {
+    public String generate(String id) {
         Map<String, Object> headers = new HashMap<>();
         headers.put("typ", "JWT");
         headers.put("alg", "HS256");
 
         Map<String, Object> payloads = new HashMap<>();
-        Long expiredTime = 1000*60*60l; // 1 hour
-        Date now = new Date();
-        now.setTime(now.getTime() + expiredTime);
-        payloads.put("exp", now);
-        payloads.put("data", "can you see me?");
+        payloads.put("id", id);
 
         Connector c = Connector.getInstance();
         String key = c.getJWT();
@@ -37,21 +33,23 @@ public class JWT {
         return jwt;
     }
 
-    public int verify(String jwt){
-        try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey("secret".getBytes("utf-8")).parseClaimsJws(jwt);
+    public String verify(String jwt) {
+        Connector c = Connector.getInstance();
+        String key = c.getJWT();
 
+        try {
+            Claims claims = Jwts.parser()
+            .setSigningKey(key.getBytes())
+            .parseClaimsJws(jwt)
+            .getBody();
+
+            String id = claims.get("id", String.class);
+
+            return id;
         }
         catch(SignatureException e) {
-            return -1;
+            return null;
         }
-        catch(UnsupportedEncodingException e) {
-            return -2;
-        }
-        
-
-        return 0;
-
     }
     
 }
