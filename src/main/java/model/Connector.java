@@ -17,7 +17,7 @@ import org.apache.commons.pool2.impl.GenericObjectPool;
 
 public class Connector {
     private Connection conn;
-    private String driver, url, username, password, slack;
+    private String driver, url, username, password, slack, jwt;
     private Properties props;
 
     private Connector() {
@@ -34,6 +34,10 @@ public class Connector {
 
     public String getSlack() {
         return this.slack;
+    }
+
+    public String getJWT() {
+        return this.jwt;
     }
 
     private void init() {
@@ -53,6 +57,7 @@ public class Connector {
             username = props.getProperty("username");
             password = props.getProperty("password");
             slack = props.getProperty("slack");
+            jwt = props.getProperty("jwt");
         
             // PoolConnFactory.registerJDBCDriver(driver);
             // ConnectionFactory cFactory = PoolConnFactory.getConnFactory(url, username, password);
