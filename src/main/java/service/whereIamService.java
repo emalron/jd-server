@@ -105,15 +105,11 @@ public class whereIamService implements Service {
         PreparedStatement pstm = null;
         ResultSet rs = null;
 
-        // String sql = "select * from view_ranking order by score desc limit " + from + "," + range;
-        // 
-
         String sql = "select (";
         sql += "select count(*) from view_ranking T2 ";
         sql += "where T2.score >= T1.score) rank, name, score, replay_data, time ";
         sql += "from view_ranking as T1 ";
         sql += "order by score desc limit " + from + "," + range;
-        System.out.println("query: " + sql);
 
         ArrayList<Rank> ranks = new ArrayList<Rank>();
 

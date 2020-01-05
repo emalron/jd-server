@@ -17,24 +17,31 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import service.Logger;
 
 public class Util {
-    private static Util instance;
-    private String latest;
+    private String latest = null;
+    private static Util INSTANCE;
     Logger log;
 
     private Util() {
-        Connector c = Connector.getInstance();
-        this.log = new Logger(c.getSlack());
-        latest = null;
+        init();
     }
 
     public static Util getInstance() {
-        if (instance == null) {
-            instance = new Util();
+        if(INSTANCE == null) {
+            System.out.println("Util constructor on");
+            return new Util();
         }
-        return instance;
+        return INSTANCE;
+    }
+
+    private void init() {
+        Connector c = Connector.getInstance();
+        this.log = Logger.getInstance(c.getSlack());
     }
 
     public Map<String, Object> getJson() {
+        if(this.latest == null) {
+            System.out.println("this.latest is null in getJson()");
+        }
         return jsonParse(this.latest);
     }
 
@@ -70,7 +77,6 @@ public class Util {
             ObjectMapper mapper = new ObjectMapper();
             Map<String, Object> map = new HashMap<String, Object>();
             map = mapper.readValue(rawdata, new TypeReference<Map<String, Object>>() {});
-
             return map;
         }
         catch(JsonGenerationException e) {
@@ -91,6 +97,7 @@ public class Util {
         BufferedReader bufferedReader = null;
 
         if(isFirst == false) {
+            System.out.println("getBody false: " + this.latest);
             return this.latest;
         }
 
@@ -111,6 +118,7 @@ public class Util {
             
             body = builder.toString();
             this.latest = body;
+            System.out.println("getBody true: " + this.latest);
             return body;
         }
         catch(IOException e) {
@@ -134,8 +142,6 @@ public class Util {
         
         String ip = req.getRemoteAddr();
         String result = ip + " " + body;
-
-        System.out.println(result);
 
         log.test(result);
     }

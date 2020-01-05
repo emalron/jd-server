@@ -10,7 +10,7 @@ import java.util.Properties;
 import service.Service;;
 
 public class Ignite {
-    private static Map<String, Service> serviceMap;
+    private static Map<String, Service> serviceMap = null;
 
     public static Map<String, Service> getMap() {
         if(serviceMap == null) {

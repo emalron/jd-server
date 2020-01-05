@@ -15,6 +15,13 @@ import service.Service;
 @WebServlet("/service")
 public class Controller extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private Map<String, Service> modelMap = null;
+
+    @Override
+    public void init() throws ServletException {
+        modelMap = Ignite.getMap();
+    }
+
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
             throws ServletException, IOException {
@@ -48,8 +55,6 @@ public class Controller extends HttpServlet {
     }
 
     void doHandle(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
-        Map<String, Service> modelMap = Ignite.getMap();
-
         // get cmd from req
         String cmd = req.getParameter("cmd");
         System.out.println("in doHandle parameter: " + cmd);
@@ -62,11 +67,9 @@ public class Controller extends HttpServlet {
         System.out.println("in doHandle: " + cmd);
 
         // choose the proper class with cmd from the map
-        Service service_ = modelMap.get(cmd);
+        Service service_ = this.modelMap.get(cmd);
 
         // call the process method
         service_.process(req, resp);
     }
-
-
 }

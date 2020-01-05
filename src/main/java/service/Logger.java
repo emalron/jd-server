@@ -9,11 +9,19 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 public class Logger {
+    private static Logger INSTANCE;
     private String slackHook;
 
-    public Logger(String url) {
+    private Logger(String url) {
         this.slackHook = url;
     };
+
+    public static Logger getInstance(String url) {
+        if(INSTANCE == null) {
+            return new Logger(url);
+        }
+        return INSTANCE;
+    }
 
     public void test(String test) {
         OkHttpClient client2 = new OkHttpClient();
@@ -46,7 +54,6 @@ public class Logger {
                     e.printStackTrace();
                 }
             }
-            
         }
     }
 }

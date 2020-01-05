@@ -33,7 +33,7 @@ public class showRanksService implements Service {
 
         Boolean isIDexist = id != null && id != "";
         if(isIDexist) {
-            ranks = search(id);
+            ranks = search(id, mode);
         }
         else {
             ranks = showAll(mode);
@@ -56,7 +56,7 @@ public class showRanksService implements Service {
         pw.write(result);
     }
 
-    public ArrayList<Rank> search(String id) {
+    public ArrayList<Rank> search(String id, String mode) {
         Connector connector = Connector.getInstance();
         Connection conn = connector.getConnection();
         PreparedStatement pstm = null;
@@ -66,7 +66,7 @@ public class showRanksService implements Service {
         sql += "select count(*) from view_ranking T2 ";
         sql += "where T2.score >= T1.score) rank, name, score, replay_data, time ";
         sql += "from view_ranking as T1 ";
-        sql += "where id=? order by rank ";
+        sql += "where id=? order by " + mode;
 
         ArrayList<Rank> ranks = new ArrayList<Rank>();
 
