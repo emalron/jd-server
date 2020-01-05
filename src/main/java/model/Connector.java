@@ -54,7 +54,6 @@ public class Connector {
             password = props.getProperty("password");
             slack = props.getProperty("slack");
         
-            /* Connection pool
             PoolConnFactory.registerJDBCDriver(driver);
             ConnectionFactory cFactory = PoolConnFactory.getConnFactory(url, username, password);
             PoolableConnectionFactory poolFactory = new PoolableConnectionFactory(cFactory, null);
@@ -64,10 +63,9 @@ public class Connector {
             dbcpDriver.registerPool("dbcp-2", connectionPool);
             
             conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
-            */
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(url, username, password);
+            // Class.forName("com.mysql.cj.jdbc.Driver");
+            // conn = DriverManager.getConnection(url, username, password);
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -80,8 +78,8 @@ public class Connector {
                 init();
             }
             if(conn.isClosed()) {
-                // conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
-                conn = DriverManager.getConnection(url, username, password);
+                conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
+                //conn = DriverManager.getConnection(url, username, password);
             }
         }
         catch(Exception e) {
