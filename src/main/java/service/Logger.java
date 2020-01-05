@@ -33,8 +33,9 @@ public class Logger {
 
         try {
             client.sendAsync(request, BodyHandlers.ofString())
-            .thenApply(HttpResponse::body)
-            .thenAccept(System.out::println);
+            .thenAccept(response -> {
+                System.out.println("Slack log: " + response.body());
+            });
         }
         catch(Exception e) {
             e.printStackTrace();

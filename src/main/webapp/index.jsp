@@ -6,6 +6,7 @@
         <select id="urls">
             <option value="https://api.emalron.com:8443">EC2</option>
             <option value="http://localhost:8080" selected>localhost</option>
+            <option value="http://54.180.99.200:8080">GO</option>
         </select>        
     </div>
     <div style="float:left; width:50%">
