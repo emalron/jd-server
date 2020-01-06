@@ -19,7 +19,8 @@ public class Controller extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        modelMap = Ignite.getMap();
+        Ignite ignit = new Ignite();
+        modelMap = ignit.getMap();
     }
 
     @Override
