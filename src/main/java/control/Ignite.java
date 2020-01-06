@@ -2,6 +2,7 @@ package control;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -10,14 +11,20 @@ import java.util.Properties;
 import service.Service;;
 
 public class Ignite {
-    private Map<String, Service> serviceMap = null;
+    private static Map<String, Service> serviceMap = null;
+    private static ArrayList<String> whitelist = null;
 
-    public Map<String, Service> getMap() {
-        if(serviceMap == null) {
-            serviceMap = new HashMap<String, Service>();
+    public Ignite() {
+        whitelist = new ArrayList<String>();
+
+        whitelist.add("https://jsdodge.com");
+    }
+
+    public static void init() {
+        // set map
+        serviceMap = new HashMap<String, Service>();
 
             Properties props = Ignite.getProperties("class.properties");
-
             Iterator iter = props.keySet().iterator();
     
             while(iter.hasNext()) {
@@ -34,7 +41,12 @@ public class Ignite {
                     e.printStackTrace();
                 }
             }
-        }
+        // set white list
+        whitelist = new ArrayList<String>();
+        whitelist.add("https://jsdodge.com");
+    }
+
+    public static Map<String, Service> getMap() {
 
         return serviceMap;
     }
@@ -57,5 +69,9 @@ public class Ignite {
         }
 
         return null;
+    }
+
+    public static ArrayList<String> getWhitelist() {
+        return whitelist;
     }
 }

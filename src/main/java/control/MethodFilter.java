@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -19,9 +20,17 @@ public class MethodFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
+        String origin = "https://api.emalron.com:8443";
+        ArrayList<String> whitelist = Ignite.getWhitelist();
+        for(String url : whitelist) {
+            if(req.getHeader("origin").equals(url)) {
+                origin = req.getHeader("origin");
+            }
+        }
+
         // set CORS off globally
         ((HttpServletResponse) response).setContentType("application/json; charset=utf-8");
-        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "https://api.emalron.com:8443 | https://jsdodge.com | https://jsdodge.com/dist/#/");
+        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", origin);
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Methods", "*");
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Credentials", "true");
         ((HttpServletResponse) response).addHeader("Access-Control-Max-Age", "3600");
