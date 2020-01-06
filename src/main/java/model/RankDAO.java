@@ -1,5 +1,6 @@
 package model;
 
+import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -204,7 +205,9 @@ public class RankDAO {
             sql += "from view_ranking as p, (select @vRank:=0, @prev := null) as r order by score desc ";
             sql += ") as CNT";
 
-        ArrayList<Rank> ranks = new ArrayList<Rank>();
+        
+        WeakReference<ArrayList<Rank>> wr = new WeakReference<ArrayList<Rank>>( new ArrayList<Rank>() );
+        ArrayList<Rank> ranks = wr.get();
 
         try {
             pstm = conn.prepareStatement(sql);

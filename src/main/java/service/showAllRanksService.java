@@ -19,7 +19,7 @@ import model.RankDAO;
 import model.Util;
 
 public class showAllRanksService implements Service {
-    
+
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter pw = resp.getWriter();
@@ -34,6 +34,8 @@ public class showAllRanksService implements Service {
             resultType = 2;
             ObjectMapper mapper = new ObjectMapper();
             jsonString = mapper.writeValueAsString(ranks);
+
+            ranks = null;
         }
         
         result = util.makeResult(resultType, jsonString);
