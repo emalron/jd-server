@@ -40,9 +40,9 @@ public class Ignite {
             }
         // set white list
         whitelist = new HashMap<String, String>();
-        whitelist.put("https://api.emalron.com:8443", ".api.emalron.com");
-        whitelist.put("https://jsdodge.com", ".jsdodge.com");
-        whitelist.put("https://emalron.github.io", ".emalron.github.com");
+        whitelist.put("https://api.emalron.com:8443", "api.emalron.com");
+        whitelist.put("https://jsdodge.com", "jsdodge.com");
+        whitelist.put("https://emalron.github.io", "emalron.github.com");
     }
 
     public static Map<String, Service> getMap() {

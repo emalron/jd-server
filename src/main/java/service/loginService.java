@@ -50,8 +50,9 @@ public class loginService implements Service {
         token.setMaxAge(60*60*24); // 24 hours
         token.setHttpOnly(true);
         token.setDomain(domain);
+        token.setSecure(true);
         resp.addCookie(token);
-        resp.setHeader("SameSite", "None");
+        resp.setHeader("Set-Cookie", "key=value; HttpOnly; SameSite=None");
 
         hello = "Welcome, " + _name;
         msg = jsonUtil.makeResult(0, hello);
