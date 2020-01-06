@@ -20,11 +20,15 @@ public class MethodFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
-        String origin = "https://api.emalron.com:8443";
         ArrayList<String> whitelist = Ignite.getWhitelist();
-        for(String url : whitelist) {
-            if(req.getHeader("origin").equals(url)) {
-                origin = req.getHeader("origin");
+
+        String origin = "https://api.emalron.com:8443";
+        String test = req.getHeader("origin");
+        if(test != null) {
+            for(String url : whitelist) {
+                if(test.equals(url)) {
+                    origin = req.getHeader("origin");
+                }
             }
         }
 
