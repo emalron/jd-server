@@ -1,11 +1,10 @@
 package service;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.jsonwebtoken.Jws;
+import javax.servlet.http.Cookie;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -50,6 +49,45 @@ public class JWT {
         catch(SignatureException e) {
             return null;
         }
+    }
+
+    public Cookie findTokenCookie(Cookie[] cookies) {
+        Cookie token = null;
+
+        if(cookies == null) {
+            return null;
+        }
+        
+        for(Cookie c : cookies) {
+            if(c.getName().equals("jwt_token")) {
+                token = c;
+            }
+        }
+
+        return token;
+    }
+
+    public String findID(Cookie[] cookies) {
+        Cookie token = null;
+        String id = null;
+
+        if(cookies == null) {
+            return null;
+        }
+        
+        for(Cookie c : cookies) {
+            if(c.getName().equals("jwt_token")) {
+                token = c;
+            }
+        }
+
+        if(token == null) {
+            return null;
+        }
+
+        id = this.verify(token.getValue());
+
+        return id;
     }
     
 }

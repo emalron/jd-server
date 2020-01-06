@@ -2,18 +2,14 @@ package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import model.Connector;
+import model.UserDAO;
 import model.Util;
 
 public class loginService implements Service {
@@ -21,76 +17,36 @@ public class loginService implements Service {
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter pw = resp.getWriter();
+        UserDAO userDAO = new UserDAO();
         Util jsonUtil = Util.getInstance();
         Map<String, Object> map = jsonUtil.getJson();
-        
-        String _id = (String) map.get("id");
-        String _name =  getName(_id);
-        if(_name == null) {
-            _name = (String) map.get("name");
-            if(_name == null) _name = "unknown";
-
-            addUser(_id, _name);
-        }
-
         JWT jwt = new JWT();
-        String token = jwt.generate(_id);
-        Cookie cookie = new Cookie("jwt_token", token);
-        
-        cookie.setMaxAge(60*60); // 1 hour
-        resp.addCookie(cookie);
 
-        String hello = "Welcome, " + _name;
-        String msg = jsonUtil.makeResult(0, hello);
-        pw.write(msg);
-    }
+        String _id = null, _name = null, token_value = null, hello = null, msg = null;
+        Cookie token = null;
 
-    private String getName(String id) {
-        Connector connector = Connector.getInstance();
-        Connection conn = connector.getConnection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
+        _id = (String) map.get("id");
+        _name =  userDAO.getName(_id);
 
-        String sql = "select * from users where id = ?";
-        try {
-            pstm = conn.prepareStatement(sql);
-            pstm.setString(1, id);
-            rs = pstm.executeQuery();
+        Boolean new_id_check = _name == null;
+        if(new_id_check) {
+            _name = (String) map.get("name");
 
-            if(rs.next()) {
-                return rs.getString(2);
+            Boolean noName_check = _name == null || _name.isEmpty() || _name.isBlank();
+            if(noName_check) {
+                _name = "unknown";
             }
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            connector.close(conn, pstm, rs);
+
+            userDAO.addUser(_id, _name);
         }
 
-        return null;
-    }
+        token_value = jwt.generate(_id);
+        token = new Cookie("jwt_token", token_value);
+        token.setMaxAge(60*60*24); // 24 hours
+        resp.addCookie(token);
 
-    private void addUser(String id, String name) {
-        Connector connector = Connector.getInstance();
-        Connection conn = connector.getConnection();
-        PreparedStatement pstm = null;
-
-        String sql = "insert into users(id, name) values(?, ?)";
-
-        try {
-            pstm = conn.prepareStatement(sql);
-
-            pstm.setString(1, id);
-            pstm.setString(2, name);
-
-            pstm.executeUpdate();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            connector.close(conn, pstm);
-        }
+        hello = "Welcome, " + _name;
+        msg = jsonUtil.makeResult(0, hello);
+        pw.write(msg);
     }
 }

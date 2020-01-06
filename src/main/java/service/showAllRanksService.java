@@ -15,71 +15,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.Connector;
 import model.Rank;
+import model.RankDAO;
 import model.Util;
 
 public class showAllRanksService implements Service {
+    
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter pw = resp.getWriter();
-
-        ArrayList<Rank> ranks = showAll();
-
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(ranks);
-
-        int resultType = 2;
-        String result = null;
-
-        if (ranks == null) {
-            resultType = -1;
-            jsonString = "no ranks";
-        }
-
         Util util = Util.getInstance();
+        RankDAO rankDAO = new RankDAO();
+
+        int resultType = -1;
+        String result = null, jsonString = "no ranks";
+
+        ArrayList<Rank> ranks = rankDAO.showAllwithRanking();
+        if (ranks != null) {
+            resultType = 2;
+            ObjectMapper mapper = new ObjectMapper();
+            jsonString = mapper.writeValueAsString(ranks);
+        }
+        
         result = util.makeResult(resultType, jsonString);
-
         pw.write(result);
-    }
-
-    public ArrayList<Rank> showAll() {
-        Connector connector = Connector.getInstance();
-        Connection conn = connector.getConnection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-
-        String sql = "select rank, name, score, replay_data, time from (";
-            sql += "select name, score, replay_data, time, ";
-            sql += "case when @prev = score then @vRank when @prev := score then @vRank := @vRank+1 end as rank ";
-            sql += "from view_ranking as p, (select @vRank:=0, @prev := null) as r order by score desc ";
-            sql += ") as CNT";
-
-        ArrayList<Rank> ranks = new ArrayList<Rank>();
-
-        try {
-            pstm = conn.prepareStatement(sql);
-            rs = pstm.executeQuery();
-
-            while(rs.next()) {
-                Rank _rank = new Rank();
-
-                _rank.setRank(rs.getInt(1));
-                _rank.setName(rs.getString(2));
-                _rank.setScore(rs.getInt(3));
-                _rank.setReplay_data(rs.getString(4));
-                _rank.setTime(rs.getString(5));
-
-                ranks.add(_rank);
-            }
-
-            return ranks;
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            connector.close(conn, pstm, rs);
-        }
-
-        return null;
     }
 }
