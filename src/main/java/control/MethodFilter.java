@@ -28,7 +28,7 @@ public class MethodFilter implements Filter {
         if(whitelist.containsKey(test)) {
             origin = "*";
         }
-        if(test.contains("localhost")) {
+        if(test != null && test.contains("localhost")) {
             origin = "*";
         }
 
