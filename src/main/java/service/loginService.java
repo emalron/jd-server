@@ -44,7 +44,7 @@ public class loginService implements Service {
         token = new Cookie("jwt_token", token_value);
         token.setMaxAge(60*60*24); // 24 hours
         token.setHttpOnly(true);
-        token.setDomain(req.getServerName());
+        token.setDomain(req.getHeader("origin"));
         token.setPath("/");
         resp.addCookie(token);
 
