@@ -31,7 +31,7 @@ public class loginCheckService implements Service {
         int resultType = -1;
 
         token = (String) map.get("jwt");
-        id = jwt.verify(token);
+        if(token != null ) id = jwt.verify(token);
 
         Boolean isLogin = id != null;
         if(isLogin) {
