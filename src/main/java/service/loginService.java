@@ -2,6 +2,7 @@ package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import control.Ignite;
 import model.UserDAO;
 import model.Util;
 
@@ -40,14 +42,14 @@ public class loginService implements Service {
             userDAO.addUser(_id, _name);
         }
 
-        System.out.println("[1] " + req.getHeader("origin"));
-        System.out.println("[2] " + req.getHeader("referer"));
+        HashMap<String, String> whitelist = Ignite.getWhitelist();
+        String domain = whitelist.get(req.getHeader("origin"));
 
         token_value = jwt.generate(_id);
         token = new Cookie("jwt_token", token_value);
         token.setMaxAge(60*60*24); // 24 hours
         token.setHttpOnly(true);
-        token.setDomain(req.getHeader("referer"));
+        token.setDomain(domain);
         token.setPath("/");
         resp.addCookie(token);
 

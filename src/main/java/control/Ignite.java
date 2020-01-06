@@ -12,13 +12,10 @@ import service.Service;;
 
 public class Ignite {
     private static Map<String, Service> serviceMap = null;
-    private static ArrayList<String> whitelist = null;
+    private static HashMap<String, String> whitelist = null;
 
     public Ignite() {
-        whitelist = new ArrayList<String>();
-
-        whitelist.add("https://jsdodge.com");
-        whitelist.add("https://emalron.github.io");
+        
     }
 
     public static void init() {
@@ -43,8 +40,10 @@ public class Ignite {
                 }
             }
         // set white list
-        whitelist = new ArrayList<String>();
-        whitelist.add("https://jsdodge.com");
+        whitelist = new HashMap<String, String>();
+        whitelist.put("https://api.emalron.com:8443", "api.emalron.com");
+        whitelist.put("https://jsdodge.com", "jsdodge.com");
+        whitelist.put("https://emalron.github.io", "emalron.github.com");
     }
 
     public static Map<String, Service> getMap() {
@@ -72,7 +71,7 @@ public class Ignite {
         return null;
     }
 
-    public static ArrayList<String> getWhitelist() {
+    public static HashMap<String, String> getWhitelist() {
         return whitelist;
     }
 }

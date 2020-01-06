@@ -1,7 +1,7 @@
 package control;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -20,16 +20,13 @@ public class MethodFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
-        ArrayList<String> whitelist = Ignite.getWhitelist();
+        HashMap<String, String> whitelist = Ignite.getWhitelist();
 
         String origin = "https://api.emalron.com:8443";
         String test = req.getHeader("origin");
-        if(test != null) {
-            for(String url : whitelist) {
-                if(test.equals(url)) {
-                    origin = req.getHeader("origin");
-                }
-            }
+        
+        if(whitelist.containsKey(test)) {
+            origin = test;
         }
 
         // set CORS off globally
