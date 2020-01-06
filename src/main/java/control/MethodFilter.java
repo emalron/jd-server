@@ -26,7 +26,7 @@ public class MethodFilter implements Filter {
         String test = req.getHeader("origin");
 
         if(whitelist.containsKey(test)) {
-            origin = test;
+            origin = "*";
         }
         if(test.contains("localhost")) {
             origin = "*";
