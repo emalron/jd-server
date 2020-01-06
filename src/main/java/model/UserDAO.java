@@ -41,6 +41,35 @@ public class UserDAO {
         return null;
     }
 
+    public User getUserInfo(String id) {
+        conn = connector.getConnection();
+
+        String sql = "select * from users where id = ?";
+        try {
+            pstm = conn.prepareStatement(sql);
+            pstm.setString(1, id);
+            rs = pstm.executeQuery();
+
+            if(rs.next()) {
+                User user_ = new User();
+                
+                user_.setId(rs.getString(1));
+                user_.setName(rs.getString(2));
+                user_.setLang(rs.getString(3));
+
+                return user_;
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            connector.close(conn, pstm, rs);
+        }
+
+        return null;
+    }
+
     public void addUser(String id, String name) {
         conn = connector.getConnection();
         pstm = null;

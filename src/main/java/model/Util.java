@@ -88,6 +88,20 @@ public class Util {
         return output;
     }
 
+    public String makeResult(Object result) {
+        String output = null;
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            output = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
+        }
+        catch(JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return output;
+    }
+
     private Map<String, Object> jsonParse(String rawdata) {
         try {
             ObjectMapper mapper = new ObjectMapper();
