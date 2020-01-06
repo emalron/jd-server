@@ -41,6 +41,7 @@ public class loginService implements Service {
         }
 
         System.out.println("URL: " + req.getRequestURL());
+        System.out.println("SERVER: " + req.getServerName());
 
         token_value = jwt.generate(_id);
         token = new Cookie("jwt_token", token_value);
