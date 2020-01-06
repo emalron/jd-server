@@ -6,7 +6,7 @@ var result = function(input) {
     var obj = JSON.parse(input);
     var type = obj.result;
 
-    if(!obj.jwt) {
+    if(!obj.jwt && obj.jwt != "undefined") {
         console.log(`jwt: ${obj.jwt}`);
         data.jwt_token = obj.jwt;
 

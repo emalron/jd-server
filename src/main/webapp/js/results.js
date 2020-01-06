@@ -6,6 +6,12 @@ var result = function(input) {
     var obj = JSON.parse(input);
     var type = obj.result;
 
+    if(!obj.jwt && obj.jwt != "undefined") {
+        console.log(`jwt: ${obj.jwt}`);
+        data.jwt_token = obj.jwt;
+
+    }
+
     var data = obj.message;
     if(type == -1 || type == 0 || type == 1) {
         output.innerHTML = obj.message;
@@ -20,10 +26,6 @@ var result = function(input) {
             }
             output.innerHTML += "<br>";
         }
-    }
-
-    if(!obj.jwt) {
-        jwt_token = obj.jwt;
     }
 }
 
