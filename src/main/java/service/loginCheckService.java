@@ -44,12 +44,13 @@ public class loginCheckService implements Service {
         
         output.put("result", resultType);
         output.put("message", msg);
-        
-
-        result = 
-        
+        result = util.makeResult(output);
 
         pw.write(result);
+
+        result = null;
+        mapper = null;
+        output = null;
     }
     
     
