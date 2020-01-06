@@ -40,11 +40,14 @@ public class loginService implements Service {
             userDAO.addUser(_id, _name);
         }
 
+        System.out.println("[1] " + req.getHeader("origin"));
+        System.out.println("[2] " + req.getHeader("referer"));
+
         token_value = jwt.generate(_id);
         token = new Cookie("jwt_token", token_value);
         token.setMaxAge(60*60*24); // 24 hours
         token.setHttpOnly(true);
-        token.setDomain(req.getHeader("origin"));
+        token.setDomain(req.getHeader("referer"));
         token.setPath("/");
         resp.addCookie(token);
 
