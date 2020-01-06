@@ -21,7 +21,7 @@ public class rankAddService implements Service {
         RankDAO rankDAO = new RankDAO();
         JWT jwt = new JWT();
 
-        String _id = jwt.findID(req.getCookies());
+        String _id = (String) map.get("id");
         int _score = Integer.parseInt((String) map.get("score"));
         String _replay = (String) map.get("replay_data");
         

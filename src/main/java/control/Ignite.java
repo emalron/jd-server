@@ -44,9 +44,11 @@ public class Ignite {
 
     private static void setList() {
         whitelist = new HashMap<String, String>();
-        whitelist.put("https://api.emalron.com:8443", "api.emalron.com");
-        whitelist.put("https://jsdodge.com", "jsdodge.com");
-        whitelist.put("https://emalron.github.io", "emalron.github.com");
+        whitelist.put("https://api.emalron.com:8443", "https://api.emalron.com:8443");
+        whitelist.put("https://jsdodge.com", "https://jsdodge.com");
+        whitelist.put("https://emalron.github.io", "https://emalron.github.io");
+        whitelist.put("http://localhost:8080", "*");
+        whitelist.put("http://localhost:9000", "*");
     }
 
     public static Map<String, Service> getMap() {

@@ -2,6 +2,7 @@ package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,8 @@ public class deleteUserService implements Service {
     @Override
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Util jsonUtil = Util.getInstance();
+        Map<String, Object> map = jsonUtil.getJson();
+        
         PrintWriter pw = resp.getWriter();
         RankDAO rankDAO = new RankDAO();
         UserDAO userDAO = new UserDAO();
@@ -25,7 +28,7 @@ public class deleteUserService implements Service {
         int resultType = -1, status = -1;
 
         // validation on
-        _id = jwt.findID(req.getCookies());
+        _id = (String) map.get("id");
 
         Boolean id_exist_check = _id != null;
         if(id_exist_check) {

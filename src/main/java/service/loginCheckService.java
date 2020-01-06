@@ -2,10 +2,14 @@ package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.UserDAO;
 import model.Util;
@@ -17,24 +21,33 @@ public class loginCheckService implements Service {
         PrintWriter pw = resp.getWriter();
         UserDAO userDAO = new UserDAO();
         Util util = Util.getInstance();
+        Map<String, Object> map = util.getJson();
+        HashMap<String, Object> output = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+
         JWT jwt = new JWT();
 
-        String id = null, name = null, msg = null, result = null;
+        String id = null, token = null, name = null, result = null, msg = "no login";
+        int resultType = -1;
 
-        //find id from token cookie
-        id = jwt.findID(req.getCookies());
+        token = (String) map.get("jwt");
+        id = jwt.verify(token);
 
         Boolean isLogin = id != null;
         if(isLogin) {
             name = userDAO.getName(id);
             msg = "Welcome back, " + name;
             
-            result = util.makeResult(0, msg);
+            resultType = 0;
         }
-        else {
-            msg = "no login";
-            result = util.makeResult(-1, msg);
-        }
+
+        
+        output.put("result", resultType);
+        output.put("message", msg);
+        
+
+        result = 
+        
 
         pw.write(result);
     }

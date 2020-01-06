@@ -24,7 +24,7 @@ public class alterUserInfoService implements Service {
         String _id = null, _name = null, _lang =null, msg = null;
         int resultType = -1;
 
-        _id = jwt.findID(req.getCookies());
+        _id = (String) map.get("id");
         _name = (String) map.get("name");
         _lang = (String) map.get("lang");
 
