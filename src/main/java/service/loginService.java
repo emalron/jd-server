@@ -40,14 +40,11 @@ public class loginService implements Service {
             userDAO.addUser(_id, _name);
         }
 
-        String uri = req.getRequestURI();
-        System.out.println(uri);
-
         token_value = jwt.generate(_id);
         token = new Cookie("jwt_token", token_value);
         token.setMaxAge(60*60*24); // 24 hours
         token.setHttpOnly(true);
-        token.setPath("/");
+        token.setDomain("jsdodge.com");
         resp.addCookie(token);
 
         hello = "Welcome, " + _name;
