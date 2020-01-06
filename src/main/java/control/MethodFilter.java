@@ -21,8 +21,9 @@ public class MethodFilter implements Filter {
 
         // set CORS off globally
         ((HttpServletResponse) response).setContentType("application/json; charset=utf-8");
-        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "*");
+        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "https://api.emalron.com:8443, https://jsdodge.com");
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Methods", "*");
+        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Credentials", "true");
         ((HttpServletResponse) response).addHeader("Access-Control-Max-Age", "3600");
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With");
 
