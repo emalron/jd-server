@@ -2,7 +2,6 @@ package control;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -42,7 +41,7 @@ public class Ignite {
         // set white list
         whitelist = new HashMap<String, String>();
         whitelist.put("https://api.emalron.com:8443", "api.emalron.com");
-        whitelist.put("https://jsdodge.com", "jsdodge.com");
+        whitelist.put("https://jsdodge.com", "jsdodge.com/dist/#/");
         whitelist.put("https://emalron.github.io", "emalron.github.com");
     }
 
