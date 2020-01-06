@@ -19,12 +19,14 @@ public class alterUserInfoService implements Service {
         Util jsonUtil = Util.getInstance();
         Map<String, Object> map = jsonUtil.getJson();
         UserDAO userDAO = new UserDAO();
+        
         JWT jwt = new JWT();
 
-        String _id = null, _name = null, _lang =null, msg = null;
+        String _token = null, _id = null, _name = null, _lang =null, msg = null;
         int resultType = -1;
 
-        _id = (String) map.get("id");
+        _token = (String) map.get("jwt");
+        _id = jwt.verify(_token);
         _name = (String) map.get("name");
         _lang = (String) map.get("lang");
 

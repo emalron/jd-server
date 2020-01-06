@@ -6,6 +6,12 @@ var result = function(input) {
     var obj = JSON.parse(input);
     var type = obj.result;
 
+    if(!obj.jwt) {
+        console.log(`jwt: ${obj.jwt}`);
+        data.jwt_token = obj.jwt;
+
+    }
+
     var data = obj.message;
     if(type == -1 || type == 0 || type == 1) {
         output.innerHTML = obj.message;
@@ -22,9 +28,7 @@ var result = function(input) {
         }
     }
 
-    if(!obj.jwt) {
-        jwt_token = obj.jwt;
-    }
+
 }
 
 var loginResult = function(input) {
