@@ -18,6 +18,7 @@ public class Ignite {
         whitelist = new ArrayList<String>();
 
         whitelist.add("https://jsdodge.com");
+        whitelist.add("https://emalron.github.io");
     }
 
     public static void init() {
