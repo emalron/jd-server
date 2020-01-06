@@ -20,6 +20,7 @@ public class Logger {
         }
         return INSTANCE;
     }
+    
     public void test(String test) {
         String json = "{\"text\": \"" + test + "\"}";
 
