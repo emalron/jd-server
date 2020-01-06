@@ -44,7 +44,8 @@ public class loginService implements Service {
         token = new Cookie("jwt_token", token_value);
         token.setMaxAge(60*60*24); // 24 hours
         token.setHttpOnly(true);
-        token.setDomain("jsdodge.com");
+        token.setDomain(".jsdodge.com");
+        token.setPath("/");
         resp.addCookie(token);
 
         hello = "Welcome, " + _name;
