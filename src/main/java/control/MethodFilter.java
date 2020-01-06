@@ -22,19 +22,17 @@ public class MethodFilter implements Filter {
 
         HashMap<String, String> whitelist = Ignite.getWhitelist();
 
-        String origin = "https://api.emalron.com:8443";
         String test = req.getHeader("origin");
 
         if(whitelist.containsKey(test)) {
-            origin = "*";
+            ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", test);
         }
         if(test != null && test.contains("localhost")) {
-            origin = "*";
+            ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "*");
         }
 
         // set CORS off globally
         ((HttpServletResponse) response).setContentType("application/json; charset=utf-8");
-        ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", origin);
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Methods", "*");
         ((HttpServletResponse) response).addHeader("Access-Control-Max-Age", "3600");
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With");

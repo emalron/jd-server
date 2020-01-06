@@ -11,6 +11,7 @@ var result = function(input) {
         output.innerHTML = obj.message;
         return obj.message;
     }
+
     else if(type == 2) {
         for(var i=0; i < data.length; i++) {
             for(var key in data[i]) {
@@ -19,6 +20,10 @@ var result = function(input) {
             }
             output.innerHTML += "<br>";
         }
+    }
+
+    if(!obj.jwt) {
+        jwt_token = obj.jwt;
     }
 }
 

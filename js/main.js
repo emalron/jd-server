@@ -13,6 +13,7 @@ var postForm = function(form_id, callback) {
     for(var [key, value] of fData.entries()) {
         obj[key] = value;
     }
+    if(jwt_token) obj["jwt"] = jwt_token;
 
     var str = JSON.stringify(obj);
 
@@ -67,7 +68,7 @@ var shot = function(callback) {
 
 window.onload = function() {
     this.setUrl();
-    var str = JSON.stringify({cmd:"loginCheck"});
+    var str = JSON.stringify({cmd:"loginCheck", jwt:this.jwt_token});
 
     this.ajax(str, this.loginResult);
 }
@@ -135,3 +136,5 @@ function getCookie(cname) {
   }
 
 document.getElementById("urls").onchange = url_save;
+
+var jwt_token = null;
