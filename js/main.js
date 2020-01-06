@@ -78,8 +78,8 @@ var ajax = function(body, callback) {
     var url = `${base_url}/jdodge/service`;
 
     var req = new XMLHttpRequest();
-    req.withCredentials = true;
-    
+    // req.withCredentials = true;
+
     req.onreadystatechange = function() {
         if(req.readyState == req.DONE) {
             if(req.status == 200 || req.status == 201) {
