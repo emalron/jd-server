@@ -1,10 +1,15 @@
 var data = {
+    isLogin: false,
     jwt_token: "token_here"
 };
 
 
 var req_by_get = function() {
-    tmp = {cmd: "showAllRanks", jwt: document.jwt_token}
+    tmp = {cmd: "showAllRanks"};
+    if(data.isLogin) {
+        tmp["jwt"] = data.jwt_token;
+    }
+
     str = JSON.stringify(tmp);
 
     ajax(str, result);
@@ -18,7 +23,10 @@ var postForm = function(form_id, callback) {
     for(var [key, value] of fData.entries()) {
         obj[key] = value;
     }
-    if(data.jwt_token != "token_here") obj["jwt"] = data.jwt_token;
+
+    if(data.isLogin) {
+        obj["jwt"] = data.jwt_token;
+    }
 
     var str = JSON.stringify(obj);
 

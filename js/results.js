@@ -6,10 +6,10 @@ var result = function(input) {
     var obj = JSON.parse(input);
     var type = obj.result;
 
-    if(!obj.jwt && obj.jwt != "undefined") {
+    if(!isEmpty(obj.jwt)) {
         console.log(`jwt: ${obj.jwt}`);
+        data.isLogin = true;
         data.jwt_token = obj.jwt;
-
     }
 
     var data = obj.message;
@@ -30,6 +30,15 @@ var result = function(input) {
 
 
 }
+
+var isEmpty = function(value) {
+    if(value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length)) {
+         return true;
+    }
+    else {
+        return false
+    }
+};
 
 var loginResult = function(input) {
     var res = result(input);

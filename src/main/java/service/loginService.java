@@ -39,6 +39,7 @@ public class loginService implements Service {
 
             userDAO.addUser(_id, _name);
 
+            _user = new User();
             _user.setId(_id);
             _user.setName(_name);
             _user.setLang("ko");
