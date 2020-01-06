@@ -79,7 +79,7 @@ public class Util {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
-            output = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
+            output = mapper.writeValueAsString(result);
         }
         catch(JsonProcessingException e) {
             e.printStackTrace();
@@ -93,7 +93,7 @@ public class Util {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
-            output = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
+            output = mapper.writeValueAsString(result);
         }
         catch(JsonProcessingException e) {
             e.printStackTrace();

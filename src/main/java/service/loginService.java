@@ -44,17 +44,12 @@ public class loginService implements Service {
             _user.setName(_name);
             _user.setLang("ko");
         }
-
-        hello = jsonUtil.makeResult(_user);
-        hello = "\\" + hello + "\\";
-        hello.replace("\\", "\\");
-
         token_value = jwt.generate(_id);
         HashMap<String, Object> result = new HashMap<>();
 
         result.put("result", 0);
         result.put("jwt", token_value);
-        result.put("message", hello);
+        result.put("message", _user);
 
         msg = jsonUtil.makeResult(result);
         pw.write(msg);
