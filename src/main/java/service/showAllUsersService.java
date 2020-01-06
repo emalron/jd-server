@@ -32,6 +32,8 @@ public class showAllUsersService implements Service {
         if(users != null) {
             resultType = 2;
             jsonString = mapper.writeValueAsString(users);
+            
+            users = null;
         }
         
         result = util.makeResult(resultType, jsonString);

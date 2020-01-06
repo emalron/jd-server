@@ -45,10 +45,12 @@ public class showRanksService implements Service {
         }
 
         if(ranks != null) {
+            resultType = 2;
+
             ObjectMapper mapper = new ObjectMapper();
             jsonString = mapper.writeValueAsString(ranks);
 
-            resultType = 2;
+            ranks = null;
         }
 
         result = util.makeResult(resultType, jsonString);
