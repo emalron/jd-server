@@ -46,13 +46,8 @@ public class loginService implements Service {
         String domain = whitelist.get(req.getHeader("origin"));
 
         token_value = jwt.generate(_id);
-        token = new Cookie("jwt_token", token_value);
-        token.setMaxAge(60*60*24); // 24 hours
-        token.setHttpOnly(true);
-        token.setDomain(domain);
-        token.setSecure(true);
-        resp.addCookie(token);
-        resp.setHeader("Set-Cookie", "key=value; HttpOnly; SameSite=None");
+        String header = "jwt_token=" + token_value + "; Domain=" + domain + " HttpOnly; Secure; SameSite=None";
+        resp.setHeader("Set-Cookie", header);
 
         hello = "Welcome, " + _name;
         msg = jsonUtil.makeResult(0, hello);
