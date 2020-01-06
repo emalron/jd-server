@@ -208,7 +208,7 @@ public class RankDAO {
         
         WeakReference<ArrayList<Rank>> wr = new WeakReference<ArrayList<Rank>>( new ArrayList<Rank>() );
         ArrayList<Rank> ranks = wr.get();
-
+        
         try {
             pstm = conn.prepareStatement(sql);
             rs = pstm.executeQuery();
