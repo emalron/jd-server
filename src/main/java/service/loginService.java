@@ -46,6 +46,8 @@ public class loginService implements Service {
         }
 
         hello = jsonUtil.makeResult(_user);
+        StringBuilder sb = new StringBuilder();
+        hello = sb.append("\"").append(hello).append("\"").toString();
 
         token_value = jwt.generate(_id);
         HashMap<String, Object> result = new HashMap<>();
