@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -71,6 +72,20 @@ public class Util {
 
         // msg = "{\"result\":"  + type + ", \"message\": \"" + message +"\"}";
         return msg;
+    }
+
+    public String makeResult(HashMap<String, Object> result) {
+        String output = null;
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            output = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
+        }
+        catch(JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return output;
     }
 
     private Map<String, Object> jsonParse(String rawdata) {

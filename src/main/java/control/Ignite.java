@@ -38,7 +38,11 @@ public class Ignite {
                     e.printStackTrace();
                 }
             }
-        // set white list
+
+            if(whitelist == null) setList();
+    }
+
+    private static void setList() {
         whitelist = new HashMap<String, String>();
         whitelist.put("https://api.emalron.com:8443", "api.emalron.com");
         whitelist.put("https://jsdodge.com", "jsdodge.com");
@@ -71,6 +75,9 @@ public class Ignite {
     }
 
     public static HashMap<String, String> getWhitelist() {
+        if(whitelist == null) {
+            setList();
+        }
         return whitelist;
     }
 }

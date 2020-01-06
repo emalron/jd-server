@@ -24,6 +24,12 @@ public class MethodFilter implements Filter {
 
         String origin = "https://api.emalron.com:8443";
         String test = req.getHeader("origin");
+
+        System.out.println("[filter] test" + test);
+        System.out.println("[filter] req" + req);
+        if(test == null) {
+            test = "localhost";
+        }
         
         if(whitelist.containsKey(test)) {
             origin = test;
