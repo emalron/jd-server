@@ -23,7 +23,7 @@ public class loginService implements Service {
         Map<String, Object> map = jsonUtil.getJson();
         JWT jwt = new JWT();
 
-        String _id = null, _name = null, token_value = null, hello = null, msg = null;
+        String _id = null, _name = null, _lang = null, token_value = null, hello = null, msg = null;
 
         _id = (String) map.get("id");
         User _user =  userDAO.getUserInfo(_id);
@@ -31,6 +31,8 @@ public class loginService implements Service {
         Boolean new_id_check = _user == null;
         if(new_id_check) {
             _name = (String) map.get("name");
+            _lang = (String) map.get("lang");
+            if(_lang == null) _lang = "ko";
 
             Boolean noName_check = _name == null || _name.isEmpty() || _name.isBlank();
             if(noName_check) {
@@ -45,12 +47,17 @@ public class loginService implements Service {
             _user.setLang("ko");
         }
         
-        token_value = jwt.generate(_id);
         HashMap<String, Object> result = new HashMap<>();
+        HashMap<String, Object> data = new HashMap<>();
+
+        token_value = jwt.generate(_id);
+        data.put("name", _user.getName());
+        data.put("lang", _user.getLang());
+        data.put("jwt", token_value);
 
         result.put("result", 0);
-        result.put("jwt", token_value);
-        result.put("message", _user);
+        result.put("message", "ok");
+        result.put("data", data);
 
         msg = jsonUtil.makeResult(result);
         pw.write(msg);
