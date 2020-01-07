@@ -14,7 +14,25 @@ var result = function(input) {
 
     var data = obj.message;
     if(type == -1 || type == 0 || type == 1) {
-        output.innerHTML = obj.message;
+        if(obj.message.constructor == Object) {
+            for(var d in data) {
+                var str = `${d}: ${data[d]} `;
+                output.innerHTML += str;
+                output.innerHTML += "<br>";
+            }
+        }
+        else if (obj.message.constructor == Array) {
+            for(var i=0; i < data.length; i++) {
+                for(var key in data[i]) {
+                    var str = `${data[i][key]} `;
+                    output.innerHTML += str;
+                }
+                output.innerHTML += "<br>";
+            }
+        }
+        else {
+            output.innerHTML = obj.message;
+        }
         return obj.message;
     }
 

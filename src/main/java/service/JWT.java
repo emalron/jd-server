@@ -34,6 +34,8 @@ public class JWT {
         Connector c = Connector.getInstance();
         String key = c.getJWT();
 
+        if(jwt == null) return null;
+
         try {
             Claims claims = Jwts.parser()
             .setSigningKey(key.getBytes())

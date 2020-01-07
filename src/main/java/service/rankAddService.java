@@ -21,7 +21,9 @@ public class rankAddService implements Service {
         RankDAO rankDAO = new RankDAO();
         JWT jwt = new JWT();
 
-        String _id = (String) map.get("id");
+        String token = (String) map.get("jwt");
+        String _id = jwt.verify(token);
+        
         int _score = Integer.parseInt((String) map.get("score"));
         String _replay = (String) map.get("replay_data");
         
