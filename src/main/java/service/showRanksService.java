@@ -9,11 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import model.Rank;
 import model.RankDAO;
-import model.UserDAO;
 import model.Util;
 
 public class showRanksService implements Service {
@@ -23,7 +20,6 @@ public class showRanksService implements Service {
         Util util = Util.getInstance();
         Map<String, Object> map = util.getJson();
         RankDAO rankDAO = new RankDAO();
-        UserDAO userDAO = new UserDAO();
         
         int resultType = -1;
         String result = null, msg = "fail";

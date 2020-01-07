@@ -9,8 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import model.Rank;
 import model.RankDAO;
 import model.Util;
@@ -20,13 +18,12 @@ public class whereIamService implements Service {
     public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter pw = resp.getWriter();
         Util util = Util.getInstance();
-        ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> map = util.getJson();
         RankDAO rankDAO = new RankDAO();
         JWT jwt = new JWT();
 
         int resultType = -1, rows_number = 10;
-        String jsonString = "no ranks", result = null;
+        String msg = "fail", result = null;
         ArrayList<Rank> ranks = null;
 
         String temp_row_number = (String) map.get("rows_number");
@@ -48,11 +45,19 @@ public class whereIamService implements Service {
                 ranks = rankDAO.searchRange(start, rows_number);
 
                 resultType = 2;
-                jsonString = mapper.writeValueAsString(ranks);
+                msg = "ok";
             }
         }
+        if(resultType == -1) {
+            resp.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
+        }
 
-        result = util.makeResult(resultType, jsonString);
+        map.clear();
+        map.put("result", resultType);
+        map.put("message", msg);
+        map.put("data", ranks);
+
+        result = util.makeResult(map);
         pw.write(result);
     }
 }

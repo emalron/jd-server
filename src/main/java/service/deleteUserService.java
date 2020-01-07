@@ -2,6 +2,7 @@ package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -22,9 +23,8 @@ public class deleteUserService implements Service {
         PrintWriter pw = resp.getWriter();
         RankDAO rankDAO = new RankDAO();
         UserDAO userDAO = new UserDAO();
-        JWT jwt = new JWT();
 
-        String _id = null, msg = null;
+        String _id = null, msg = "fail";
         int resultType = -1, status = -1;
 
         // validation on
@@ -37,14 +37,18 @@ public class deleteUserService implements Service {
             
             if(status  == 0) {
                 resultType = userDAO.deleteUser(_id);
-                msg = "result ok";
+                msg = "ok";
             }
         }
         else {
-            msg = "no such id";
+            resp.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
         }
 
-        msg = jsonUtil.makeResult(resultType, msg);
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("result", resultType);
+        result.put("message", msg);
+
+        msg = jsonUtil.makeResult(result);
         pw.write(msg);
     }
 

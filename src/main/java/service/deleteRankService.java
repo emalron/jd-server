@@ -2,6 +2,7 @@ package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -22,7 +23,7 @@ public class deleteRankService implements Service {
         UserDAO userDAO = new UserDAO();
         RankDAO rankDAO = new RankDAO();
 
-        String _id = (String) map.get("id"), msg = "no such id";
+        String _id = (String) map.get("id"), msg = "fail";
         int resultType = -1;
         
         // validation on
@@ -31,10 +32,17 @@ public class deleteRankService implements Service {
         id_exist_check = _id != null && userDAO.isIDexist(_id);
         if(id_exist_check) {
              resultType = rankDAO.deleteRanks(_id);
-             msg = "result ok";
+             msg = "ok";
+        }
+        else {
+            resp.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
         }
 
-        msg = jsonUtil.makeResult(resultType, msg);
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("result", resultType);
+        result.put("message", msg);
+
+        msg = jsonUtil.makeResult(result);
         pw.write(msg);
     }
 }

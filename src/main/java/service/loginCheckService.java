@@ -9,8 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import model.UserDAO;
 import model.Util;
 
@@ -22,8 +20,6 @@ public class loginCheckService implements Service {
         UserDAO userDAO = new UserDAO();
         Util util = Util.getInstance();
         Map<String, Object> map = util.getJson();
-        
-        ObjectMapper mapper = new ObjectMapper();
 
         JWT jwt = new JWT();
 
@@ -52,7 +48,6 @@ public class loginCheckService implements Service {
         pw.write(result);
 
         result = null;
-        mapper = null;
         output = null;
         data = null;
     }
