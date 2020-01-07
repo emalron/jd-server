@@ -6,22 +6,21 @@ var result = function(input) {
     var obj = JSON.parse(input);
     var type = obj.result;
 
-    if(!isEmpty(obj.jwt)) {
-        console.log(`jwt: ${obj.jwt}`);
-        this.data.isLogin = true;
-        this.data.jwt_token = obj.jwt;
+    var data = obj.data;
+    if(!data) {
+        output.innerHTML = obj.message;
+        return obj.message;
     }
 
-    var data = obj.message;
     if(type == -1 || type == 0 || type == 1) {
-        if(obj.message.constructor == Object) {
+        if(data.constructor == Object) {
             for(var d in data) {
                 var str = `${d}: ${data[d]} `;
                 output.innerHTML += str;
                 output.innerHTML += "<br>";
             }
         }
-        else if (obj.message.constructor == Array) {
+        else if (data.constructor == Array) {
             for(var i=0; i < data.length; i++) {
                 for(var key in data[i]) {
                     var str = `${data[i][key]} `;
@@ -57,6 +56,14 @@ var isEmpty = function(value) {
 };
 
 var loginResult = function(input) {
+    var obj = JSON.parse(input);
+
+    if(obj.data && !isEmpty(obj.data.jwt)) {
+        console.log(`jwt: ${obj.data.jwt}`);
+        this.data.isLogin = true;
+        this.data.jwt_token = obj.data.jwt;
+    }
+
     var res = result(input);
     var btn_logout = document.getElementById("logoutForm");
 

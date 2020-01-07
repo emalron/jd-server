@@ -2,6 +2,7 @@ package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -34,13 +35,18 @@ public class alterUserInfoService implements Service {
         Boolean id_exist_check = _id != null;
         if(id_exist_check) {
              resultType = userDAO.updateUser(_name, _lang, _id);
-             msg = "result ok";
+             msg = "ok";
         }
         else {
-            msg = "no such id";
+            msg = "fail";
+            resp.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
         }
 
-        msg = jsonUtil.makeResult(resultType, msg);
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("result", resultType);
+        result.put("message", msg);
+
+        msg = jsonUtil.makeResult(result);
         pw.write(msg);
     }
 
