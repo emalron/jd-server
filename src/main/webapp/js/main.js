@@ -1,5 +1,15 @@
+var data = {
+    isLogin: false,
+    jwt_token: "token_here"
+};
+
+
 var req_by_get = function() {
-    tmp = {cmd: "showAllRanks"}
+    tmp = {cmd: "showAllRanks"};
+    if(data.isLogin) {
+        tmp["jwt"] = data.jwt_token;
+    }
+
     str = JSON.stringify(tmp);
 
     ajax(str, result);
@@ -13,7 +23,10 @@ var postForm = function(form_id, callback) {
     for(var [key, value] of fData.entries()) {
         obj[key] = value;
     }
-    if(jwt_token) obj["jwt"] = jwt_token;
+
+    if(data.isLogin) {
+        obj["jwt"] = data.jwt_token;
+    }
 
     var str = JSON.stringify(obj);
 
@@ -60,7 +73,7 @@ var slack = function(form_id) {
 var shot = function(callback) {
     event.preventDefault();
 
-    str = {cmd: "jsonTest", id: "jes"};
+    str = {cmd: "jsonTest", jwt: jwt_token};
     str = JSON.stringify(str);
 
     ajax(str, callback);
@@ -68,8 +81,13 @@ var shot = function(callback) {
 
 window.onload = function() {
     this.setUrl();
-    var str = JSON.stringify({cmd:"loginCheck", jwt:this.jwt_token});
+    var payload = {cmd: "loginCheck"};
+    this.console.log(`token: ${this.data.jwt_token}`);
+    if(this.data.isLogin) {
+        payload["jwt"] = this.data.jwt_token;
+    }
 
+    var str = JSON.stringify(payload);
     this.ajax(str, this.loginResult);
 }
 
@@ -136,5 +154,3 @@ function getCookie(cname) {
   }
 
 document.getElementById("urls").onchange = url_save;
-
-var jwt_token = null;

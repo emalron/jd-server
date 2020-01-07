@@ -8,8 +8,8 @@ var result = function(input) {
 
     if(!isEmpty(obj.jwt)) {
         console.log(`jwt: ${obj.jwt}`);
-        data.isLogin = true;
-        data.jwt_token = obj.jwt;
+        this.data.isLogin = true;
+        this.data.jwt_token = obj.jwt;
     }
 
     var data = obj.message;

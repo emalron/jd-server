@@ -44,6 +44,7 @@ public class loginService implements Service {
             _user.setName(_name);
             _user.setLang("ko");
         }
+        
         token_value = jwt.generate(_id);
         HashMap<String, Object> result = new HashMap<>();
 
