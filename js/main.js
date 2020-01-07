@@ -81,7 +81,13 @@ var shot = function(callback) {
 
 window.onload = function() {
     this.setUrl();
-    var str = JSON.stringify({cmd:"loginCheck", jwt:this.data.jwt_token});
+    var payload = {cmd: "loginCheck"};
+    this.console.log(`token: ${this.data.jwt_token}`);
+    if(this.data.isLogin) {
+        payload["jwt"] = this.data.jwt_token;
+    }
+
+    var str = JSON.stringify(payload);
     this.ajax(str, this.loginResult);
 }
 
@@ -148,4 +154,3 @@ function getCookie(cname) {
   }
 
 document.getElementById("urls").onchange = url_save;
-
