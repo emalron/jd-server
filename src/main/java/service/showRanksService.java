@@ -26,7 +26,7 @@ public class showRanksService implements Service {
         UserDAO userDAO = new UserDAO();
         
         int resultType = -1;
-        String result = null, jsonString = "no ranks";
+        String result = null, msg = "fail";
         ArrayList<Rank> ranks = null;
 
         // String id = jwt.findID(req.getCookies());
@@ -36,7 +36,7 @@ public class showRanksService implements Service {
             mode = "score";
         }
 
-        Boolean id_exist_check = id != null && userDAO.isIDexist(id);
+        Boolean id_exist_check = id != null && !id.isEmpty();
         if(id_exist_check) {
             ranks = rankDAO.search(id, mode);
         }
@@ -46,14 +46,18 @@ public class showRanksService implements Service {
 
         if(ranks != null) {
             resultType = 2;
-
-            ObjectMapper mapper = new ObjectMapper();
-            jsonString = mapper.writeValueAsString(ranks);
-
-            ranks = null;
+            msg = "ok";
+        }
+        else {
+            resp.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
         }
 
-        result = util.makeResult(resultType, jsonString);
+        map.clear();
+        map.put("result", resultType);
+        map.put("message", msg);
+        map.put("data", ranks);
+
+        result = util.makeResult(map);
         pw.write(result);
     }
 }

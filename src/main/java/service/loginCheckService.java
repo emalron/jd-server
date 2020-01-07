@@ -22,7 +22,7 @@ public class loginCheckService implements Service {
         UserDAO userDAO = new UserDAO();
         Util util = Util.getInstance();
         Map<String, Object> map = util.getJson();
-        HashMap<String, Object> output = new HashMap<>();
+        
         ObjectMapper mapper = new ObjectMapper();
 
         JWT jwt = new JWT();
@@ -36,22 +36,24 @@ public class loginCheckService implements Service {
         Boolean isLogin = id != null;
         if(isLogin) {
             name = userDAO.getName(id);
-            msg = "Welcome back, " + name;
-            
+            msg = "ok";
             resultType = 0;
         }
 
-        
+        HashMap<String, Object> output = new HashMap<>();
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("name", name);
+
         output.put("result", resultType);
         output.put("message", msg);
-        result = util.makeResult(output);
+        output.put("data", data);
 
+        result = util.makeResult(output);
         pw.write(result);
 
         result = null;
         mapper = null;
         output = null;
+        data = null;
     }
-    
-    
 }

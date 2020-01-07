@@ -70,17 +70,18 @@ public class UserDAO {
         return null;
     }
 
-    public void addUser(String id, String name) {
+    public void addUser(String id, String name, String lang) {
         conn = connector.getConnection();
         pstm = null;
 
-        String sql = "insert into users(id, name) values(?, ?)";
+        String sql = "insert into users(id, name, lang) values(?, ?, ?)";
 
         try {
             pstm = conn.prepareStatement(sql);
 
             pstm.setString(1, id);
             pstm.setString(2, name);
+            pstm.setString(3, lang);
 
             pstm.executeUpdate();
         }

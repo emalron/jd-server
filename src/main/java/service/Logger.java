@@ -5,6 +5,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.util.HashMap;
+
+import model.Util;
 
 public class Logger {
     private static Logger INSTANCE;
@@ -22,7 +25,11 @@ public class Logger {
     }
     
     public void test(String test) {
-        String json = "{\"text\": \"" + test + "\"}";
+        Util util = Util.getInstance();
+        HashMap<String, Object> output = new HashMap<>();
+
+        output.put("text", test);
+        String json = util.makeResult(output);
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -32,10 +39,7 @@ public class Logger {
             .build();
 
         try {
-            client.sendAsync(request, BodyHandlers.ofString())
-            .thenAccept(response -> {
-                System.out.println("Slack log: " + response.body());
-            });
+            client.sendAsync(request, BodyHandlers.ofString());
         }
         catch(Exception e) {
             e.printStackTrace();

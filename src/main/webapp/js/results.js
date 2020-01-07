@@ -12,16 +12,16 @@ var result = function(input) {
         this.data.jwt_token = obj.jwt;
     }
 
-    var data = obj.message;
+    var data = obj.data;
     if(type == -1 || type == 0 || type == 1) {
-        if(obj.message.constructor == Object) {
+        if(data.constructor == Object) {
             for(var d in data) {
                 var str = `${d}: ${data[d]} `;
                 output.innerHTML += str;
                 output.innerHTML += "<br>";
             }
         }
-        else if (obj.message.constructor == Array) {
+        else if (data.constructor == Array) {
             for(var i=0; i < data.length; i++) {
                 for(var key in data[i]) {
                     var str = `${data[i][key]} `;

@@ -2,6 +2,7 @@ package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -23,23 +24,25 @@ public class rankAddService implements Service {
 
         String token = (String) map.get("jwt");
         String _id = jwt.verify(token);
-        
         int _score = Integer.parseInt((String) map.get("score"));
         String _replay = (String) map.get("replay_data");
-        
-        // validation on
-        Boolean id_exist_check, negative_score_check;
+
         int resultType = -1;
         String msg = null, resultMsg = "fail";
 
-        id_exist_check = _id != null;
-        negative_score_check = _score >= 0;
+        // validation on
+        Boolean id_exist_check = _id != null;
+        Boolean negative_score_check = _score >= 0;
         if(id_exist_check && negative_score_check) {
              resultType = rankDAO.addRank(_score, _replay, _id);
-             resultMsg = "result ok";
+             resultMsg = "ok";
         }
+
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("result", resultType);
+        result.put("message", resultMsg);
         
-        msg = jsonUtil.makeResult(resultType, resultMsg);
+        msg = jsonUtil.makeResult(result);
         pw.write(msg);
     }
 }

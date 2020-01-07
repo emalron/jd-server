@@ -3,12 +3,11 @@ package service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import model.Rank;
 import model.RankDAO;
@@ -23,18 +22,23 @@ public class showAllRanksService implements Service {
         RankDAO rankDAO = new RankDAO();
 
         int resultType = -1;
-        String result = null, jsonString = "no ranks";
+        String result = null, msg = "fail";
 
         ArrayList<Rank> ranks = rankDAO.showAllwithRanking();
         if (ranks != null) {
             resultType = 2;
-            ObjectMapper mapper = new ObjectMapper();
-            jsonString = mapper.writeValueAsString(ranks);
-
-            ranks = null;
+            msg = "ok";
         }
+        else {
+            resp.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
+        }
+
+        HashMap<String, Object> output = new HashMap<>();
+        output.put("result", resultType);
+        output.put("message", msg);
+        output.put("data", ranks);
         
-        result = util.makeResult(resultType, jsonString);
+        result = util.makeResult(output);
         pw.write(result);
     }
 }

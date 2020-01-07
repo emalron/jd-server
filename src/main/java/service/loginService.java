@@ -2,6 +2,7 @@ package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class loginService implements Service {
         Map<String, Object> map = jsonUtil.getJson();
         JWT jwt = new JWT();
 
-        String _id = null, _name = null, _lang = null, token_value = null, hello = null, msg = null;
+        String _id = null, _name = null, _lang = null, token_value = null, msg = null;
 
         _id = (String) map.get("id");
         User _user =  userDAO.getUserInfo(_id);
@@ -32,19 +33,19 @@ public class loginService implements Service {
         if(new_id_check) {
             _name = (String) map.get("name");
             _lang = (String) map.get("lang");
-            if(_lang == null) _lang = "ko";
 
             Boolean noName_check = _name == null || _name.isEmpty() || _name.isBlank();
             if(noName_check) {
                 _name = "unknown";
             }
+            if(_lang == null) _lang = "ko";
 
-            userDAO.addUser(_id, _name);
+            userDAO.addUser(_id, _name, _lang);
 
             _user = new User();
             _user.setId(_id);
             _user.setName(_name);
-            _user.setLang("ko");
+            _user.setLang(_lang);
         }
         
         HashMap<String, Object> result = new HashMap<>();
@@ -61,5 +62,9 @@ public class loginService implements Service {
 
         msg = jsonUtil.makeResult(result);
         pw.write(msg);
+
+        result = null;
+        data = null;
+        msg = null;
     }
 }
