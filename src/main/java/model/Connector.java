@@ -73,6 +73,7 @@ public class Connector {
             PoolableConnectionFactory poolFactory = new PoolableConnectionFactory(cFactory, null);
             ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<PoolableConnection>(poolFactory, PoolConnFactory.getPoolConfig(config));
             poolFactory.setPool(connectionPool);
+            poolFactory.setValidationQuery("SELECT 1");
             PoolingDriver dbcpDriver = PoolConnFactory.getDBCDriver();
             dbcpDriver.registerPool("dbcp-2", connectionPool);
         }
