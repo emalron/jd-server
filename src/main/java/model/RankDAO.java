@@ -228,6 +228,7 @@ public class RankDAO {
         }
         catch (SQLException e) {
             if(count  < 3) {
+                System.out.println("[!] catch exception and try again " + count);
                 showAllwithRanking(++count);
             }
             else {
