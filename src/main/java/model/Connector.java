@@ -17,7 +17,6 @@ import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 
 public class Connector {
-    private Connection conn;
     private String driver, url, username, password, slack, jwt, logmode;
     private Properties props;
 
@@ -78,8 +77,6 @@ public class Connector {
             PoolingDriver dbcpDriver = PoolConnFactory.getDBCDriver();
             dbcpDriver.registerPool("dbcp-2", connectionPool);
             
-            conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
-
             // Class.forName("com.mysql.cj.jdbc.Driver");
             // conn = DriverManager.getConnection(url, username, password);
         }
@@ -89,14 +86,10 @@ public class Connector {
     }
 
     public Connection getConnection() {
+        Connection conn = null;
         try {
-            if(conn == null) {
-                init();
-            }
-            if(conn.isClosed()) {
-                conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
-                // conn = DriverManager.getConnection(url, username, password);
-            }
+            conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
+            // conn = DriverManager.getConnection(url, username, password);
         }
         catch(Exception e) {
             e.printStackTrace();
