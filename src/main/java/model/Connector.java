@@ -63,21 +63,21 @@ public class Connector {
             jwt = props.getProperty("jwt");
             logmode = props.getProperty("logmode");
 
-            // HashMap<String, Integer> config = new HashMap<>();
-            // config.put("minIdle", Integer.parseInt(props.getProperty("minIdle")));
-            // config.put("maxIdle", Integer.parseInt(props.getProperty("maxIdle")));
-            // config.put("maxTotal", Integer.parseInt(props.getProperty("maxTotal")));
+            HashMap<String, Integer> config = new HashMap<>();
+            config.put("minIdle", Integer.parseInt(props.getProperty("minIdle")));
+            config.put("maxIdle", Integer.parseInt(props.getProperty("maxIdle")));
+            config.put("maxTotal", Integer.parseInt(props.getProperty("maxTotal")));
         
-            // PoolConnFactory.registerJDBCDriver(driver);
-            // ConnectionFactory cFactory = PoolConnFactory.getConnFactory(url, username, password);
-            // PoolableConnectionFactory poolFactory = new PoolableConnectionFactory(cFactory, null);
-            // ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<PoolableConnection>(poolFactory, PoolConnFactory.getPoolConfig(config));
-            // poolFactory.setPool(connectionPool);
-            // poolFactory.setValidationQuery("SELECT 1");
-            // PoolingDriver dbcpDriver = PoolConnFactory.getDBCDriver();
-            // dbcpDriver.registerPool("dbcp-2", connectionPool);
+            PoolConnFactory.registerJDBCDriver(driver);
+            ConnectionFactory cFactory = PoolConnFactory.getConnFactory(url, username, password);
+            PoolableConnectionFactory poolFactory = new PoolableConnectionFactory(cFactory, null);
+            ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<PoolableConnection>(poolFactory, PoolConnFactory.getPoolConfig(config));
+            poolFactory.setPool(connectionPool);
+            poolFactory.setValidationQuery("SELECT 1");
+            PoolingDriver dbcpDriver = PoolConnFactory.getDBCDriver();
+            dbcpDriver.registerPool("dbcp-2", connectionPool);
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Class.forName("com.mysql.cj.jdbc.Driver");
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -87,8 +87,8 @@ public class Connector {
     public Connection getConnection() {
         Connection conn = null;
         try {
-            // conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
-            conn = DriverManager.getConnection(url, username, password);
+            conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
+            // conn = DriverManager.getConnection(url, username, password);
             return conn;
         }
         catch(Exception e) {
