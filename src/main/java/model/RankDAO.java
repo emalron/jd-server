@@ -209,10 +209,8 @@ public class RankDAO {
         ArrayList<Rank> ranks = wr.get();
         
         try {
-            synchronized(this) {
-                pstm = conn.prepareStatement(sql);
-                rs = pstm.executeQuery();
-            }
+            pstm = conn.prepareStatement(sql);
+            rs = pstm.executeQuery();
 
             while(rs.next()) {
                 Rank _rank = new Rank();
