@@ -5,9 +5,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RankDAO {
     Connector connector;
+    Connection conn;
+    PreparedStatement pstm;
+    ResultSet rs;
+    private static final HashMap<String, String> sqlmap;
+    static {
+        sqlmap = RankDAO.getSQLMap();
+    }
 
 
     public RankDAO() {
@@ -15,9 +23,9 @@ public class RankDAO {
     }
 
     public ArrayList<Rank> searchAllof(String id) {
-        Connection conn = connector.getConnection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
+        conn = connector.getConnection();
+        pstm = null;
+        rs = null;
 
         String sql = "select (";
         sql += "select count(*) from view_ranking T2 ";
@@ -56,9 +64,9 @@ public class RankDAO {
     }
 
     public ArrayList<Rank> searchRange(int from, int range) {
-        Connection conn = connector.getConnection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
+        conn = connector.getConnection();
+        pstm = null;
+        rs = null;
 
 
         String sql = "select (";
@@ -98,9 +106,9 @@ public class RankDAO {
     }
 
     public ArrayList<Rank> search(String id, String mode) {
-        Connection conn = connector.getConnection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
+        conn = connector.getConnection();
+        pstm = null;
+        rs = null;
 
         String sql = "select (";
         sql += "select count(*) from view_ranking T2 ";
@@ -139,9 +147,9 @@ public class RankDAO {
     }
     
     public ArrayList<Rank> showAll(String mode) {
-        Connection conn = connector.getConnection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
+        conn = connector.getConnection();
+        pstm = null;
+        rs = null;
 
         String sorting = null;
 
@@ -193,18 +201,11 @@ public class RankDAO {
     }
 
     public ArrayList<Rank> showAllwithRanking() {
-        Connection conn = connector.getConnection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
+        conn = connector.getConnection();
+        pstm = null;
+        rs = null;
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("select rank, name, score, replay_data, time from (");
-        sb.append("select name, score, replay_data, time, ");
-        sb.append("case when @prev = score then @vRank when @prev := score then @vRank := @vRank+1 end as rank ");
-        sb.append("from view_ranking as p, (select @vRank:=0, @prev := null) as r order by score desc ");
-        sb.append(") as CNT");
-
-        String sql = sb.toString();
+        String sql = sqlmap.get("showAllwithRanking");
         
         WeakReference<ArrayList<Rank>> wr = new WeakReference<ArrayList<Rank>>( new ArrayList<Rank>() );
         ArrayList<Rank> ranks = wr.get();
@@ -285,5 +286,20 @@ public class RankDAO {
         finally {
             connector.close(conn, pstm);
         }
+    }
+
+    static HashMap<String, String> getSQLMap() {
+        HashMap<String, String> map = new HashMap<>();
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("select rank, name, score, replay_data, time from (");
+        sb.append("select name, score, replay_data, time, ");
+        sb.append("case when @prev = score then @vRank when @prev := score then @vRank := @vRank+1 end as rank ");
+        sb.append("from view_ranking as p, (select @vRank:=0, @prev := null) as r order by score desc ");
+        sb.append(") as CNT");
+
+        map.put("showAllwithRanking", sb.toString());
+
+        return map;
     }
 }
