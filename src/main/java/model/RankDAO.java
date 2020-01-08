@@ -71,13 +71,7 @@ public class RankDAO {
         pstm = null;
         rs = null;
 
-
-        String sql = "select (";
-        sql += "select count(*) from view_ranking T2 ";
-        sql += "where T2.score >= T1.score) rank, name, score, replay_data, time ";
-        sql += "from view_ranking as T1 ";
-        sql += "order by score desc limit " + from + "," + range;
-
+        String sql = sqlmap.get("searchRange");
         ArrayList<Rank> ranks = new ArrayList<Rank>();
 
         try {
@@ -219,7 +213,7 @@ public class RankDAO {
                 pstm = conn.prepareStatement(sql);
                 rs = pstm.executeQuery();         
             }
-            
+
             while(rs.next()) {
                 Rank _rank = new Rank();
 
@@ -304,8 +298,15 @@ public class RankDAO {
         sb.append("case when @prev = score then @vRank when @prev := score then @vRank := @vRank+1 end as rank ");
         sb.append("from view_ranking as p, (select @vRank:=0, @prev := null) as r order by score desc ");
         sb.append(") as CNT");
-
         map.put("showAllwithRanking", sb.toString());
+
+        sb.setLength(0);
+        sb.append("select (");
+        sb.append("select count(*) from view_ranking T2 ");
+        sb.append("where T2.score >= T1.score) rank, name, score, replay_data, time ");
+        sb.append("from view_ranking as T1 "); 
+        sb.append("order by score desc limit ?, ?");
+        map.put("searchRange", sb.toString());
 
         return map;
     }
