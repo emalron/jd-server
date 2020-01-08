@@ -4,6 +4,7 @@ import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -197,7 +198,7 @@ public class RankDAO {
         return null;
     }
 
-    public ArrayList<Rank> showAllwithRanking() {
+    public ArrayList<Rank> showAllwithRanking(int count) {
         conn = connector.getConnection();
         pstm = null;
         rs = null;
@@ -225,8 +226,13 @@ public class RankDAO {
 
             return ranks;
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        catch (SQLException e) {
+            if(count  < 3) {
+                showAllwithRanking(++count);
+            }
+            else {
+                e.printStackTrace();
+            }
         }
         finally {
             connector.close(conn, pstm, rs);

@@ -24,7 +24,7 @@ public class showAllRanksService implements Service {
         int resultType = -1;
         String result = null, msg = "fail";
 
-        ArrayList<Rank> ranks = rankDAO.showAllwithRanking();
+        ArrayList<Rank> ranks = rankDAO.showAllwithRanking(0);
         if (ranks != null) {
             resultType = 2;
             msg = "ok";
