@@ -59,18 +59,18 @@ public class Connector {
             slack = props.getProperty("slack");
             jwt = props.getProperty("jwt");
         
-            // PoolConnFactory.registerJDBCDriver(driver);
-            // ConnectionFactory cFactory = PoolConnFactory.getConnFactory(url, username, password);
-            // PoolableConnectionFactory poolFactory = new PoolableConnectionFactory(cFactory, null);
-            // ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<PoolableConnection>(poolFactory, PoolConnFactory.getPoolConfig());
-            // poolFactory.setPool(connectionPool);
-            // PoolingDriver dbcpDriver = PoolConnFactory.getDBCDriver();
-            // dbcpDriver.registerPool("dbcp-2", connectionPool);
+            PoolConnFactory.registerJDBCDriver(driver);
+            ConnectionFactory cFactory = PoolConnFactory.getConnFactory(url, username, password);
+            PoolableConnectionFactory poolFactory = new PoolableConnectionFactory(cFactory, null);
+            ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<PoolableConnection>(poolFactory, PoolConnFactory.getPoolConfig());
+            poolFactory.setPool(connectionPool);
+            PoolingDriver dbcpDriver = PoolConnFactory.getDBCDriver();
+            dbcpDriver.registerPool("dbcp-2", connectionPool);
             
-            // conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
+            conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(url, username, password);
+            // Class.forName("com.mysql.cj.jdbc.Driver");
+            // conn = DriverManager.getConnection(url, username, password);
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -83,8 +83,8 @@ public class Connector {
                 init();
             }
             if(conn.isClosed()) {
-                // conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
-                conn = DriverManager.getConnection(url, username, password);
+                conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
+                // conn = DriverManager.getConnection(url, username, password);
             }
         }
         catch(Exception e) {
