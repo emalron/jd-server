@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.management.ManagementFactory;
-import java.lang.management.RuntimeMXBean;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +36,7 @@ public class Util {
 
     private void init() {
         Connector c = Connector.getInstance();
-        this.log = Logger.getInstance(c.getSlack());
+        this.log = Logger.getInstance(c.getSlack(), c.getLogmode());
         logmode = c.getLogmode();
     }
 
@@ -55,25 +53,6 @@ public class Util {
 
         if(this.logmode.equals("true")) makeLog(req, res.toString());
         return res;
-    }
-
-    public String makeResult(int type, String message) {
-        String msg = null;
-        switch(type) {
-            case -1:
-            case 0:
-            case 1:
-                // message = plain text
-                msg = "{\"result\":"  + type + ", \"message\": \"" + message +"\"}";
-                break;
-            case 2:
-                // message = array
-                msg = "{\"result\":"  + type + ", \"message\": "+ message +"}";
-                break;
-        }
-
-        // msg = "{\"result\":"  + type + ", \"message\": \"" + message +"\"}";
-        return msg;
     }
 
     public String makeResult(HashMap<String, Object> result) {

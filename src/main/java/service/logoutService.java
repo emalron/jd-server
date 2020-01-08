@@ -2,6 +2,7 @@ package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +19,11 @@ public class logoutService implements Service {
 
         String bye = null;
 
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("result", 0);
+        result.put("message", "bye");
 
-        bye = util.makeResult(0, "bye");
+        bye = util.makeResult(result);
         pw.write(bye);
     }
 }

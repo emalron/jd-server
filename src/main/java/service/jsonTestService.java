@@ -2,6 +2,7 @@ package service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -21,8 +22,12 @@ public class jsonTestService implements Service {
 
         String id = (String)map.get("id");
 
-        String result = jsonUtil.makeResult(0, id);
-        pw.write(result);
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("result", 0);
+        result.put("message", id);
+
+        String output = jsonUtil.makeResult(result);
+        pw.write(output);
     }
 
 }

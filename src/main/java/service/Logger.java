@@ -12,18 +12,19 @@ import model.Util;
 public class Logger {
     private static Logger INSTANCE;
     private String slackHook;
+    private String logmode;
 
-    private Logger(String url) {
+    public Logger(String url, String logmode) {
         this.slackHook = url;
     };
 
-    public static Logger getInstance(String url) {
+    public static Logger getInstance(String url, String logmode) {
         if(INSTANCE == null) {
-            return INSTANCE = new Logger(url);
+            return INSTANCE = new Logger(url, logmode);
         }
         return INSTANCE;
     }
-    
+
     public void test(String test) {
         Util util = Util.getInstance();
         HashMap<String, Object> output = new HashMap<>();
@@ -44,5 +45,9 @@ public class Logger {
         catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void makeLog(String log) {
+        
     }
 }

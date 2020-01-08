@@ -20,7 +20,6 @@ public class Controller extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        System.out.println("[Thread Start] " + ThreadNum++);
         Ignite.init();
         modelMap = Ignite.getMap();
     }

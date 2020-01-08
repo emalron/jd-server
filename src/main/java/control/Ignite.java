@@ -18,28 +18,28 @@ public class Ignite {
     }
 
     public static void init() {
-        // set map
+        // set service map
         serviceMap = new HashMap<String, Service>();
 
-            Properties props = Ignite.getProperties("class.properties");
-            Iterator iter = props.keySet().iterator();
-    
-            while(iter.hasNext()) {
-                String cmd = (String)iter.next();
-                String className = props.getProperty(cmd);
-    
-                try {
-                    Class class_ = Class.forName(className);
-                    Service service_ = (Service) class_.getDeclaredConstructor().newInstance();
-    
-                    serviceMap.put(cmd, service_);
-                }
-                catch(Exception e) {
-                    e.printStackTrace();
-                }
-            }
+        Properties props = Ignite.getProperties("class.properties");
+        Iterator iter = props.keySet().iterator();
 
-            if(whitelist == null) setList();
+        while(iter.hasNext()) {
+            String cmd = (String)iter.next();
+            String className = props.getProperty(cmd);
+
+            try {
+                Class class_ = Class.forName(className);
+                Service service_ = (Service) class_.getDeclaredConstructor().newInstance();
+
+                serviceMap.put(cmd, service_);
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(whitelist == null) setList();
     }
 
     private static void setList() {
