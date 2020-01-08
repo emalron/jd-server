@@ -8,19 +8,16 @@ import java.util.ArrayList;
 
 public class RankDAO {
     Connector connector;
-    private Connection conn;
-    private PreparedStatement pstm;
-    private ResultSet rs;
+
 
     public RankDAO() {
         connector = Connector.getInstance();
-        conn = null;
-        pstm = null;
-        rs = null;
     }
 
     public ArrayList<Rank> searchAllof(String id) {
-        conn = connector.getConnection();
+        Connection conn = connector.getConnection();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
 
         String sql = "select (";
         sql += "select count(*) from view_ranking T2 ";
@@ -59,9 +56,10 @@ public class RankDAO {
     }
 
     public ArrayList<Rank> searchRange(int from, int range) {
-        conn = connector.getConnection();
-        pstm = null;
-        rs = null;
+        Connection conn = connector.getConnection();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+
 
         String sql = "select (";
         sql += "select count(*) from view_ranking T2 ";
@@ -100,9 +98,9 @@ public class RankDAO {
     }
 
     public ArrayList<Rank> search(String id, String mode) {
-        conn = connector.getConnection();
-        pstm = null;
-        rs = null;
+        Connection conn = connector.getConnection();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
 
         String sql = "select (";
         sql += "select count(*) from view_ranking T2 ";
@@ -141,9 +139,9 @@ public class RankDAO {
     }
     
     public ArrayList<Rank> showAll(String mode) {
-        conn = connector.getConnection();
-        pstm = null;
-        rs = null;
+        Connection conn = connector.getConnection();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
 
         String sorting = null;
 
@@ -195,16 +193,18 @@ public class RankDAO {
     }
 
     public ArrayList<Rank> showAllwithRanking() {
-        conn = connector.getConnection();
-        pstm = null;
-        rs = null;
+        Connection conn = connector.getConnection();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
 
-        String sql = "select rank, name, score, replay_data, time from (";
-            sql += "select name, score, replay_data, time, ";
-            sql += "case when @prev = score then @vRank when @prev := score then @vRank := @vRank+1 end as rank ";
-            sql += "from view_ranking as p, (select @vRank:=0, @prev := null) as r order by score desc ";
-            sql += ") as CNT";
+        StringBuilder sb = new StringBuilder();
+        sb.append("select rank, name, score, replay_data, time from (");
+        sb.append("select name, score, replay_data, time, ");
+        sb.append("case when @prev = score then @vRank when @prev := score then @vRank := @vRank+1 end as rank ");
+        sb.append("from view_ranking as p, (select @vRank:=0, @prev := null) as r order by score desc ");
+        sb.append(") as CNT");
 
+        String sql = sb.toString();
         
         WeakReference<ArrayList<Rank>> wr = new WeakReference<ArrayList<Rank>>( new ArrayList<Rank>() );
         ArrayList<Rank> ranks = wr.get();
@@ -238,8 +238,8 @@ public class RankDAO {
     }
 
     public int addRank(int score, String replay, String id) {
-        conn = connector.getConnection();
-        pstm = null;
+        Connection conn = connector.getConnection();
+        PreparedStatement pstm = null;
 
         String sql = "insert into ranks(score, replay_data, users_id, time) values (?, ?, ?, now())";
 
@@ -264,8 +264,8 @@ public class RankDAO {
     }
 
     public int deleteRanks(String id) {
-        conn = connector.getConnection();
-        pstm = null;
+        Connection conn = connector.getConnection();
+        PreparedStatement pstm = null;
 
         String sql = "delete from ranks where users_id = ?";
 

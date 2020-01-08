@@ -16,9 +16,11 @@ import service.Service;
 public class Controller extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private Map<String, Service> modelMap = null;
+    public static int ThreadNum = 0;
 
     @Override
     public void init() throws ServletException {
+        System.out.println("[Thread Start] " + ThreadNum++);
         Ignite.init();
         modelMap = Ignite.getMap();
     }
