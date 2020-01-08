@@ -47,7 +47,6 @@ public class Connector {
     private void init() {
         try {
             String path = "/home/emalron/key/db.properties";
-            System.out.println(path);
             File file = new File(path);
             FileInputStream fis = new FileInputStream(file);
         

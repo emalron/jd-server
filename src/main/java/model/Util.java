@@ -36,6 +36,7 @@ public class Util {
 
     private void init() {
         Connector c = Connector.getInstance();
+        
         this.log = Logger.getInstance(c.getSlack(), c.getLogmode());
         logmode = c.getLogmode();
     }
@@ -129,7 +130,6 @@ public class Util {
             
             body = builder.toString();
             this.latest = body;
-            System.out.println("getBody true: " + this.latest);
             return body;
         }
         catch(IOException e) {
