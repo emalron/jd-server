@@ -20,6 +20,9 @@ public class RankDAO {
 
     public RankDAO() {
         connector = Connector.getInstance();
+        conn = null;
+        pstm = null;
+        rs = null;
     }
 
     public ArrayList<Rank> searchAllof(String id) {
