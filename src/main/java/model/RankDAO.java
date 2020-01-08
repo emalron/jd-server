@@ -236,6 +236,7 @@ public class RankDAO {
         }
         finally {
             connector.close(conn, pstm, rs);
+            ranks = null;
         }
 
         return null;

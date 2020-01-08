@@ -22,6 +22,7 @@ import service.Logger;
 public class Util {
     private String latest = null;
     private static Util INSTANCE = null;
+    private String logmode;
     Logger log;
 
     private Util() {
@@ -38,6 +39,7 @@ public class Util {
     private void init() {
         Connector c = Connector.getInstance();
         this.log = Logger.getInstance(c.getSlack());
+        logmode = c.getLogmode();
     }
 
     public Map<String, Object> getJson() {
@@ -51,7 +53,7 @@ public class Util {
         String json = getBody(req, true);
         Map<String, Object> res = jsonParse(json);
 
-        makeLog(req, res.toString());
+        if(this.logmode.equals("true")) makeLog(req, res.toString());
         return res;
     }
 

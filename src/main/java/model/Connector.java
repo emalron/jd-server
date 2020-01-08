@@ -18,7 +18,7 @@ import org.apache.commons.pool2.impl.GenericObjectPool;
 
 public class Connector {
     private Connection conn;
-    private String driver, url, username, password, slack, jwt;
+    private String driver, url, username, password, slack, jwt, logmode;
     private Properties props;
 
     private Connector() {
@@ -41,6 +41,10 @@ public class Connector {
         return this.jwt;
     }
 
+    public String getLogmode() {
+        return this.logmode;
+    }
+
     private void init() {
         try {
             String path = "/home/emalron/key/db.properties";
@@ -59,6 +63,7 @@ public class Connector {
             password = props.getProperty("password");
             slack = props.getProperty("slack");
             jwt = props.getProperty("jwt");
+            logmode = props.getProperty("logmode");
 
             HashMap<String, Integer> config = new HashMap<>();
             config.put("minIdle", Integer.parseInt(props.getProperty("minIdle")));
