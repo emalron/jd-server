@@ -58,8 +58,8 @@ public class PoolConnFactory {
         poolConfig.setTestWhileIdle(true);
         poolConfig.setTestOnBorrow(false);
         poolConfig.setMinIdle(5);
-        poolConfig.setMaxIdle(20);
-        poolConfig.setMaxTotal(20);
+        poolConfig.setMaxIdle(10);
+        poolConfig.setMaxTotal(30);
 
         return poolConfig;
     }
