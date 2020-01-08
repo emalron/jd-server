@@ -198,7 +198,7 @@ public class RankDAO {
         return null;
     }
 
-    public ArrayList<Rank> showAllwithRanking(int count) {
+    public synchronized ArrayList<Rank> showAllwithRanking(int count) {
         conn = connector.getConnection();
         pstm = null;
         rs = null;
