@@ -79,6 +79,7 @@ public class Connector {
             datasource.setMinIdle(config.get("minIdle"));
             datasource.setMaxIdle(config.get("maxIdle"));
             datasource.setMaxTotal(config.get("maxTotal"));
+            datasource.setInitialSize(config.get("initialSize"));
         
             // PoolConnFactory.registerJDBCDriver(driver);
             // ConnectionFactory cFactory = PoolConnFactory.getConnFactory(url, username, password);
