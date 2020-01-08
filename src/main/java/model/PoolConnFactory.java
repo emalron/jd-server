@@ -2,6 +2,7 @@ package model;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import org.apache.commons.dbcp2.ConnectionFactory;
 import org.apache.commons.dbcp2.DriverManagerConnectionFactory;
@@ -51,15 +52,15 @@ public class PoolConnFactory {
         driver.registerPool(poolName, pool);
     }
 
-    public static GenericObjectPoolConfig getPoolConfig() {
+    public static GenericObjectPoolConfig getPoolConfig(HashMap<String, Integer> config) {
         poolConfig = new GenericObjectPoolConfig();
 
         poolConfig.setTimeBetweenEvictionRunsMillis(1000*5);
         poolConfig.setTestWhileIdle(true);
         poolConfig.setTestOnBorrow(false);
-        poolConfig.setMinIdle(5);
-        poolConfig.setMaxIdle(20);
-        poolConfig.setMaxTotal(30);
+        poolConfig.setMinIdle(config.get("minIdle"));
+        poolConfig.setMaxIdle(config.get("maxIdle"));
+        poolConfig.setMaxTotal(config.get("maxTotal"));
 
         return poolConfig;
     }

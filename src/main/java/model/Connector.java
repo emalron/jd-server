@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.Properties;
 
 import org.apache.commons.dbcp2.ConnectionFactory;
@@ -58,11 +59,16 @@ public class Connector {
             password = props.getProperty("password");
             slack = props.getProperty("slack");
             jwt = props.getProperty("jwt");
+
+            HashMap<String, Integer> config = new HashMap<>();
+            config.put("minIdle", Integer.parseInt(props.getProperty("minIdle")));
+            config.put("maxIdle", Integer.parseInt(props.getProperty("maxIdle")));
+            config.put("maxTotla", Integer.parseInt(props.getProperty("maxTotal")));
         
             PoolConnFactory.registerJDBCDriver(driver);
             ConnectionFactory cFactory = PoolConnFactory.getConnFactory(url, username, password);
             PoolableConnectionFactory poolFactory = new PoolableConnectionFactory(cFactory, null);
-            ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<PoolableConnection>(poolFactory, PoolConnFactory.getPoolConfig());
+            ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<PoolableConnection>(poolFactory, PoolConnFactory.getPoolConfig(config));
             poolFactory.setPool(connectionPool);
             PoolingDriver dbcpDriver = PoolConnFactory.getDBCDriver();
             dbcpDriver.registerPool("dbcp-2", connectionPool);
