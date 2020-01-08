@@ -198,7 +198,7 @@ public class RankDAO {
         return null;
     }
 
-    public synchronized ArrayList<Rank> showAllwithRanking(int count) {
+    public ArrayList<Rank> showAllwithRanking(int count) {
         conn = connector.getConnection();
         pstm = null;
         rs = null;
@@ -209,8 +209,10 @@ public class RankDAO {
         ArrayList<Rank> ranks = wr.get();
         
         try {
-            pstm = conn.prepareStatement(sql);
-            rs = pstm.executeQuery();         
+            synchronized(this) {
+                pstm = conn.prepareStatement(sql);
+                rs = pstm.executeQuery();
+            }
 
             while(rs.next()) {
                 Rank _rank = new Rank();
