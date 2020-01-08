@@ -76,9 +76,6 @@ public class Connector {
             poolFactory.setPool(connectionPool);
             PoolingDriver dbcpDriver = PoolConnFactory.getDBCDriver();
             dbcpDriver.registerPool("dbcp-2", connectionPool);
-            
-            // Class.forName("com.mysql.cj.jdbc.Driver");
-            // conn = DriverManager.getConnection(url, username, password);
         }
         catch(Exception e) {
             e.printStackTrace();

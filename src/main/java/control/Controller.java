@@ -59,14 +59,11 @@ public class Controller extends HttpServlet {
     void doHandle(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
         // get cmd from req
         String cmd = req.getParameter("cmd");
-        System.out.println("in doHandle parameter: " + cmd);
 
         Util jsonUtil = Util.getInstance();
         Map<String, Object> map = jsonUtil.getJson(req);
         
         cmd = (String)map.get("cmd");
-        System.out.println("in doHandle: " + map);
-        System.out.println("in doHandle: " + cmd);
 
         // choose the proper class with cmd from the map
         Service service_ = this.modelMap.get(cmd);
