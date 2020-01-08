@@ -4,10 +4,24 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Age	src/main/java/model/Pojo.java	/^    private int Age;$/;"	f	class:Pojo	file:
+Connector	src/main/java/model/Connector.java	/^    private Connector() {$/;"	m	class:Connector	file:
 Connector	src/main/java/model/Connector.java	/^public class Connector {$/;"	c
 Controller	src/main/java/control/Controller.java	/^public class Controller extends HttpServlet {$/;"	c
+INSTANCE	src/main/java/model/Connector.java	/^        public static final Connector INSTANCE = new Connector();$/;"	f	class:Connector.connHolder
+INSTANCE	src/main/java/model/Util.java	/^    private static Util INSTANCE = null;$/;"	f	class:Util	file:
+INSTANCE	src/main/java/service/Logger.java	/^    private static Logger INSTANCE;$/;"	f	class:Logger	file:
+Ignite	src/main/java/control/Ignite.java	/^    public Ignite() {$/;"	m	class:Ignite
 Ignite	src/main/java/control/Ignite.java	/^public class Ignite {$/;"	c
+JWT	src/main/java/service/JWT.java	/^public class JWT {$/;"	c
+Logger	src/main/java/service/Logger.java	/^    private Logger(String url) {$/;"	m	class:Logger	file:
+Logger	src/main/java/service/Logger.java	/^public class Logger {$/;"	c
 Main	src/main/java/Main.java	/^public class Main {$/;"	c
+MethodFilter	src/main/java/control/MethodFilter.java	/^public class MethodFilter implements Filter {$/;"	c
+Name	src/main/java/model/Pojo.java	/^    private String Name;$/;"	f	class:Pojo	file:
+Pojo	src/main/java/model/Pojo.java	/^    public Pojo(String Name, int Age) {$/;"	m	class:Pojo
+Pojo	src/main/java/model/Pojo.java	/^public class Pojo {$/;"	c
+PoolConnFactory	src/main/java/model/PoolConnFactory.java	/^public class PoolConnFactory {$/;"	c
 Rank	src/main/java/model/Rank.java	/^public class Rank {$/;"	c
 RankDAO	src/main/java/model/RankDAO.java	/^    public RankDAO() {$/;"	m	class:RankDAO
 RankDAO	src/main/java/model/RankDAO.java	/^public class RankDAO {$/;"	c
@@ -15,88 +29,224 @@ Service	src/main/java/service/Service.java	/^public interface Service {$/;"	i
 User	src/main/java/model/User.java	/^public class User {$/;"	c
 UserDAO	src/main/java/model/UserDAO.java	/^    public UserDAO() {$/;"	m	class:UserDAO
 UserDAO	src/main/java/model/UserDAO.java	/^public class UserDAO {$/;"	c
-addRank	src/main/java/model/RankDAO.java	/^    public void addRank(String name, int score, int seed, String inputs) {$/;"	m	class:RankDAO
-addUser	src/main/java/model/UserDAO.java	/^    public void addUser(String name, int age) {$/;"	m	class:UserDAO
-addUser	src/main/java/service/loginService.java	/^    private void addUser(String id, String name) {$/;"	m	class:loginService	file:
-conn	src/main/java/model/Connector.java	/^    private static Connection conn;$/;"	f	class:Connector	file:
+Util	src/main/java/model/Util.java	/^    private Util() {$/;"	m	class:Util	file:
+Util	src/main/java/model/Util.java	/^public class Util {$/;"	c
+addRank	src/main/java/model/RankDAO.java	/^    public int addRank(int score, String replay, String id) {$/;"	m	class:RankDAO
+addUser	src/main/java/model/UserDAO.java	/^    public void addUser(String id, String name, String lang) {$/;"	m	class:UserDAO
+ajax	js/main.js	/^var ajax = function(body, callback) {$/;"	f
+ajax	src/main/webapp/js/main.js	/^var ajax = function(body, callback) {$/;"	f
+ajax	target/jdodge/js/main.js	/^var ajax = function(body, callback) {$/;"	f
+alterUserInfoService	src/main/java/service/alterUserInfoService.java	/^public class alterUserInfoService implements Service {$/;"	c
+close	src/main/java/model/Connector.java	/^    public void close(Connection conn) {$/;"	m	class:Connector
+close	src/main/java/model/Connector.java	/^    public void close(Connection conn, PreparedStatement pstm) {$/;"	m	class:Connector
+close	src/main/java/model/Connector.java	/^    public void close(Connection conn, PreparedStatement pstm, ResultSet rs) {$/;"	m	class:Connector
+cmd	js/main.js	/^    str = {cmd: "jsonTest", jwt: jwt_token};$/;"	p	class:str
+cmd	js/main.js	/^    tmp = {cmd: "showAllRanks"};$/;"	p	class:tmp
+cmd	js/main.js	/^    var payload = {cmd: "loginCheck"};$/;"	p	class:window.onload.payload
+cmd	src/main/webapp/js/main.js	/^    str = {cmd: "jsonTest", jwt: jwt_token};$/;"	p	class:str
+cmd	src/main/webapp/js/main.js	/^    tmp = {cmd: "showAllRanks"};$/;"	p	class:tmp
+cmd	src/main/webapp/js/main.js	/^    var payload = {cmd: "loginCheck"};$/;"	p	class:window.onload.payload
+cmd	target/jdodge/js/main.js	/^    str = {cmd: "jsonTest", jwt: jwt_token};$/;"	p	class:str
+cmd	target/jdodge/js/main.js	/^    tmp = {cmd: "showAllRanks"};$/;"	p	class:tmp
+cmd	target/jdodge/js/main.js	/^    var payload = {cmd: "loginCheck"};$/;"	p	class:window.onload.payload
+conn	src/main/java/model/Connector.java	/^    private Connection conn;$/;"	f	class:Connector	file:
 conn	src/main/java/model/RankDAO.java	/^    private Connection conn;$/;"	f	class:RankDAO	file:
 conn	src/main/java/model/UserDAO.java	/^    private Connection conn;$/;"	f	class:UserDAO	file:
+connHolder	src/main/java/model/Connector.java	/^    private static class connHolder {$/;"	c	class:Connector
+connector	src/main/java/model/RankDAO.java	/^    Connector connector;$/;"	f	class:RankDAO
+connector	src/main/java/model/UserDAO.java	/^    Connector connector;$/;"	f	class:UserDAO
 control	src/main/java/control/Controller.java	/^package control;$/;"	p
 control	src/main/java/control/Ignite.java	/^package control;$/;"	p
-control	src/main/java/control/server.java	/^package control;$/;"	p
+control	src/main/java/control/MethodFilter.java	/^package control;$/;"	p
+deleteRankService	src/main/java/service/deleteRankService.java	/^public class deleteRankService implements Service {$/;"	c
+deleteRanks	src/main/java/model/RankDAO.java	/^    public int deleteRanks(String id) {$/;"	m	class:RankDAO
+deleteUser	src/main/java/model/UserDAO.java	/^    public int deleteUser(String id) {$/;"	m	class:UserDAO
+deleteUserService	src/main/java/service/deleteUserService.java	/^public class deleteUserService implements Service {$/;"	c
+destroy	src/main/java/control/MethodFilter.java	/^    public void destroy() {}$/;"	m	class:MethodFilter
+doDelete	src/main/java/control/Controller.java	/^    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:Controller
+doFilter	src/main/java/control/MethodFilter.java	/^    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)$/;"	m	class:MethodFilter
 doGet	src/main/java/control/Controller.java	/^    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)$/;"	m	class:Controller
-doGet	src/main/java/control/server.java	/^    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)$/;"	m	class:server
 doHandle	src/main/java/control/Controller.java	/^    void doHandle(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:Controller
-doHandle	src/main/java/control/server.java	/^    public void doHandle(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {$/;"	m	class:server
+doOptions	src/main/java/control/Controller.java	/^    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:Controller
 doPost	src/main/java/control/Controller.java	/^    protected void doPost(final HttpServletRequest req, final HttpServletResponse resp)$/;"	m	class:Controller
-doPost	src/main/java/control/server.java	/^    protected void doPost(final HttpServletRequest req, final HttpServletResponse resp)$/;"	m	class:server
-getConnection	src/main/java/model/Connector.java	/^    public static Connection getConnection() {$/;"	m	class:Connector
-getId	src/main/java/model/User.java	/^    public int getId() {$/;"	m	class:User
+doPut	src/main/java/control/Controller.java	/^    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:Controller
+doTrace	src/main/java/control/Controller.java	/^    protected void doTrace(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:Controller
+driver	src/main/java/model/Connector.java	/^    private String driver, url, username, password, slack, jwt;$/;"	f	class:Connector	file:
+driver	src/main/java/model/PoolConnFactory.java	/^    private static PoolingDriver driver;$/;"	f	class:PoolConnFactory	file:
+driverClass	src/main/java/model/PoolConnFactory.java	/^    public static Class driverClass;$/;"	f	class:PoolConnFactory
+generate	src/main/java/service/JWT.java	/^    public String generate(String id) {$/;"	m	class:JWT
+getAge	src/main/java/model/Pojo.java	/^    public int getAge() {$/;"	m	class:Pojo
+getBody	src/main/java/model/Util.java	/^    private String getBody(HttpServletRequest req, Boolean isFirst) {$/;"	m	class:Util	file:
+getConnFactory	src/main/java/model/PoolConnFactory.java	/^    public static ConnectionFactory getConnFactory(String url, String user, String password) {$/;"	m	class:PoolConnFactory
+getConnection	src/main/java/model/Connector.java	/^    public Connection getConnection() {$/;"	m	class:Connector
+getCookie	js/main.js	/^function getCookie(cname) {$/;"	f
+getCookie	src/main/webapp/js/main.js	/^function getCookie(cname) {$/;"	f
+getCookie	target/jdodge/js/main.js	/^function getCookie(cname) {$/;"	f
+getDBCDriver	src/main/java/model/PoolConnFactory.java	/^    public static PoolingDriver getDBCDriver() {$/;"	m	class:PoolConnFactory
+getId	src/main/java/model/User.java	/^    public String getId() {$/;"	m	class:User
+getInstance	src/main/java/model/Connector.java	/^    public static Connector getInstance() {$/;"	m	class:Connector
+getInstance	src/main/java/model/Util.java	/^    public static Util getInstance() {$/;"	m	class:Util
+getInstance	src/main/java/service/Logger.java	/^    public static Logger getInstance(String url) {$/;"	m	class:Logger
+getJWT	src/main/java/model/Connector.java	/^    public String getJWT() {$/;"	m	class:Connector
+getJson	src/main/java/model/Util.java	/^    public Map<String, Object> getJson() {$/;"	m	class:Util
+getJson	src/main/java/model/Util.java	/^    public Map<String, Object> getJson(HttpServletRequest req) {$/;"	m	class:Util
 getLang	src/main/java/model/User.java	/^    public String getLang() {$/;"	m	class:User
 getMap	src/main/java/control/Ignite.java	/^    public static Map<String, Service> getMap() {$/;"	m	class:Ignite
+getName	src/main/java/model/Pojo.java	/^    public String getName() {$/;"	m	class:Pojo
 getName	src/main/java/model/Rank.java	/^    public String getName() {$/;"	m	class:Rank
 getName	src/main/java/model/User.java	/^    public String getName() {$/;"	m	class:User
+getName	src/main/java/model/UserDAO.java	/^    public String getName(String id) {$/;"	m	class:UserDAO
+getPoolConfig	src/main/java/model/PoolConnFactory.java	/^    public static GenericObjectPoolConfig getPoolConfig(HashMap<String, Integer> config) {$/;"	m	class:PoolConnFactory
 getProperties	src/main/java/control/Ignite.java	/^    public static Properties getProperties(String name) {$/;"	m	class:Ignite
+getRank	src/main/java/model/Rank.java	/^    public int getRank() {$/;"	m	class:Rank
 getReplay_data	src/main/java/model/Rank.java	/^    public String getReplay_data() {$/;"	m	class:Rank
 getScore	src/main/java/model/Rank.java	/^    public int getScore() {$/;"	m	class:Rank
-id	src/main/java/model/User.java	/^    private int id;$/;"	f	class:User	file:
-init	src/main/java/control/server.java	/^    public void init(final ServletConfig config) throws ServletException {$/;"	m	class:server
-isRegistered	src/main/java/service/loginService.java	/^    private Boolean isRegistered(String id) {$/;"	m	class:loginService	file:
+getSlack	src/main/java/model/Connector.java	/^    public String getSlack() {$/;"	m	class:Connector
+getTime	src/main/java/model/Rank.java	/^    public String getTime() {$/;"	m	class:Rank
+getUserInfo	src/main/java/model/UserDAO.java	/^    public User getUserInfo(String id) {$/;"	m	class:UserDAO
+getWhitelist	src/main/java/control/Ignite.java	/^    public static HashMap<String, String> getWhitelist() {$/;"	m	class:Ignite
+id	src/main/java/model/User.java	/^    private String id;$/;"	f	class:User	file:
+init	src/main/java/control/Controller.java	/^    public void init() throws ServletException {$/;"	m	class:Controller
+init	src/main/java/control/Ignite.java	/^    public static void init() {$/;"	m	class:Ignite
+init	src/main/java/control/MethodFilter.java	/^    public void init(FilterConfig filterConfig) throws ServletException {}$/;"	m	class:MethodFilter
+init	src/main/java/model/Connector.java	/^    private void init() {$/;"	m	class:Connector	file:
+init	src/main/java/model/Util.java	/^    private void init() {$/;"	m	class:Util	file:
+isEmpty	js/results.js	/^var isEmpty = function(value) {$/;"	f
+isEmpty	src/main/webapp/js/results.js	/^var isEmpty = function(value) {$/;"	f
+isEmpty	target/jdodge/js/results.js	/^var isEmpty = function(value) {$/;"	f
+isIDexist	src/main/java/model/UserDAO.java	/^    public Boolean isIDexist(String id) {$/;"	m	class:UserDAO
+isLogin	js/main.js	/^var data = {$/;"	p	class:data
+isLogin	src/main/webapp/js/main.js	/^var data = {$/;"	p	class:data
+isLogin	target/jdodge/js/main.js	/^var data = {$/;"	p	class:data
+jsonParse	src/main/java/model/Util.java	/^    private Map<String, Object> jsonParse(String rawdata) {$/;"	m	class:Util	file:
+jsonTestService	src/main/java/service/jsonTestService.java	/^public class jsonTestService implements Service {$/;"	c
+jwt	js/main.js	/^    str = {cmd: "jsonTest", jwt: jwt_token};$/;"	p	class:str
+jwt	src/main/java/model/Connector.java	/^    private String driver, url, username, password, slack, jwt;$/;"	f	class:Connector	file:
+jwt	src/main/webapp/js/main.js	/^    str = {cmd: "jsonTest", jwt: jwt_token};$/;"	p	class:str
+jwt	target/jdodge/js/main.js	/^    str = {cmd: "jsonTest", jwt: jwt_token};$/;"	p	class:str
+jwt_token	js/main.js	/^    isLogin: false,$/;"	p	class:data
+jwt_token	src/main/webapp/js/main.js	/^    isLogin: false,$/;"	p	class:data
+jwt_token	target/jdodge/js/main.js	/^    isLogin: false,$/;"	p	class:data
 lang	src/main/java/model/User.java	/^    private String lang;$/;"	f	class:User	file:
+latest	src/main/java/model/Util.java	/^    private String latest = null;$/;"	f	class:Util	file:
+log	src/main/java/model/Util.java	/^    Logger log;$/;"	f	class:Util
 loginCheckService	src/main/java/service/loginCheckService.java	/^public class loginCheckService implements Service {$/;"	c
+loginResult	js/results.js	/^var loginResult = function(input) {$/;"	f
+loginResult	src/main/webapp/js/results.js	/^var loginResult = function(input) {$/;"	f
+loginResult	target/jdodge/js/results.js	/^var loginResult = function(input) {$/;"	f
 loginService	src/main/java/service/loginService.java	/^public class loginService implements Service {$/;"	c
 logoutService	src/main/java/service/logoutService.java	/^public class logoutService implements Service {$/;"	c
 main	src/main/java/Main.java	/^    public static void main(String[] args) {$/;"	m	class:Main
+makeLog	src/main/java/model/Util.java	/^    private void makeLog(HttpServletRequest req, String body) {$/;"	m	class:Util	file:
+makeResult	src/main/java/model/Util.java	/^    public String makeResult(HashMap<String, Object> result) {$/;"	m	class:Util
+makeResult	src/main/java/model/Util.java	/^    public String makeResult(Object result) {$/;"	m	class:Util
+makeResult	src/main/java/model/Util.java	/^    public String makeResult(int type, String message) {$/;"	m	class:Util
 model	src/main/java/model/Connector.java	/^package model;$/;"	p
+model	src/main/java/model/Pojo.java	/^package model;$/;"	p
+model	src/main/java/model/PoolConnFactory.java	/^package model;$/;"	p
 model	src/main/java/model/Rank.java	/^package model;$/;"	p
 model	src/main/java/model/RankDAO.java	/^package model;$/;"	p
 model	src/main/java/model/User.java	/^package model;$/;"	p
 model	src/main/java/model/UserDAO.java	/^package model;$/;"	p
+model	src/main/java/model/Util.java	/^package model;$/;"	p
+modelMap	src/main/java/control/Controller.java	/^    private Map<String, Service> modelMap = null;$/;"	f	class:Controller	file:
 name	src/main/java/model/Rank.java	/^    private String name;$/;"	f	class:Rank	file:
 name	src/main/java/model/User.java	/^    private String name;$/;"	f	class:User	file:
+password	src/main/java/model/Connector.java	/^    private String driver, url, username, password, slack, jwt;$/;"	f	class:Connector	file:
+poolConfig	src/main/java/model/PoolConnFactory.java	/^    private static GenericObjectPoolConfig poolConfig;$/;"	f	class:PoolConnFactory	file:
+postForm	js/main.js	/^var postForm = function(form_id, callback) {$/;"	f
+postForm	src/main/webapp/js/main.js	/^var postForm = function(form_id, callback) {$/;"	f
+postForm	target/jdodge/js/main.js	/^var postForm = function(form_id, callback) {$/;"	f
 process	src/main/java/service/Service.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException;$/;"	m	interface:Service
+process	src/main/java/service/alterUserInfoService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:alterUserInfoService
+process	src/main/java/service/deleteRankService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:deleteRankService
+process	src/main/java/service/deleteUserService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:deleteUserService
+process	src/main/java/service/jsonTestService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:jsonTestService
 process	src/main/java/service/loginCheckService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:loginCheckService
 process	src/main/java/service/loginService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:loginService
 process	src/main/java/service/logoutService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:logoutService
 process	src/main/java/service/rankAddService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:rankAddService
-process	src/main/java/service/rankSearchService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:rankSearchService
-process	src/main/java/service/showAllService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:showAllService
-process	src/main/java/service/userAddService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:userAddService
-process	src/main/java/service/userSearchService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws IOException {$/;"	m	class:userSearchService
+process	src/main/java/service/showAllRanksService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:showAllRanksService
+process	src/main/java/service/showAllUsersService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:showAllUsersService
+process	src/main/java/service/showRanksService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:showRanksService
+process	src/main/java/service/whereIamService.java	/^    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {$/;"	m	class:whereIamService
+props	src/main/java/model/Connector.java	/^    private Properties props;$/;"	f	class:Connector	file:
 pstm	src/main/java/model/RankDAO.java	/^    private PreparedStatement pstm;$/;"	f	class:RankDAO	file:
 pstm	src/main/java/model/UserDAO.java	/^    private PreparedStatement pstm;$/;"	f	class:UserDAO	file:
+rank	src/main/java/model/Rank.java	/^    private int rank;$/;"	f	class:Rank	file:
 rankAddService	src/main/java/service/rankAddService.java	/^public class rankAddService implements Service {$/;"	c
-rankSearchService	src/main/java/service/rankSearchService.java	/^public class rankSearchService implements Service {$/;"	c
+registerJDBCDriver	src/main/java/model/PoolConnFactory.java	/^    public static void registerJDBCDriver(String driver) {$/;"	m	class:PoolConnFactory
+registerPool	src/main/java/model/PoolConnFactory.java	/^    public static void registerPool(String poolName, ObjectPool pool) {$/;"	m	class:PoolConnFactory
 replay_data	src/main/java/model/Rank.java	/^    private String replay_data;$/;"	f	class:Rank	file:
+req.onreadystatechange	js/main.js	/^    var req = new XMLHttpRequest();$/;"	f
+req.onreadystatechange	src/main/webapp/js/main.js	/^    var req = new XMLHttpRequest();$/;"	f
+req.onreadystatechange	target/jdodge/js/main.js	/^    var req = new XMLHttpRequest();$/;"	f
+req_by_get	js/main.js	/^var req_by_get = function() {$/;"	f
+req_by_get	src/main/webapp/js/main.js	/^var req_by_get = function() {$/;"	f
+req_by_get	target/jdodge/js/main.js	/^var req_by_get = function() {$/;"	f
+result	js/results.js	/^var result = function(input) {$/;"	f
+result	src/main/webapp/js/results.js	/^var result = function(input) {$/;"	f
+result	target/jdodge/js/results.js	/^var result = function(input) {$/;"	f
 rs	src/main/java/model/RankDAO.java	/^    private ResultSet rs;$/;"	f	class:RankDAO	file:
 rs	src/main/java/model/UserDAO.java	/^    private ResultSet rs;$/;"	f	class:UserDAO	file:
 score	src/main/java/model/Rank.java	/^    private int score;$/;"	f	class:Rank	file:
-search	src/main/java/model/RankDAO.java	/^    public ArrayList<Rank> search(String name) {$/;"	m	class:RankDAO
-search	src/main/java/model/UserDAO.java	/^    public ArrayList<User> search(String name) {$/;"	m	class:UserDAO
-search	src/main/java/service/rankSearchService.java	/^    public ArrayList<Rank> search(String id) {$/;"	m	class:rankSearchService
+search	src/main/java/model/RankDAO.java	/^    public ArrayList<Rank> search(String id, String mode) {$/;"	m	class:RankDAO
+searchAllof	src/main/java/model/RankDAO.java	/^    public ArrayList<Rank> searchAllof(String id) {$/;"	m	class:RankDAO
+searchRange	src/main/java/model/RankDAO.java	/^    public ArrayList<Rank> searchRange(int from, int range) {$/;"	m	class:RankDAO
 serialVersionUID	src/main/java/control/Controller.java	/^    private static final long serialVersionUID = 1L;$/;"	f	class:Controller	file:
-serialVersionUID	src/main/java/control/server.java	/^    private static final long serialVersionUID = 1L;$/;"	f	class:server	file:
-server	src/main/java/control/server.java	/^    public server() {$/;"	m	class:server
-server	src/main/java/control/server.java	/^public class server extends HttpServlet {$/;"	c
+service	src/main/java/service/JWT.java	/^package service;$/;"	p
+service	src/main/java/service/Logger.java	/^package service;$/;"	p
 service	src/main/java/service/Service.java	/^package service;$/;"	p
+service	src/main/java/service/alterUserInfoService.java	/^package service;$/;"	p
+service	src/main/java/service/deleteRankService.java	/^package service;$/;"	p
+service	src/main/java/service/deleteUserService.java	/^package service;$/;"	p
+service	src/main/java/service/jsonTestService.java	/^package service;$/;"	p
 service	src/main/java/service/loginCheckService.java	/^package service;$/;"	p
 service	src/main/java/service/loginService.java	/^package service;$/;"	p
 service	src/main/java/service/logoutService.java	/^package service;$/;"	p
 service	src/main/java/service/rankAddService.java	/^package service;$/;"	p
-service	src/main/java/service/rankSearchService.java	/^package service;$/;"	p
-service	src/main/java/service/showAllService.java	/^package service;$/;"	p
-service	src/main/java/service/userAddService.java	/^package service;$/;"	p
-service	src/main/java/service/userSearchService.java	/^package service;$/;"	p
-serviceMap	src/main/java/control/Ignite.java	/^    private static Map<String, Service> serviceMap;$/;"	f	class:Ignite	file:
-setId	src/main/java/model/User.java	/^    public void setId(int id) {$/;"	m	class:User
+service	src/main/java/service/showAllRanksService.java	/^package service;$/;"	p
+service	src/main/java/service/showAllUsersService.java	/^package service;$/;"	p
+service	src/main/java/service/showRanksService.java	/^package service;$/;"	p
+service	src/main/java/service/whereIamService.java	/^package service;$/;"	p
+serviceMap	src/main/java/control/Ignite.java	/^    private static Map<String, Service> serviceMap = null;$/;"	f	class:Ignite	file:
+setId	src/main/java/model/User.java	/^    public void setId(String id) {$/;"	m	class:User
 setLang	src/main/java/model/User.java	/^    public void setLang(String lang) {$/;"	m	class:User
+setList	src/main/java/control/Ignite.java	/^    private static void setList() {$/;"	m	class:Ignite	file:
 setName	src/main/java/model/Rank.java	/^    public void setName(String name) {$/;"	m	class:Rank
 setName	src/main/java/model/User.java	/^    public void setName(String name) {$/;"	m	class:User
+setRank	src/main/java/model/Rank.java	/^    public void setRank(int rank) {$/;"	m	class:Rank
 setReplay_data	src/main/java/model/Rank.java	/^    public void setReplay_data(String replay_data) {$/;"	m	class:Rank
 setScore	src/main/java/model/Rank.java	/^    public void setScore(int score) {$/;"	m	class:Rank
-showAll	src/main/java/model/RankDAO.java	/^    public ArrayList<Rank> showAll() {$/;"	m	class:RankDAO
-showAll	src/main/java/service/showAllService.java	/^    public ArrayList<Rank> showAll() {$/;"	m	class:showAllService
-showAllService	src/main/java/service/showAllService.java	/^public class showAllService implements Service {$/;"	c
-test	src/main/java/model/UserDAO.java	/^    public ArrayList<User> test() {$/;"	m	class:UserDAO
-userAddService	src/main/java/service/userAddService.java	/^public class userAddService implements Service {$/;"	c
-userSearchService	src/main/java/service/userSearchService.java	/^public class userSearchService implements Service {$/;"	c
+setTime	src/main/java/model/Rank.java	/^    public void setTime(String time) {$/;"	m	class:Rank
+setUrl	js/main.js	/^var setUrl = function() {$/;"	f
+setUrl	src/main/webapp/js/main.js	/^var setUrl = function() {$/;"	f
+setUrl	target/jdodge/js/main.js	/^var setUrl = function() {$/;"	f
+shot	js/main.js	/^var shot = function(callback) {$/;"	f
+shot	src/main/webapp/js/main.js	/^var shot = function(callback) {$/;"	f
+shot	target/jdodge/js/main.js	/^var shot = function(callback) {$/;"	f
+showAll	src/main/java/model/RankDAO.java	/^    public ArrayList<Rank> showAll(String mode) {$/;"	m	class:RankDAO
+showAll	src/main/java/model/UserDAO.java	/^    public ArrayList<User> showAll() {$/;"	m	class:UserDAO
+showAllRanksService	src/main/java/service/showAllRanksService.java	/^public class showAllRanksService implements Service {$/;"	c
+showAllUsersService	src/main/java/service/showAllUsersService.java	/^public class showAllUsersService implements Service {$/;"	c
+showAllwithRanking	src/main/java/model/RankDAO.java	/^    public ArrayList<Rank> showAllwithRanking() {$/;"	m	class:RankDAO
+showRanksService	src/main/java/service/showRanksService.java	/^public class showRanksService implements Service {$/;"	c
+slack	js/main.js	/^var slack = function(form_id) {$/;"	f
+slack	src/main/java/model/Connector.java	/^    private String driver, url, username, password, slack, jwt;$/;"	f	class:Connector	file:
+slack	src/main/webapp/js/main.js	/^var slack = function(form_id) {$/;"	f
+slack	target/jdodge/js/main.js	/^var slack = function(form_id) {$/;"	f
+slackHook	src/main/java/service/Logger.java	/^    private String slackHook;$/;"	f	class:Logger	file:
+test	src/main/java/service/Logger.java	/^    public void test(String test) {$/;"	m	class:Logger
+time	src/main/java/model/Rank.java	/^    private String time;$/;"	f	class:Rank	file:
+updateUser	src/main/java/model/UserDAO.java	/^    public int updateUser(String name, String lang, String id) {$/;"	m	class:UserDAO
+url	src/main/java/model/Connector.java	/^    private String driver, url, username, password, slack, jwt;$/;"	f	class:Connector	file:
+url_save	js/main.js	/^var url_save = function() {$/;"	f
+url_save	src/main/webapp/js/main.js	/^var url_save = function() {$/;"	f
+url_save	target/jdodge/js/main.js	/^var url_save = function() {$/;"	f
+username	src/main/java/model/Connector.java	/^    private String driver, url, username, password, slack, jwt;$/;"	f	class:Connector	file:
+verify	src/main/java/service/JWT.java	/^    public String verify(String jwt) {$/;"	m	class:JWT
+whereIamService	src/main/java/service/whereIamService.java	/^public class whereIamService implements Service {$/;"	c
+whitelist	src/main/java/control/Ignite.java	/^    private static HashMap<String, String> whitelist = null;$/;"	f	class:Ignite	file:
+window.onload	js/main.js	/^}$/;"	c
+window.onload	src/main/webapp/js/main.js	/^}$/;"	c
+window.onload	target/jdodge/js/main.js	/^}$/;"	c

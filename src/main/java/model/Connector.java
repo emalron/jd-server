@@ -63,7 +63,7 @@ public class Connector {
             HashMap<String, Integer> config = new HashMap<>();
             config.put("minIdle", Integer.parseInt(props.getProperty("minIdle")));
             config.put("maxIdle", Integer.parseInt(props.getProperty("maxIdle")));
-            config.put("maxTotla", Integer.parseInt(props.getProperty("maxTotal")));
+            config.put("maxTotal", Integer.parseInt(props.getProperty("maxTotal")));
         
             PoolConnFactory.registerJDBCDriver(driver);
             ConnectionFactory cFactory = PoolConnFactory.getConnFactory(url, username, password);
