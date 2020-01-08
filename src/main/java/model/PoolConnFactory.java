@@ -57,7 +57,7 @@ public class PoolConnFactory {
 
         poolConfig.setTimeBetweenEvictionRunsMillis(1000*5);
         poolConfig.setTestWhileIdle(true);
-        poolConfig.setTestOnBorrow(false);
+        poolConfig.setTestOnBorrow(true);
         poolConfig.setMinIdle(config.get("minIdle"));
         poolConfig.setMaxIdle(config.get("maxIdle"));
         poolConfig.setMaxTotal(config.get("maxTotal"));

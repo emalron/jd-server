@@ -70,25 +70,24 @@ public class Connector {
             config.put("maxIdle", Integer.parseInt(props.getProperty("maxIdle")));
             config.put("maxTotal", Integer.parseInt(props.getProperty("maxTotal")));
 
-            datasource = new BasicDataSource();
-            datasource.setDriverClassName(driver);
-            datasource.setUsername(username);
-            datasource.setPassword(password);
-            datasource.setUrl(url);
-            
-            datasource.setMinIdle(config.get("minIdle"));
-            datasource.setMaxIdle(config.get("maxIdle"));
-            datasource.setMaxTotal(config.get("maxTotal"));
-            datasource.setInitialSize(config.get("initialSize"));
+            // datasource = new BasicDataSource();
+            // datasource.setDriverClassName(driver);
+            // datasource.setUsername(username);
+            // datasource.setPassword(password);
+            // datasource.setUrl(url);
+            // datasource.setMinIdle(config.get("minIdle"));
+            // datasource.setMaxIdle(config.get("maxIdle"));
+            // datasource.setMaxTotal(config.get("maxTotal"));
+            // datasource.setInitialSize(config.get("initialSize"));
         
-            // PoolConnFactory.registerJDBCDriver(driver);
-            // ConnectionFactory cFactory = PoolConnFactory.getConnFactory(url, username, password);
-            // PoolableConnectionFactory poolFactory = new PoolableConnectionFactory(cFactory, null);
-            // ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<PoolableConnection>(poolFactory, PoolConnFactory.getPoolConfig(config));
-            // poolFactory.setPool(connectionPool);
-            // poolFactory.setValidationQuery("SELECT 1");
-            // PoolingDriver dbcpDriver = PoolConnFactory.getDBCDriver();
-            // dbcpDriver.registerPool("dbcp-2", connectionPool);
+            PoolConnFactory.registerJDBCDriver(driver);
+            ConnectionFactory cFactory = PoolConnFactory.getConnFactory(url, username, password);
+            PoolableConnectionFactory poolFactory = new PoolableConnectionFactory(cFactory, null);
+            ObjectPool<PoolableConnection> connectionPool = new GenericObjectPool<PoolableConnection>(poolFactory, PoolConnFactory.getPoolConfig(config));
+            poolFactory.setPool(connectionPool);
+            poolFactory.setValidationQuery("SELECT 1");
+            PoolingDriver dbcpDriver = PoolConnFactory.getDBCDriver();
+            dbcpDriver.registerPool("dbcp-2", connectionPool);
 
             // Class.forName("com.mysql.cj.jdbc.Driver");
         }
@@ -100,8 +99,8 @@ public class Connector {
     public Connection getConnection() {
         Connection conn = null;
         try {
-            conn = datasource.getConnection();
-            // conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
+            // conn = datasource.getConnection();
+            conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
             // conn = DriverManager.getConnection(url, username, password);
             return conn;
         }
