@@ -87,12 +87,13 @@ public class Connector {
         try {
             conn = DriverManager.getConnection("jdbc:apache:commons:dbcp:dbcp-2");
             // conn = DriverManager.getConnection(url, username, password);
+            return conn;
         }
         catch(Exception e) {
             e.printStackTrace();
         }
-
-        return conn;
+        
+        return null;
     }
 
     public void close(Connection conn, PreparedStatement pstm, ResultSet rs) {
